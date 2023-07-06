@@ -1,7 +1,7 @@
 import { ChangeEvent } from 'react';
 
 const fixedInputClass =
-  'rounded-md appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm';
+  'block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6';
 /* eslint-disable-next-line */
 export interface InputFieldProps {
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -29,20 +29,25 @@ export function InputField({
   customClass = '',
 }: InputFieldProps) {
   return (
-    <div className="my-5">
-      <label htmlFor={labelFor} className="sr-only">
+    <div>
+      <label
+        htmlFor={labelFor}
+        className="block text-sm font-medium leading-6 text-gray-900"
+      >
         {labelText}
       </label>
-      <input
-        onChange={handleChange}
-        value={value}
-        id={id}
-        name={name}
-        type={type}
-        required={isRequired}
-        className={fixedInputClass + customClass}
-        placeholder={placeholder}
-      />
+      <div className="mt-2">
+        <input
+          onChange={handleChange}
+          value={value}
+          id={id}
+          name={name}
+          type={type}
+          required={isRequired}
+          className={fixedInputClass + customClass}
+          placeholder={placeholder}
+        />
+      </div>
     </div>
   );
 }

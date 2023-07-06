@@ -28,19 +28,19 @@ export function SignIn() {
 
   //Handle Login API Integration here
   const authenticateUser = () => {
-    // Your implementation
+    console.log(loginState);
   };
 
   return (
-    <>
+    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <FormHeader
-        heading="Login to your account"
+        heading="Sign In to your account"
         paragraph="Don't have an account yet? "
-        linkName="Signup"
+        linkName="Sign Up"
         linkUrl="/signup"
       />
-      <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-        <div className="-space-y-px">
+      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <form className="space-y-6" onSubmit={handleSubmit}>
           {loginFields.map((field) => (
             <InputField
               key={field.id}
@@ -55,12 +55,12 @@ export function SignIn() {
               placeholder={field.placeholder}
             />
           ))}
-        </div>
 
-        <FormExtra />
-        <FormAction handleSubmit={handleSubmit} text="Login" />
-      </form>
-    </>
+          <FormExtra />
+          <FormAction handleSubmit={handleSubmit} text="Sign In" />
+        </form>
+      </div>
+    </div>
   );
 }
 

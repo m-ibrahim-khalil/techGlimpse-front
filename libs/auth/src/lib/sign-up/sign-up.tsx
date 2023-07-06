@@ -24,19 +24,19 @@ export function SignUp() {
 
   //Handle Login API Integration here
   const createAccount = () => {
-    // Your implementation
+    console.log(signupState);
   };
 
   return (
-    <>
+    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <FormHeader
         heading="Signup to create an account"
         paragraph="Already have an account? "
-        linkName="Login"
-        linkUrl="/"
+        linkName="Sign In"
+        linkUrl="/signin"
       />
-      <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-        <div className="">
+      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <form className="space-y-6" onSubmit={handleSubmit}>
           {signupFields.map((field) => (
             <InputField
               key={field.id}
@@ -51,10 +51,11 @@ export function SignUp() {
               placeholder={field.placeholder}
             />
           ))}
-        </div>
-        <FormAction handleSubmit={handleSubmit} text="Signup" />
-      </form>
-    </>
+
+          <FormAction handleSubmit={handleSubmit} text="Signup" />
+        </form>
+      </div>
+    </div>
   );
 }
 

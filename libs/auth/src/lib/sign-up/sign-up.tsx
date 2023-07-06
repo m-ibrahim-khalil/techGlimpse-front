@@ -1,23 +1,59 @@
-/* eslint-disable-next-line */
-export interface SignUpProps {}
+import { FormAction, FormHeader, InputField } from '@tech-glimpse-front/ui';
+import { ChangeEvent, FormEvent, useState } from 'react';
+import { signupFields } from '../form-constants';
 
-export function SignUp(props: SignUpProps) {
+interface SignupState {
+  [key: string]: string;
+}
+
+const fieldsState: SignupState = {};
+signupFields.forEach((field) => (fieldsState[field.id] = ''));
+
+export function SignUp() {
+  const [signupState, setSignupState] = useState<SignupState>(fieldsState);
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSignupState({ ...signupState, [e.target.id]: e.target.value });
+  };
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    console.log(signupState);
+    createAccount();
+  };
+
+  //Handle Login API Integration here
+  const createAccount = () => {
+    // Your implementation
+  };
+
   return (
     <>
-      <header className="bg-white shadow">
-        <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold text-gray-900">Sign Up</h1>
+      <FormHeader
+        heading="Signup to create an account"
+        paragraph="Already have an account? "
+        linkName="Login"
+        linkUrl="/"
+      />
+      <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+        <div className="">
+          {signupFields.map((field) => (
+            <InputField
+              key={field.id}
+              handleChange={handleChange}
+              value={signupState[field.id]}
+              labelText={field.labelText}
+              labelFor={field.labelFor}
+              id={field.id}
+              name={field.name}
+              type={field.type}
+              isRequired={field.isRequired}
+              placeholder={field.placeholder}
+            />
+          ))}
         </div>
-      </header>
-      <main>
-        <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-          {/* <!-- Replace with your content --> */}
-          <div className="px-4 py-6 sm:px-0">
-            <div className="border-4 border-dashed border-gray-200 rounded-lg h-96"></div>
-          </div>
-          {/* <!-- /End replace --> */}
-        </div>
-      </main>
+        <FormAction handleSubmit={handleSubmit} text="Signup" />
+      </form>
     </>
   );
 }

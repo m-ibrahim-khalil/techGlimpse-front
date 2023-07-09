@@ -21,7 +21,10 @@ export function NotFoundPage(props: NotFoundPageProps) {
           >
             Go back home
           </Link>
-          <Link to="/contact" className="text-sm font-semibold text-gray-900">
+          <Link
+            to="/contact-page"
+            className="text-sm font-semibold text-gray-900"
+          >
             Contact support <span aria-hidden="true">&rarr;</span>
           </Link>
         </div>

@@ -1,3 +1,4 @@
+export * from './lib/cards/blog-card/blog-card';
 export * from './lib/navbar-profile/navbar-profile';
 export * from './lib/form/form-action/form-action';
 export * from './lib/form/form-extra/form-extra';

@@ -1,14 +1,14 @@
 import { SignIn, SignUp } from '@tech-glimpse-front/auth';
 import { ContactPage, HomePage, NotFoundPage } from '@tech-glimpse-front/pages';
-import { BlogRoutes, UserRoutes } from '@tech-glimpse-front/routes';
-import { Navbar, NavbarProfile } from '@tech-glimpse-front/ui';
+import { UserRoutes } from '@tech-glimpse-front/routes';
+import { Navbar } from '@tech-glimpse-front/ui';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import BlogRoutes from '../routes/BlogRoutes';
 
 function App() {
   return (
     <Router>
       <Navbar />
-      <NavbarProfile />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/signup" element={<SignUp />} />

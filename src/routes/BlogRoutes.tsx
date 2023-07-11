@@ -3,6 +3,7 @@ import {
   BlogPage,
   NotFoundPage,
 } from '@tech-glimpse-front/pages';
+import { BlogEditor } from '@tech-glimpse-front/ui';
 import { Route, Routes } from 'react-router-dom';
 
 export default function BlogRoutes() {
@@ -19,6 +20,7 @@ export default function BlogRoutes() {
     <Routes>
       <Route index element={<BlogListPage />} />
       <Route path=":id" element={<BlogPage {...blog} />} />
+      <Route path="write" element={<BlogEditor />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );

@@ -1,3 +1,7 @@
+export * from './lib/icons/icons';
+export * from './lib/common/input/input';
+export * from './lib/form/blog-editor/blog-editor';
+export * from './lib/common/rich-text-editor/rich-text-editor';
 export * from './lib/cards/blog-card/blog-card';
 export * from './lib/navbar-profile/navbar-profile';
 export * from './lib/form/form-action/form-action';

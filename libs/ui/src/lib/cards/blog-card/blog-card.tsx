@@ -1,7 +1,8 @@
 import { Blog } from '@tech-glimpse-front/types';
+import { Link } from 'react-router-dom';
 export function BlogCard(props: Blog) {
   return (
-    <a href={props.href}>
+    <Link to={props.id}>
       <img
         src={props.imgUrl}
         loading="lazy"
@@ -9,7 +10,7 @@ export function BlogCard(props: Blog) {
         className="w-full rounded-lg"
       />
       <div className="mt-3 space-y-2">
-        <span className="block text-indigo-600 text-sm">{props.date}</span>
+        <span className="block text-indigo-600 text-sm">{props.updatedAt}</span>
         <h3 className="text-lg text-gray-800 duration-150 group-hover:text-indigo-600 font-semibold">
           {props.title}
         </h3>
@@ -17,7 +18,7 @@ export function BlogCard(props: Blog) {
           {props.desc}
         </p>
       </div>
-    </a>
+    </Link>
   );
 }
 

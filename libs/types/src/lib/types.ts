@@ -15,7 +15,7 @@ export interface Category {
 }
 
 export interface Blog {
-  id?: string;
+  id: string;
   title: string;
   desc: string;
   imgUrl?: string;
@@ -25,6 +25,4 @@ export interface Blog {
   likeCount?: number;
   createdAt?: string;
   updatedAt?: string;
-  date?: string;
-  href?: string;
 }

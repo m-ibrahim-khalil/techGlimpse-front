@@ -20,7 +20,7 @@ export function Navbar() {
               <div className="hidden md:block">
                 <div className="ml-10 flex items-baseline space-x-4">
                   <Link
-                    to="/"
+                    to=""
                     className=" hover:bg-gray-700 text-white px-3 py-2 rounded-md text-sm font-medium"
                   >
                     Home
@@ -34,10 +34,10 @@ export function Navbar() {
                   </Link>
 
                   <Link
-                    to="/users/1"
+                    to="/blogs/write"
                     className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                   >
-                    User
+                    Write Blog
                   </Link>
 
                   <Link
@@ -130,10 +130,10 @@ export function Navbar() {
                 </Link>
 
                 <Link
-                  to="/users/1"
+                  to="/blogs/write"
                   className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
-                  User
+                  Write Blog
                 </Link>
 
                 <Link

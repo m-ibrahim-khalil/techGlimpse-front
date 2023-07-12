@@ -9,6 +9,7 @@ const posts = [
       'https://images.unsplash.com/photo-1556155092-490a1ba16284?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
     createdAt: 'Jan 4 2022',
     updatedAt: 'Jan 4 2022',
+    tags: ['saas', 'software', 'service'],
   },
   {
     id: '2',

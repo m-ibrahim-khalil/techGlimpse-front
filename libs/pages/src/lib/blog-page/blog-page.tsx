@@ -1,73 +1,47 @@
 import { Blog } from '@tech-glimpse-front/types';
+import { Button, DeleteIcon, EditIcon, UserCard } from '@tech-glimpse-front/ui';
 import { Link } from 'react-router-dom';
 
 export function BlogPage(props: Blog) {
   return (
-    <div className="p-5 mx-auto sm:p-10 md:p-16 dark:bg-gray-800 dark:text-gray-100">
-      <div className="flex flex-col max-w-5xl mx-auto overflow-hidden rounded">
+    <main className="max-w-screen-lg mx-auto mt-10">
+      <div className="mb-4 md:mb-0 w-full mx-auto relative">
+        <div className="px-4 lg:px-0">
+          <h2 className="text-4xl font-semibold text-gray-800 leading-tight">
+            {props.title}
+          </h2>
+          <div className="flex flex-wrap py-6 space-x-2 border-t border-dashed dark:border-gray-400">
+            {props.tags?.map((tag, id) => (
+              <Link
+                key={id}
+                rel="noopener noreferrer"
+                to="#"
+                className="px-3 py-1 rounded-sm hover:underline dark:bg-violet-400 dark:text-gray-900"
+              >
+                #{tag}
+              </Link>
+            ))}
+          </div>
+        </div>
         <img
           src={props.imgUrl}
           alt=""
-          className="w-full h-60 sm:h-96 dark:bg-gray-500"
+          className="w-full object-cover lg:rounded"
+          style={{ height: '28em' }}
         />
-        <div className="p-6 pb-12 m-4 mx-auto -mt-16 space-y-6 lg:max-w-5xl sm:px-10 sm:mx-12 lg:rounded-md dark:bg-gray-900">
-          <div className="max-w-4xl px-6 py-16 mx-auto space-y-12">
-            <article className="space-y-8 px-4 dark:bg-gray-800 dark:text-gray-50">
-              <div className="space-y-6">
-                <h1 className="text-6xl font-bold md:tracki md:text-5xl">
-                  {props.title}
-                </h1>
-                <div className="flex flex-col items-start justify-between w-full md:flex-row md:items-center dark:text-gray-400">
-                  <div className="flex items-center md:space-x-2">
-                    <img
-                      src="https://source.unsplash.com/75x75/?portrait"
-                      alt=""
-                      className="w-4 h-4 border rounded-full dark:bg-gray-500 dark:border-gray-700"
-                    />
-                    <p className="text-sm">
-                      Leroy Jenkins • {props?.updatedAt}
-                    </p>
-                  </div>
-                  <p className="flex-shrink-0 mt-3 text-sm md:mt-0">
-                    4 min read • 1,570 views
-                  </p>
-                </div>
-              </div>
-              <div className="dark:text-gray-100">
-                <p>{props.desc}</p>
-              </div>
-            </article>
-            <div>
-              <div className="flex flex-wrap py-6 space-x-2 border-t border-dashed dark:border-gray-400">
-                {props.tags?.map((tag) => (
-                  <Link
-                    rel="noopener noreferrer"
-                    to="#"
-                    className="px-3 py-1 rounded-sm hover:underline dark:bg-violet-400 dark:text-gray-900"
-                  >
-                    #{tag}
-                  </Link>
-                ))}
-              </div>
-              <div className="space-y-2">
-                <h4 className="text-lg font-semibold">Related posts</h4>
-                <ul className="ml-4 space-y-1 list-disc">
-                  <li>
-                    <Link
-                      rel="noopener noreferrer"
-                      to="#"
-                      className="hover:underline"
-                    >
-                      Nunc id magna mollis
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            </div>
+      </div>
+
+      <div className="flex flex-col lg:flex-row lg:space-x-12">
+        <div className="px-4 lg:px-0 mt-12 text-gray-700 text-lg leading-relaxed w-full lg:w-3/4">
+          <p className="pb-6">{props.desc}</p>
+          <div className="mb-6 flex items-center justify-center gap-x-6">
+            <Button text="Edit" icon={<EditIcon />} />
+            <Button text="Delete" icon={<DeleteIcon />} bgColor="red" />
           </div>
         </div>
+        <UserCard />
       </div>
-    </div>
+    </main>
   );
 }
 

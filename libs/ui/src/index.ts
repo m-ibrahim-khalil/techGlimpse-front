@@ -1,3 +1,4 @@
+export * from './lib/common/link/link';
 export * from './lib/cards/user-card/user-card';
 export * from './lib/cards/user-card/user-card';
 export * from './lib/common/button/button';

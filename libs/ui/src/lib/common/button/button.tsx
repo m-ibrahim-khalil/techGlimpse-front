@@ -10,6 +10,7 @@ export interface ButtonProps {
   textColor?: string;
   icon?: JSX.Element | null;
   customClass?: string;
+  onClick: () => void;
 }
 
 export function Button({
@@ -19,6 +20,7 @@ export function Button({
   textColor = 'white',
   icon = null,
   customClass = '',
+  onClick,
 }: ButtonProps) {
   console.log(
     twMerge(
@@ -33,6 +35,7 @@ export function Button({
     <button
       key={'btn-' + text}
       type={type}
+      onClick={onClick}
       className={twMerge(
         fixedBtnClass,
         'text-' + textColor,

@@ -1,4 +1,4 @@
-import { BlogCard, Button, EditIcon } from '@tech-glimpse-front/ui';
+import { BlogCard } from '@tech-glimpse-front/ui';
 
 const posts = [
   {
@@ -46,9 +46,7 @@ export function BlogListPage(props: BlogListPageProps) {
   return (
     <section className="py-32">
       <div className="max-w-screen-xl mx-auto px-4 md:px-8">
-        <div className="mb-6 flex items-center justify-center">
-          <Button text="Write Your Own Blog" icon={<EditIcon />} />
-        </div>
+        <div className="mb-6 flex items-center justify-center"></div>
         <div className="space-y-5 sm:text-center sm:max-w-md sm:mx-auto">
           <h1 className="text-gray-800 text-3xl font-extrabold sm:text-4xl">
             Latest blog posts

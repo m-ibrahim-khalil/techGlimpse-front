@@ -35,8 +35,18 @@ export function BlogPage(props: Blog) {
         <div className="px-4 lg:px-0 mt-12 text-gray-700 text-lg leading-relaxed w-full lg:w-3/4">
           <p className="pb-6">{props.desc}</p>
           <div className="mb-6 flex items-center justify-center gap-x-6">
-            <Button text="Edit" icon={<EditIcon />} />
-            <Button text="Delete" icon={<DeleteIcon />} bgColor="red" />
+            <Link
+              to="edit"
+              className="focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 text-white bg-blue-700 hover:bg-blue-800"
+            >
+              <EditIcon /> Edit
+            </Link>
+            <Button
+              text="Delete"
+              icon={<DeleteIcon />}
+              bgColor="red"
+              onClick={() => console.log('Clicked')}
+            />
           </div>
         </div>
         <UserCard />

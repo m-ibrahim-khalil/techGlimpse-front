@@ -1,21 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { ISignInFormInput, ISignUpFormInput } from '@tech-glimpse-front/types';
 import axios, { AxiosResponse } from 'axios';
 
-const API_URL = 'http://localhost:3000/api/v1';
+const API_URL = 'https://fine-lime-bull-gear.cyclic.app/api/v1';
 
 interface UserData {
   message: any;
-}
-
-interface RegistrationData {
-  username: string;
-  email: string;
-  password: string;
-}
-
-export interface LoginData {
-  'User Name': string;
-  Password: string;
 }
 
 interface CustomError {
@@ -24,9 +14,10 @@ interface CustomError {
 
 export const userLogin = createAsyncThunk<
   any,
-  LoginData,
+  ISignInFormInput,
   { rejectValue: CustomError }
 >('user/login', async (loginPayload, { rejectWithValue }) => {
+  console.log('login payload', loginPayload);
   try {
     const config = {
       headers: {
@@ -35,7 +26,7 @@ export const userLogin = createAsyncThunk<
     };
 
     const { data }: AxiosResponse<UserData> = await axios.post(
-      `${API_URL}/users`,
+      `/api/v1/auth/login`,
       loginPayload,
       config
     );
@@ -58,7 +49,7 @@ export const userLogin = createAsyncThunk<
 
 export const registerUser = createAsyncThunk<
   void,
-  RegistrationData,
+  ISignUpFormInput,
   { rejectValue: CustomError }
 >('user/register', async (registrationData, { rejectWithValue }) => {
   try {
@@ -68,7 +59,7 @@ export const registerUser = createAsyncThunk<
       },
     };
 
-    await axios.post(`${API_URL}/users`, registrationData, config);
+    await axios.post(`/api/v1/auth/register`, registrationData, config);
   } catch (error: any) {
     if (error.response && error.response.data.message) {
       return rejectWithValue(error.response.data) as ReturnType<

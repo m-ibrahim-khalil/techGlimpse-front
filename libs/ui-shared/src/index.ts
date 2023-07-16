@@ -1,3 +1,4 @@
+export * from './lib/common/error/error';
 export * from './lib/form/signup-form/signup-form';
 export * from './lib/cards/blog-card/blog-card';
 export * from './lib/cards/user-card/user-card';

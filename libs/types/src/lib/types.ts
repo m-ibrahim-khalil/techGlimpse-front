@@ -1,8 +1,13 @@
-export interface IFormValues {
-  'User Name': string;
-  'Email Address': string;
-  Password: string;
-  'Confirm Password': string;
+export interface ISignUpFormInput {
+  username: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
+export interface ISignInFormInput {
+  username: string;
+  password: string;
 }
 
 export interface Blog {

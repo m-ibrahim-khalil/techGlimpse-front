@@ -1,22 +1,22 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { ISignUpFormInput } from '@tech-glimpse-front/types';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import Error from '../../common/error/error';
 import FormHeader from '../../form-components/form-header/form-header';
 import FormInputText from '../../form-components/form-input-text/form-input-text';
 
-interface IFormInput {
-  username: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
-
-const defaultValues: IFormInput = {
+const defaultValues: ISignUpFormInput = {
   username: '',
   email: '',
   password: '',
   confirmPassword: '',
 };
+
+interface SignInFormProps {
+  onSubmit: (data: ISignUpFormInput) => void;
+  error: any;
+}
 
 const validationSchema = yup.object({
   username: yup
@@ -36,14 +36,13 @@ const validationSchema = yup.object({
     .oneOf([yup.ref('password'), ''], 'Confirm Password does not match'),
 });
 
-export function SignUpForm() {
-  const methods = useForm<IFormInput>({
+export function SignUpForm({ onSubmit, error }: SignInFormProps) {
+  const methods = useForm<ISignUpFormInput>({
     defaultValues: defaultValues,
     resolver: yupResolver(validationSchema),
     mode: 'onTouched',
   });
   const { handleSubmit, control } = methods;
-  const onSubmit = (data: IFormInput) => console.log(data);
 
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -55,6 +54,7 @@ export function SignUpForm() {
       />
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <form className="form" onSubmit={handleSubmit(onSubmit)}>
+          {error && <Error>{error}</Error>}
           <FormInputText
             name="username"
             control={control}

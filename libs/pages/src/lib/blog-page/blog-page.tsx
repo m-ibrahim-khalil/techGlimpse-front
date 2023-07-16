@@ -1,5 +1,10 @@
 import { Blog } from '@tech-glimpse-front/types';
-import { Button, DeleteIcon, EditIcon, UserCard } from '@tech-glimpse-front/ui';
+import {
+  Button,
+  DeleteIcon,
+  EditIcon,
+  UserCard,
+} from '@tech-glimpse-front/ui-shared';
 import { Link } from 'react-router-dom';
 
 export function BlogPage(props: Blog) {

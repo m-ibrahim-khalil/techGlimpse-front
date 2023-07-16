@@ -3,7 +3,7 @@ import {
   BlogPage,
   NotFoundPage,
 } from '@tech-glimpse-front/pages';
-import { BlogEditor } from '@tech-glimpse-front/ui';
+import { BlogEditor } from '@tech-glimpse-front/ui-shared';
 import { Route, Routes } from 'react-router-dom';
 
 export default function BlogRoutes() {

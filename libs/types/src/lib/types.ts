@@ -1,17 +1,8 @@
-export interface Pagination<T> {
-  page: number;
-  pageSize: number;
-  total: number;
-  results: T[];
-}
-
-export interface Category {
-  id: number;
-  code: string;
-  name: string;
-  orderIndex: number;
-  createdAt: string;
-  updatedAt: string;
+export interface IFormValues {
+  'User Name': string;
+  'Email Address': string;
+  Password: string;
+  'Confirm Password': string;
 }
 
 export interface Blog {

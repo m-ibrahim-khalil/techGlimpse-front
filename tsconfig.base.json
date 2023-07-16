@@ -16,11 +16,27 @@
     "baseUrl": ".",
     "paths": {
       "@tech-glimpse-front/auth": ["libs/auth/src/index.ts"],
+      "@tech-glimpse-front/lib/form-components": [
+        "libs/lib/form-components/src/index.ts"
+      ],
       "@tech-glimpse-front/pages": ["libs/pages/src/index.ts"],
+      "@tech-glimpse-front/redux-state/actions": [
+        "libs/redux-state/actions/src/index.ts"
+      ],
+      "@tech-glimpse-front/redux-state/hooks": [
+        "libs/redux-state/hooks/src/index.ts"
+      ],
+      "@tech-glimpse-front/redux-state/reducers": [
+        "libs/redux-state/reducers/src/index.ts"
+      ],
+      "@tech-glimpse-front/redux-state/store": [
+        "libs/redux-state/store/src/index.ts"
+      ],
       "@tech-glimpse-front/routes": ["libs/routes/src/index.ts"],
       "@tech-glimpse-front/types": ["libs/types/src/index.ts"],
       "@tech-glimpse-front/ui": ["libs/ui/src/index.ts"],
-      "@tech-glimpse-front/utils": ["libs/utils/src/index.ts"]
+      "@tech-glimpse-front/ui-shared": ["libs/ui-shared/src/index.ts"],
+      "@tech-glimpse-front/util": ["libs/util/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

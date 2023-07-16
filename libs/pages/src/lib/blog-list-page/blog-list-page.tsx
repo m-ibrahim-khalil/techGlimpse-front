@@ -1,4 +1,4 @@
-import { BlogCard } from '@tech-glimpse-front/ui';
+import { BlogCard } from '@tech-glimpse-front/ui-shared';
 
 const posts = [
   {

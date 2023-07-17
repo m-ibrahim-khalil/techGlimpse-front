@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-/* eslint-disable-next-line */
+
 export interface FormHeaderProps {
   heading: string;
   paragraph: string;

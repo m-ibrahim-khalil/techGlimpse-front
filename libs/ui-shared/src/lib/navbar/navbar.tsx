@@ -1,9 +1,21 @@
 import { Transition } from '@headlessui/react';
+import { logout } from '@tech-glimpse-front/redux-state/reducers';
+import { AppDispatch, RootState } from '@tech-glimpse-front/redux-state/store';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { authUser } = useSelector((state: RootState) => state.auth);
+  const dispatch: AppDispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate('/blogs');
+  };
+
   return (
     <div>
       <nav className="bg-gray-800">
@@ -26,33 +38,29 @@ export function Navbar() {
                     Home
                   </Link>
 
-                  <Link
-                    to="/blogs/1"
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                  >
+                  <Link to="/blogs/1" className="nav-link">
                     Blog
                   </Link>
 
-                  <Link
-                    to="/blogs/write"
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                  >
+                  <Link to="/blogs/write" className="nav-link">
                     Write Blog
                   </Link>
 
-                  <Link
-                    to="/signup"
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    Sign Up
-                  </Link>
+                  {authUser ? (
+                    <button onClick={handleLogout} className="nav-link">
+                      Logout
+                    </button>
+                  ) : (
+                    <>
+                      <Link to="/signup" className="nav-link">
+                        Sign Up
+                      </Link>
 
-                  <Link
-                    to="/signin"
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    Sign In
-                  </Link>
+                      <Link to="/signin" className="nav-link">
+                        Sign In
+                      </Link>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
@@ -122,33 +130,29 @@ export function Navbar() {
                   Home
                 </Link>
 
-                <Link
-                  to="/blogs/1"
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                >
+                <Link to="/blogs/1" className="nav-link">
                   Blog
                 </Link>
 
-                <Link
-                  to="/blogs/write"
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                >
+                <Link to="/blogs/write" className="nav-link">
                   Write Blog
                 </Link>
 
-                <Link
-                  to="/signup"
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Sign Up
-                </Link>
+                {authUser ? (
+                  <button onClick={handleLogout} className="nav-link">
+                    Logout
+                  </button>
+                ) : (
+                  <>
+                    <Link to="/signup" className="nav-link">
+                      Sign Up
+                    </Link>
 
-                <Link
-                  to="/signin"
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Sign In
-                </Link>
+                    <Link to="/signin" className="nav-link">
+                      Sign In
+                    </Link>
+                  </>
+                )}
               </div>
             </div>
           )}

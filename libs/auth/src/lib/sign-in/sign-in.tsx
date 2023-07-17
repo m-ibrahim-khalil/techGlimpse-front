@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 export function SignIn() {
-  const { loading, authUser, error, success } = useSelector(
+  const { loading, authUser, loginError, success } = useSelector(
     (state: RootState) => state.auth
   );
   const dispatch: AppDispatch = useDispatch();
@@ -24,7 +24,13 @@ export function SignIn() {
     dispatch(userLogin(data));
   };
 
-  return <SigninForm onSubmit={submitForm} error={error}></SigninForm>;
+  return (
+    <SigninForm
+      onSubmit={submitForm}
+      error={loginError}
+      loading={loading}
+    ></SigninForm>
+  );
 }
 
 export default SignIn;

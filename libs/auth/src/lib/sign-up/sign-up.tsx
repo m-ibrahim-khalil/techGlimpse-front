@@ -7,16 +7,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 export function SignUp() {
-  const { loading, authUser, error, success } = useSelector(
+  const { loading, authUser, registerError, success } = useSelector(
     (state: RootState) => state.auth
   );
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (success) navigate('/login');
     if (authUser) navigate('/users/' + authUser);
-  }, [navigate, authUser, success]);
+  }, [navigate, authUser]);
 
   const submitForm = (data: ISignUpFormInput) => {
     console.log('Submitted: ', data);
@@ -27,7 +26,9 @@ export function SignUp() {
     console.log('data', data);
     dispatch(registerUser(data));
   };
-  return <SignUpForm onSubmit={submitForm} error={error} />;
+  return (
+    <SignUpForm onSubmit={submitForm} error={registerError} loading={loading} />
+  );
 }
 
 export default SignUp;

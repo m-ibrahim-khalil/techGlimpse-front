@@ -13,9 +13,6 @@ export interface TextFieldProps {
   style?: string;
 }
 
-const inputBaseStyles =
-  'block w-full border p-3 text-sm rounded outline-none transition-all focus:ring-1 placeholder:text-slate-300 dark:placeholder:text-neutral-500 bg-slate-50 border-slate-300 focus:ring-slate-400 focus:border-slate-400 dark:bg-neutral-800 dark:border-neutral-600 dark:focus:ring-slate-500 dark:focus:border-slate-500';
-
 export function TextField({
   onChange,
   type = 'text',
@@ -45,10 +42,10 @@ export function TextField({
           type={showPassword ? 'text' : type}
           placeholder={placeholder}
           className={twMerge(
-            inputBaseStyles,
+            'input-base w-full',
             style,
             type === 'password' && 'pr-12',
-            error && 'is-invalid input-error'
+            error && 'is-invalid error'
           )}
         />
 

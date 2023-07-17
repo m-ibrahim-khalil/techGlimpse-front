@@ -17,7 +17,6 @@ export const userLogin = createAsyncThunk<
   ISignInFormInput,
   { rejectValue: CustomError }
 >('user/login', async (loginPayload, { rejectWithValue }) => {
-  console.log('login payload', loginPayload);
   try {
     const config = {
       headers: {
@@ -30,7 +29,7 @@ export const userLogin = createAsyncThunk<
       loginPayload,
       config
     );
-    console.log('got login data');
+    console.log('got login data', data);
     // localStorage.setItem('userToken', data.userToken);
 
     return data;
@@ -59,7 +58,7 @@ export const registerUser = createAsyncThunk<
       },
     };
 
-    await axios.post(`/api/v1/auth/register`, registrationData, config);
+    return await axios.post(`/api/v1/auth/register`, registrationData, config);
   } catch (error: any) {
     if (error.response && error.response.data.message) {
       return rejectWithValue(error.response.data) as ReturnType<

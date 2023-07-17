@@ -11,7 +11,7 @@ export default defineConfig({
     host: 'localhost',
     proxy: {
       '/api': {
-        target: 'https://fine-lime-bull-gear.cyclic.app',
+        target: 'http://localhost:3001',
         changeOrigin: true,
         secure: false,
       },

@@ -5,6 +5,7 @@ import * as yup from 'yup';
 import Error from '../../common/error/error';
 import FormHeader from '../../form-components/form-header/form-header';
 import FormInputText from '../../form-components/form-input-text/form-input-text';
+import { LoadingIcon } from '../../icons/icons';
 
 const defaultValues: ISignUpFormInput = {
   username: '',
@@ -15,7 +16,8 @@ const defaultValues: ISignUpFormInput = {
 
 interface SignInFormProps {
   onSubmit: (data: ISignUpFormInput) => void;
-  error: any;
+  error: { message: string };
+  loading?: boolean;
 }
 
 const validationSchema = yup.object({
@@ -36,13 +38,14 @@ const validationSchema = yup.object({
     .oneOf([yup.ref('password'), ''], 'Confirm Password does not match'),
 });
 
-export function SignUpForm({ onSubmit, error }: SignInFormProps) {
+export function SignUpForm({ onSubmit, error, loading }: SignInFormProps) {
   const methods = useForm<ISignUpFormInput>({
     defaultValues: defaultValues,
     resolver: yupResolver(validationSchema),
     mode: 'onTouched',
   });
   const { handleSubmit, control } = methods;
+  console.log('error', error);
 
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -54,7 +57,7 @@ export function SignUpForm({ onSubmit, error }: SignInFormProps) {
       />
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <form className="form" onSubmit={handleSubmit(onSubmit)}>
-          {error && <Error>{error}</Error>}
+          {error && <Error>{error?.message}</Error>}
           <FormInputText
             name="username"
             control={control}
@@ -83,7 +86,14 @@ export function SignUpForm({ onSubmit, error }: SignInFormProps) {
             placeholder="Confirm Your Password"
           />
           <button type="submit" className="submit">
-            Register
+            {loading ? (
+              <>
+                <LoadingIcon />
+                "Loading..."
+              </>
+            ) : (
+              'Register'
+            )}
           </button>
         </form>
       </div>

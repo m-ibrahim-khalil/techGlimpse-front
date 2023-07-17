@@ -6,6 +6,7 @@ import Error from '../../common/error/error';
 import FormExtra from '../../form-components/form-extra/form-extra';
 import FormHeader from '../../form-components/form-header/form-header';
 import FormInputText from '../../form-components/form-input-text/form-input-text';
+import { LoadingIcon } from '../../icons/icons';
 
 const defaultValues: ISignInFormInput = {
   username: '',
@@ -14,7 +15,8 @@ const defaultValues: ISignInFormInput = {
 
 interface SignInFormProps {
   onSubmit: (data: ISignInFormInput) => void;
-  error: any;
+  error?: { message: string };
+  loading?: boolean;
 }
 
 const validationSchema = yup.object({
@@ -25,7 +27,7 @@ const validationSchema = yup.object({
   password: yup.string().required('password is required'),
 });
 
-export function SigninForm({ onSubmit, error }: SignInFormProps) {
+export function SigninForm({ onSubmit, error, loading }: SignInFormProps) {
   const methods = useForm<ISignInFormInput>({
     defaultValues: defaultValues,
     resolver: yupResolver(validationSchema),
@@ -42,7 +44,7 @@ export function SigninForm({ onSubmit, error }: SignInFormProps) {
       />
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <form className="form" onSubmit={handleSubmit(onSubmit)}>
-          {error && <Error>{error}</Error>}
+          {error && <Error>{error?.message}</Error>}
           <FormInputText
             name="username"
             control={control}
@@ -57,8 +59,15 @@ export function SigninForm({ onSubmit, error }: SignInFormProps) {
             placeholder="Enter Your Password"
           />
           <FormExtra />
-          <button type="submit" className="submit">
-            Login
+          <button type="submit" className="submit" disabled={loading}>
+            {loading ? (
+              <>
+                <LoadingIcon />
+                "Loading..."
+              </>
+            ) : (
+              'Sign In'
+            )}
           </button>
         </form>
       </div>

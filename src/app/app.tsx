@@ -1,6 +1,6 @@
 import { SignIn, SignUp } from '@tech-glimpse-front/auth';
 import { ContactPage, HomePage, NotFoundPage } from '@tech-glimpse-front/pages';
-import { store } from '@tech-glimpse-front/redux-state/store';
+import { store } from '@tech-glimpse-front/redux-toolkit';
 import { Navbar } from '@tech-glimpse-front/ui-shared';
 import { Provider } from 'react-redux';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';

@@ -1,5 +1,8 @@
-import { registerUser } from '@tech-glimpse-front/redux-state/actions';
-import { AppDispatch, RootState } from '@tech-glimpse-front/redux-state/store';
+import {
+  AppDispatch,
+  RootState,
+  registerUser,
+} from '@tech-glimpse-front/redux-toolkit';
 import { ISignUpFormInput } from '@tech-glimpse-front/types';
 import { SignUpForm } from '@tech-glimpse-front/ui-shared';
 import { useEffect } from 'react';

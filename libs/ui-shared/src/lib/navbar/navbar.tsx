@@ -1,6 +1,9 @@
 import { Transition } from '@headlessui/react';
-import { logout } from '@tech-glimpse-front/redux-state/reducers';
-import { AppDispatch, RootState } from '@tech-glimpse-front/redux-state/store';
+import {
+  AppDispatch,
+  RootState,
+  logout,
+} from '@tech-glimpse-front/redux-toolkit';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';

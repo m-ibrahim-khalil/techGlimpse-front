@@ -13,7 +13,7 @@ export interface ISignInFormInput {
 export interface Blog {
   id: string;
   title: string;
-  desc: string;
+  description: string;
   imgUrl?: string;
   authorId?: string;
   tags?: string[];

@@ -21,4 +21,8 @@ function removeCoockie(cookieName = 'jwt') {
   Cookies.remove(cookieName);
 }
 
-export { hasCookie, getAuthUsername, removeCoockie };
+function truncate(str: string, length: number) {
+  return str.length > length ? str.slice(0, length) + ' ...' : str;
+}
+
+export { getAuthUsername, hasCookie, removeCoockie, truncate };

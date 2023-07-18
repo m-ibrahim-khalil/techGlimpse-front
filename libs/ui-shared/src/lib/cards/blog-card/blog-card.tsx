@@ -1,5 +1,8 @@
 import { Blog } from '@tech-glimpse-front/types';
+import { truncate } from '@tech-glimpse-front/util';
 import { Link } from 'react-router-dom';
+import TimeAgo from '../../common/time-ago/time-ago';
+
 export function BlogCard(props: Blog) {
   return (
     <Link to={props.id}>
@@ -10,12 +13,12 @@ export function BlogCard(props: Blog) {
         className="w-full rounded-lg"
       />
       <div className="mt-3 space-y-2">
-        <span className="block text-indigo-600 text-sm">{props.updatedAt}</span>
+        <TimeAgo timestamp={props?.updatedAt} />
         <h3 className="text-lg text-gray-800 duration-150 group-hover:text-indigo-600 font-semibold">
           {props.title}
         </h3>
         <p className="text-gray-600 text-sm duration-150 group-hover:text-gray-800">
-          {props.desc}
+          {truncate(props.description, 200)}
         </p>
       </div>
     </Link>

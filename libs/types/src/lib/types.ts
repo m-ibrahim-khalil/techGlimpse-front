@@ -19,6 +19,6 @@ export interface Blog {
   tags?: string[];
   viewCount?: number;
   likeCount?: number;
-  createdAt?: string;
-  updatedAt?: string;
+  createdAt: string;
+  updatedAt: string;
 }

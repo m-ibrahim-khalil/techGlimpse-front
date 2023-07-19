@@ -1,4 +1,4 @@
-import { formatDistanceToNow, parseISO } from 'date-fns';
+import { formatDistanceToNow } from 'date-fns';
 export interface TimeAgoProps {
   timestamp: string | undefined;
 }
@@ -6,8 +6,7 @@ export interface TimeAgoProps {
 export function TimeAgo({ timestamp }: TimeAgoProps) {
   let timeAgo = '';
   if (timestamp) {
-    const date = parseISO(timestamp);
-    const timePeriod = formatDistanceToNow(date);
+    const timePeriod = formatDistanceToNow(new Date(timestamp));
     timeAgo = `${timePeriod} ago`;
   }
   return (

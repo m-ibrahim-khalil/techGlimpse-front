@@ -41,8 +41,8 @@ export function Navbar() {
                     Home
                   </Link>
 
-                  <Link to="/blogs/1" className="nav-link">
-                    Blog
+                  <Link to="/blogs" className="nav-link">
+                    Blogs
                   </Link>
 
                   <Link to="/blogs/write" className="nav-link">
@@ -133,8 +133,8 @@ export function Navbar() {
                   Home
                 </Link>
 
-                <Link to="/blogs/1" className="nav-link">
-                  Blog
+                <Link to="/blogs" className="nav-link">
+                  Blogs
                 </Link>
 
                 <Link to="/blogs/write" className="nav-link">

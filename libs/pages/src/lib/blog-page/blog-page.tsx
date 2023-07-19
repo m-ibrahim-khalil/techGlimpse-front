@@ -1,22 +1,41 @@
-import { Blog } from '@tech-glimpse-front/types';
+import {
+  RootState,
+  selectBlogById,
+  useAppSelector,
+} from '@tech-glimpse-front/redux-toolkit';
 import {
   Button,
   DeleteIcon,
   EditIcon,
   UserCard,
 } from '@tech-glimpse-front/ui-shared';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
-export function BlogPage(props: Blog) {
+export function BlogPage() {
+  const params = useParams();
+  const blogId = params.blogId ?? '';
+  console.log('Blog ID: ', blogId);
+  const blog = useAppSelector((state: RootState) =>
+    selectBlogById(state, blogId)
+  );
+
+  if (!blog) {
+    return (
+      <section>
+        <h2>Blog not found!</h2>
+      </section>
+    );
+  }
+
   return (
     <main className="max-w-screen-lg mx-auto mt-10">
       <div className="mb-4 md:mb-0 w-full mx-auto relative">
         <div className="px-4 lg:px-0">
           <h2 className="text-4xl font-semibold text-gray-800 leading-tight">
-            {props.title}
+            {blog.title}
           </h2>
           <div className="flex flex-wrap py-6 space-x-2 border-t border-dashed dark:border-gray-400">
-            {props.tags?.map((tag, id) => (
+            {blog.tags?.map((tag, id) => (
               <Link
                 key={id}
                 rel="noopener noreferrer"
@@ -29,7 +48,7 @@ export function BlogPage(props: Blog) {
           </div>
         </div>
         <img
-          src={props.imgUrl}
+          src={blog.imgUrl}
           alt=""
           className="w-full object-cover lg:rounded"
           style={{ height: '28em' }}
@@ -38,7 +57,7 @@ export function BlogPage(props: Blog) {
 
       <div className="flex flex-col lg:flex-row lg:space-x-12">
         <div className="px-4 lg:px-0 mt-12 text-gray-700 text-lg leading-relaxed w-full lg:w-3/4">
-          <p className="pb-6">{props.desc}</p>
+          <p className="pb-6">{blog.description}</p>
           <div className="mb-6 flex items-center justify-center gap-x-6">
             <Link
               to="edit"

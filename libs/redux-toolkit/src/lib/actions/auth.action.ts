@@ -2,8 +2,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ISignInFormInput, ISignUpFormInput } from '@tech-glimpse-front/types';
 import axios, { AxiosResponse } from 'axios';
 
-const API_URL = 'https://fine-lime-bull-gear.cyclic.app/api/v1';
-
 interface UserData {
   message: any;
 }
@@ -30,8 +28,6 @@ export const userLogin = createAsyncThunk<
       config
     );
     console.log('got login data', data);
-    // localStorage.setItem('userToken', data.userToken);
-
     return data;
   } catch (error: any) {
     if (error.response && error.response.data?.message) {

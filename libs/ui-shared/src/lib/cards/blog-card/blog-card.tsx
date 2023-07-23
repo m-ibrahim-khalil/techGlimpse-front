@@ -1,5 +1,6 @@
 import { Blog } from '@tech-glimpse-front/types';
 import { truncate } from '@tech-glimpse-front/util';
+import ReactQuill from 'react-quill';
 import { Link } from 'react-router-dom';
 import TimeAgo from '../../common/time-ago/time-ago';
 
@@ -17,9 +18,11 @@ export function BlogCard(props: Blog) {
         <h3 className="text-lg text-gray-800 duration-150 group-hover:text-indigo-600 font-semibold">
           {props.title}
         </h3>
-        <p className="text-gray-600 text-sm duration-150 group-hover:text-gray-800">
-          {truncate(props.description, 200)}
-        </p>
+        <ReactQuill
+          value={truncate(props.description, 200)}
+          readOnly={true}
+          theme={'bubble'}
+        />
       </div>
     </Link>
   );

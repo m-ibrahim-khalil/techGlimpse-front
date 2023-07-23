@@ -63,6 +63,7 @@ export function SignUpForm({ onSubmit, error, loading }: SignInFormProps) {
             control={control}
             label="Username"
             placeholder="Enter a Username"
+            required={true}
           />
           <FormInputText
             name="email"
@@ -70,6 +71,7 @@ export function SignUpForm({ onSubmit, error, loading }: SignInFormProps) {
             control={control}
             label="Email"
             placeholder="Enter Your Email Addres"
+            required={true}
           />
           <FormInputText
             type="password"
@@ -77,6 +79,7 @@ export function SignUpForm({ onSubmit, error, loading }: SignInFormProps) {
             control={control}
             label="Password"
             placeholder="Enter a strong Password"
+            required={true}
           />
           <FormInputText
             type="password"
@@ -84,6 +87,7 @@ export function SignUpForm({ onSubmit, error, loading }: SignInFormProps) {
             control={control}
             label="Confirm Password"
             placeholder="Confirm Your Password"
+            required={true}
           />
           <button type="submit" className="submit">
             {loading ? (

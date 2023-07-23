@@ -1,23 +1,23 @@
-import {
-  RootState,
-  selectBlogById,
-  useAppSelector,
-} from '@tech-glimpse-front/redux-toolkit';
+import { useGetBlogQuery } from '@tech-glimpse-front/redux-toolkit';
+import { Size, Variant } from '@tech-glimpse-front/types';
 import {
   Button,
   DeleteIcon,
   EditIcon,
   UserCard,
 } from '@tech-glimpse-front/ui-shared';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.bubble.css';
 import { Link, useParams } from 'react-router-dom';
 
 export function BlogPage() {
   const params = useParams();
   const blogId = params.blogId ?? '';
   console.log('Blog ID: ', blogId);
-  const blog = useAppSelector((state: RootState) =>
-    selectBlogById(state, blogId)
-  );
+
+  const { isLoading, data: blog } = useGetBlogQuery({
+    id: blogId,
+  });
 
   if (!blog) {
     return (
@@ -25,6 +25,10 @@ export function BlogPage() {
         <h2>Blog not found!</h2>
       </section>
     );
+  }
+
+  if (isLoading) {
+    return <div>Full screen Loader Component Loading...</div>;
   }
 
   return (
@@ -57,7 +61,11 @@ export function BlogPage() {
 
       <div className="flex flex-col lg:flex-row lg:space-x-12">
         <div className="px-4 lg:px-0 mt-12 text-gray-700 text-lg leading-relaxed w-full lg:w-3/4">
-          <p className="pb-6">{blog.description}</p>
+          <ReactQuill
+            value={blog.description}
+            readOnly={true}
+            theme={'bubble'}
+          />
           <div className="mb-6 flex items-center justify-center gap-x-6">
             <Link
               to="edit"
@@ -66,14 +74,17 @@ export function BlogPage() {
               <EditIcon /> Edit
             </Link>
             <Button
-              text="Delete"
-              icon={<DeleteIcon />}
-              bgColor="red"
+              variant={Variant.DANGER}
+              size={Size.SMALL}
               onClick={() => console.log('Clicked')}
-            />
+            >
+              <span className="flex flex-row">
+                <DeleteIcon /> Delete
+              </span>
+            </Button>
           </div>
         </div>
-        <UserCard />
+        <UserCard userName={blog?.author} />
       </div>
     </main>
   );

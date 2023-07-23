@@ -6,6 +6,7 @@ export interface TextFieldProps {
   onChange: (e: any) => void;
   type?: string;
   label: string;
+  required?: boolean;
   value?: string;
   placeholder?: string;
   helperText?: string | null;
@@ -17,6 +18,7 @@ export function TextField({
   onChange,
   type = 'text',
   label,
+  required = false,
   placeholder = '',
   helperText = '',
   value = '',
@@ -32,7 +34,7 @@ export function TextField({
           className="block uppercase text-sm font-bold mb-2"
           htmlFor={label}
         >
-          {label}
+          {label} {required && <span className="text-red-500">*</span>}
         </label>
       )}
       <div className="relative">
@@ -40,6 +42,7 @@ export function TextField({
           onChange={onChange}
           value={value}
           type={showPassword ? 'text' : type}
+          required
           placeholder={placeholder}
           className={twMerge(
             'input-base w-full',

@@ -1,7 +1,9 @@
 /* eslint-disable-next-line */
-export interface UserCardProps {}
+export interface UserCardProps {
+  userName?: string;
+}
 
-export function UserCard(props: UserCardProps) {
+export function UserCard({ userName = 'Unknown' }: UserCardProps) {
   return (
     <div className="w-full lg:w-1/4 m-auto mt-12 max-w-screen-sm">
       <div className="p-4 border-t border-b md:border md:rounded">
@@ -11,10 +13,7 @@ export function UserCard(props: UserCardProps) {
             className="h-10 w-10 rounded-full mr-2 object-cover"
           />
           <div>
-            <p className="font-semibold text-gray-700 text-sm">
-              {' '}
-              Mike Sullivan{' '}
-            </p>
+            <p className="font-semibold text-gray-700 text-sm">{userName}</p>
             <p className="font-semibold text-gray-600 text-xs"> Editor </p>
           </div>
         </div>

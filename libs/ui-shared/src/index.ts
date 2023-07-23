@@ -1,3 +1,4 @@
+export * from './lib/common/page-loader/page-loader';
 export * from './lib/common/time-ago/time-ago';
 export * from './lib/cards/blog-card/blog-card';
 export * from './lib/cards/user-card/user-card';

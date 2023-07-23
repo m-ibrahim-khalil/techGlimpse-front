@@ -47,6 +47,7 @@ export function SigninForm({ onSubmit, error, loading }: SignInFormProps) {
           {error && <Error>{error?.message}</Error>}
           <FormInputText
             name="username"
+            required={true}
             control={control}
             label="Username"
             placeholder="Enter Your Username"
@@ -54,6 +55,7 @@ export function SigninForm({ onSubmit, error, loading }: SignInFormProps) {
           <FormInputText
             type="password"
             name="password"
+            required={true}
             control={control}
             label="Password"
             placeholder="Enter Your Password"

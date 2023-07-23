@@ -1,9 +1,9 @@
 import {
+  BlogCreateUpdatePage,
   BlogListPage,
   BlogPage,
   NotFoundPage,
 } from '@tech-glimpse-front/pages';
-import { BlogEditor } from '@tech-glimpse-front/ui-shared';
 import { Route, Routes } from 'react-router-dom';
 
 export default function BlogRoutes() {
@@ -11,7 +11,11 @@ export default function BlogRoutes() {
     <Routes>
       <Route index element={<BlogListPage />} />
       <Route path=":blogId" element={<BlogPage />} />
-      <Route path="write" element={<BlogEditor />} />
+      <Route path="write" element={<BlogCreateUpdatePage />} />
+      <Route
+        path=":blogId/edit"
+        element={<BlogCreateUpdatePage isEditMode={true} />}
+      />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );

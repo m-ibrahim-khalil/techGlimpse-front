@@ -1,6 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import exp = require('constants');
 
 export const fetchBlogs: any = createAsyncThunk(
   'blogs/fetchBlogs',

@@ -8,6 +8,7 @@ export interface FormInputProps {
     | 'time'
     | 'textarea';
   placeholder?: string;
+  required?: boolean;
   name: string;
   control: any;
   label: string;

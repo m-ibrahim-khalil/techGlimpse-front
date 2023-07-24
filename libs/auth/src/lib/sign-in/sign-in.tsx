@@ -8,9 +8,10 @@ import { SigninForm } from '@tech-glimpse-front/ui-shared';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export function SignIn() {
-  const { loading, authUser, loginError, success } = useSelector(
+  const { loading, authUser, loginError } = useSelector(
     (state: RootState) => state.auth
   );
   const dispatch: AppDispatch = useDispatch();
@@ -18,13 +19,14 @@ export function SignIn() {
 
   useEffect(() => {
     if (authUser) {
+      toast.success('Login successful!');
       navigate('/user-profile');
     }
   }, [navigate, authUser]);
 
   const submitForm = (data: ISignInFormInput) => {
     console.log('Submitted: ', data);
-    dispatch(userLogin(data));
+    return dispatch(userLogin(data));
   };
 
   return (

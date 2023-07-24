@@ -94,7 +94,7 @@ export const blogApiSlice = createApi({
       },
     }),
 
-    createBlog: builder.mutation<Blog, IBlogFormInput>({
+    createBlog: builder.mutation<Blog | string, IBlogFormInput>({
       query: (initialPost) => ({
         url: '/stories',
         method: 'POST',

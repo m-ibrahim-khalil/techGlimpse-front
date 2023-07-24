@@ -1,17 +1,20 @@
 import { useGetBlogQuery } from '@tech-glimpse-front/redux-toolkit';
 import { Size, Variant } from '@tech-glimpse-front/types';
 import {
+  Alert,
   Button,
   DeleteIcon,
   EditIcon,
   UserCard,
 } from '@tech-glimpse-front/ui-shared';
+import { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.bubble.css';
 import { Link, useParams } from 'react-router-dom';
 
 export function BlogPage() {
   const params = useParams();
+  const [alert, setAlert] = useState(false);
   const blogId = params.blogId ?? '';
   console.log('Blog ID: ', blogId);
 
@@ -34,6 +37,12 @@ export function BlogPage() {
   return (
     <main className="max-w-screen-lg mx-auto mt-10">
       <div className="mb-4 md:mb-0 w-full mx-auto relative">
+        {alert && (
+          <Alert
+            message="Are you sure you want to delete this blog?"
+            type={Variant.WARNING}
+          />
+        )}
         <div className="px-4 lg:px-0">
           <h2 className="text-4xl font-semibold text-gray-800 leading-tight">
             {blog.title}
@@ -74,9 +83,9 @@ export function BlogPage() {
               <EditIcon /> Edit
             </Link>
             <Button
-              variant={Variant.DANGER}
+              variant={Variant.WARNING}
               size={Size.SMALL}
-              onClick={() => console.log('Clicked')}
+              onClick={() => setAlert(true)}
             >
               <span className="flex flex-row">
                 <DeleteIcon /> Delete

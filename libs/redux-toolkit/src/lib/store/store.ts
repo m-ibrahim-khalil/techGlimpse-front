@@ -5,11 +5,13 @@ import {
   configureStore,
 } from '@reduxjs/toolkit';
 import { blogApiSlice } from '../api/blogApi';
+import { alertReducer } from '../reducers/alert-slice.reducer';
 import { authReducer } from '../reducers/auth-slice.reducer';
 import { paginationReducer } from '../reducers/pagination-slice.reducer';
 
 const reducers = {
   pagination: paginationReducer,
+  alert: alertReducer,
   auth: authReducer,
   [blogApiSlice.reducerPath]: blogApiSlice.reducer,
 };

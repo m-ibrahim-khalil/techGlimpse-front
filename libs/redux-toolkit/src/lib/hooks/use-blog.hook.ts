@@ -1,12 +1,14 @@
 import { IBlogFormInput } from '@tech-glimpse-front/types';
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import {
   useCreateBlogMutation,
   useDeleteBlogMutation,
   useGetBlogsQuery,
   useUpdateBlogMutation,
 } from '../api/blogApi';
+import { isErrorWithMessage, isFetchBaseQueryError } from '../helpers';
 import { useAppSelector } from './use-app-selector.hook';
 
 export function useBlog() {
@@ -38,10 +40,17 @@ export function useBlog() {
 
   const createBlog = useCallback(
     async (blog: IBlogFormInput) => {
-      const data = await createBlogMutation(blog).unwrap();
-      if (data != null) {
-        console.log('Create blog success');
+      try {
+        await createBlogMutation(blog).unwrap();
+        toast.success('Create blog success');
         navigate('/');
+      } catch (err) {
+        if (isFetchBaseQueryError(err)) {
+          const errMsg = 'error' in err ? err.error : JSON.stringify(err.data);
+          toast.error(errMsg);
+        } else if (isErrorWithMessage(err)) {
+          toast.error(err.message);
+        }
       }
     },
     [createBlogMutation, navigate]
@@ -60,10 +69,17 @@ export function useBlog() {
 
   const updateBlog = useCallback(
     async (id: string, blog: IBlogFormInput) => {
-      const data = await updateBlogMutation({ id, blog }).unwrap();
-      if (data != null) {
-        console.log('Update blog success');
+      try {
+        await updateBlogMutation({ id, blog }).unwrap();
+        toast.success('Update blog success');
         navigate('/');
+      } catch (err) {
+        if (isFetchBaseQueryError(err)) {
+          const errMsg = 'error' in err ? err.error : JSON.stringify(err.data);
+          toast.error(errMsg);
+        } else if (isErrorWithMessage(err)) {
+          toast.error(err.message);
+        }
       }
     },
     [updateBlogMutation, navigate]

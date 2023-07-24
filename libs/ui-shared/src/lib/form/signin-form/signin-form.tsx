@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ISignInFormInput } from '@tech-glimpse-front/types';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import Error from '../../common/error/error';
 import FormExtra from '../../form-components/form-extra/form-extra';
@@ -33,6 +34,8 @@ export function SigninForm({ onSubmit, error, loading }: SignInFormProps) {
     resolver: yupResolver(validationSchema),
   });
   const { handleSubmit, control } = methods;
+
+  if (error) toast.error(error?.message);
 
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">

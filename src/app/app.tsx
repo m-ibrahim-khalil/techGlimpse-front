@@ -1,16 +1,20 @@
 import { SignIn, SignUp } from '@tech-glimpse-front/auth';
 import { ContactPage, HomePage, NotFoundPage } from '@tech-glimpse-front/pages';
 import { store } from '@tech-glimpse-front/redux-toolkit';
-import { Navbar } from '@tech-glimpse-front/ui-shared';
+import { AlertDescription, Navbar } from '@tech-glimpse-front/ui-shared';
 import { Provider } from 'react-redux';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/ReactToastify.min.css';
 import BlogRoutes from './routes/BlogRoutes';
 
 function App() {
   return (
     <Provider store={store}>
+      <ToastContainer position="bottom-right" newestOnTop />
       <Router>
         <Navbar />
+        <AlertDescription />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/signup" element={<SignUp />} />

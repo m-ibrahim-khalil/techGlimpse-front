@@ -1,3 +1,5 @@
+export * from './lib/alert-description/alert-description';
+export * from './lib/common/alert/alert';
 export * from './lib/common/page-loader/page-loader';
 export * from './lib/common/time-ago/time-ago';
 export * from './lib/cards/blog-card/blog-card';

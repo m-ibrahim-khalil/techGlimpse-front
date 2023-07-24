@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getAuthUsername, removeCoockie } from '@tech-glimpse-front/util';
+import { toast } from 'react-toastify';
 import { registerUser, userLogin } from '../actions/auth.action';
 
 const authUser = getAuthUsername();
@@ -31,6 +32,7 @@ export const authSlice = createSlice({
       state.loginError = null;
       state.registerError = null;
       state.success = false;
+      toast.success('Logout success');
     },
     setCredentials: (state, { payload }) => {
       state.authUser = payload;
@@ -41,27 +43,33 @@ export const authSlice = createSlice({
       .addCase(registerUser.pending, (state, action) => {
         state.loading = true;
         state.registerError = null;
+        toast.info('Registering user...');
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
+        toast.success('User registered successfully');
       })
       .addCase(registerUser.rejected, (state, { payload }) => {
         state.loading = false;
         state.registerError = payload;
+        toast.error('Error registering user');
       })
       .addCase(userLogin.pending, (state, action) => {
         state.loading = true;
         state.loginError = null;
+        toast.info('Logging in...');
       })
       .addCase(userLogin.fulfilled, (state, action) => {
         state.loading = false;
         state.authUser = getAuthUsername();
         state.success = true;
+        toast.success('Login success');
       })
       .addCase(userLogin.rejected, (state, { payload }) => {
         state.loading = false;
         state.loginError = payload;
+        toast.error('Error logging in');
       });
   },
 });

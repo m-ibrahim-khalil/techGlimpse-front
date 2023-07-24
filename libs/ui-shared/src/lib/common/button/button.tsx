@@ -14,6 +14,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size: Size;
   variant: Variant;
   children: ReactNode;
+  customClass?: string;
   onClick?: () => void;
 }
 
@@ -21,6 +22,7 @@ export function Button({
   size,
   variant,
   children,
+  customClass,
   onClick,
   ...rest
 }: ButtonProps) {
@@ -30,7 +32,9 @@ export function Button({
       onClick={onClick}
       className={twMerge(
         fixedBtnClass,
-        `${VARIANT_MAPS[variant]} ${SIZE_MAPS[size]}`
+        VARIANT_MAPS[variant],
+        SIZE_MAPS[size],
+        customClass
       )}
     >
       {children}

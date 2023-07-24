@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ISignUpFormInput } from '@tech-glimpse-front/types';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import Error from '../../common/error/error';
 import FormHeader from '../../form-components/form-header/form-header';
@@ -45,7 +46,8 @@ export function SignUpForm({ onSubmit, error, loading }: SignInFormProps) {
     mode: 'onTouched',
   });
   const { handleSubmit, control } = methods;
-  console.log('error', error);
+
+  if (error) toast.error(error?.message);
 
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">

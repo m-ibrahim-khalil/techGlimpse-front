@@ -1,7 +1,11 @@
 import { SignIn, SignUp } from '@tech-glimpse-front/auth';
 import { ContactPage, HomePage, NotFoundPage } from '@tech-glimpse-front/pages';
 import { store } from '@tech-glimpse-front/redux-toolkit';
-import { AlertDescription, Navbar } from '@tech-glimpse-front/ui-shared';
+import {
+  AlertDescription,
+  DeleteDialog,
+  Navbar,
+} from '@tech-glimpse-front/ui-shared';
 import { Provider } from 'react-redux';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
@@ -12,6 +16,7 @@ function App() {
   return (
     <Provider store={store}>
       <ToastContainer position="bottom-right" newestOnTop />
+      <DeleteDialog />
       <Router>
         <Navbar />
         <AlertDescription />

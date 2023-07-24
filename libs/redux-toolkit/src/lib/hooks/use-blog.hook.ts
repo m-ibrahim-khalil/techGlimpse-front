@@ -10,10 +10,12 @@ import {
 } from '../api/blogApi';
 import { isErrorWithMessage, isFetchBaseQueryError } from '../helpers';
 import { useAppSelector } from './use-app-selector.hook';
+import useDialog from './use-dialog.hook';
 
 export function useBlog() {
   const navigate = useNavigate();
   const { page, size } = useAppSelector((state) => state.pagination);
+  const { openDialog, closeDialog } = useDialog();
 
   const {
     data: blogList = {
@@ -56,16 +58,15 @@ export function useBlog() {
     [createBlogMutation, navigate]
   );
 
-  // const deletePost = useCallback((blog: FormData) => {
-  //     openDialog((password) => {
-  //         blog = {
-  //             ...blog,
-  //             password: password.toString()
-  //         }
-  //         deleteBlogMutation(blog);
-  //         closeDialog()
-  //     });
-  // }, [deleteBlogMutation, closeDialog, openDialog])
+  const deleteBlog = useCallback(
+    (id: string) => {
+      openDialog(() => {
+        deleteBlogMutation({ id });
+        closeDialog();
+      });
+    },
+    [deleteBlogMutation, closeDialog, openDialog]
+  );
 
   const updateBlog = useCallback(
     async (id: string, blog: IBlogFormInput) => {
@@ -85,7 +86,7 @@ export function useBlog() {
     [updateBlogMutation, navigate]
   );
 
-  return { blogList, loading, updateBlog, createBlog };
+  return { blogList, loading, updateBlog, createBlog, deleteBlog };
 }
 
 export default useBlog;

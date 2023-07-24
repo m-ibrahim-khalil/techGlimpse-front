@@ -4,6 +4,7 @@ export * from './lib/hooks/use-alert.hook';
 export * from './lib/hooks/use-app-dispatch.hook';
 export * from './lib/hooks/use-app-selector.hook';
 export * from './lib/hooks/use-blog.hook';
+export * from './lib/hooks/use-dialog.hook';
 export * from './lib/hooks/use-pagination';
 export * from './lib/reducers/alert-slice.reducer';
 export * from './lib/reducers/auth-slice.reducer';

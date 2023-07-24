@@ -1,4 +1,4 @@
-import { useGetBlogQuery } from '@tech-glimpse-front/redux-toolkit';
+import { useBlog, useGetBlogQuery } from '@tech-glimpse-front/redux-toolkit';
 import { Size, Variant } from '@tech-glimpse-front/types';
 import {
   Alert,
@@ -15,6 +15,7 @@ import { Link, useParams } from 'react-router-dom';
 export function BlogPage() {
   const params = useParams();
   const [alert, setAlert] = useState(false);
+  const { deleteBlog } = useBlog();
   const blogId = params.blogId ?? '';
   console.log('Blog ID: ', blogId);
 
@@ -85,7 +86,10 @@ export function BlogPage() {
             <Button
               variant={Variant.WARNING}
               size={Size.SMALL}
-              onClick={() => setAlert(true)}
+              onClick={() => {
+                setAlert(true);
+                deleteBlog(blogId);
+              }}
             >
               <span className="flex flex-row">
                 <DeleteIcon /> Delete

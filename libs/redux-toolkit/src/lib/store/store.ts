@@ -7,11 +7,13 @@ import {
 import { blogApiSlice } from '../api/blogApi';
 import { alertReducer } from '../reducers/alert-slice.reducer';
 import { authReducer } from '../reducers/auth-slice.reducer';
+import { dialogReducer } from '../reducers/dialog-slice.reducer';
 import { paginationReducer } from '../reducers/pagination-slice.reducer';
 
 const reducers = {
   pagination: paginationReducer,
   alert: alertReducer,
+  dialog: dialogReducer,
   auth: authReducer,
   [blogApiSlice.reducerPath]: blogApiSlice.reducer,
 };

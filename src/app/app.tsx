@@ -10,6 +10,7 @@ import { Provider } from 'react-redux';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/ReactToastify.min.css';
+import { UserRoutes } from './routes';
 import BlogRoutes from './routes/BlogRoutes';
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/contact-page" element={<ContactPage />} />
           <Route path="/blogs/*" element={<BlogRoutes />} />
+          <Route path="/users/*" element={<UserRoutes />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Router>

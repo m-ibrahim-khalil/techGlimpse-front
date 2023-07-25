@@ -1,27 +1,33 @@
 import { useBlog, useGetBlogQuery } from '@tech-glimpse-front/redux-toolkit';
 import { Size, Variant } from '@tech-glimpse-front/types';
 import {
-  Alert,
   Button,
   DeleteIcon,
   EditIcon,
   UserCard,
 } from '@tech-glimpse-front/ui-shared';
-import { useState } from 'react';
+import { useCallback } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.bubble.css';
 import { Link, useParams } from 'react-router-dom';
 
 export function BlogPage() {
   const params = useParams();
-  const [alert, setAlert] = useState(false);
+  // const [alert, setAlert] = useState(false);
   const { deleteBlog } = useBlog();
   const blogId = params.blogId ?? '';
-  console.log('Blog ID: ', blogId);
 
   const { isLoading, data: blog } = useGetBlogQuery({
     id: blogId,
   });
+
+  const onDeleteBlog = useCallback(
+    (e: any) => {
+      e.stopPropagation();
+      deleteBlog(blogId);
+    },
+    [deleteBlog, blogId]
+  );
 
   if (!blog) {
     return (
@@ -38,12 +44,12 @@ export function BlogPage() {
   return (
     <main className="max-w-screen-lg mx-auto mt-10">
       <div className="mb-4 md:mb-0 w-full mx-auto relative">
-        {alert && (
+        {/* {alert && (
           <Alert
             message="Are you sure you want to delete this blog?"
             type={Variant.WARNING}
           />
-        )}
+        )} */}
         <div className="px-4 lg:px-0">
           <h2 className="text-4xl font-semibold text-gray-800 leading-tight">
             {blog.title}
@@ -86,10 +92,7 @@ export function BlogPage() {
             <Button
               variant={Variant.WARNING}
               size={Size.SMALL}
-              onClick={() => {
-                setAlert(true);
-                deleteBlog(blogId);
-              }}
+              onClick={(e) => onDeleteBlog(e)}
             >
               <span className="flex flex-row">
                 <DeleteIcon /> Delete
@@ -97,7 +100,9 @@ export function BlogPage() {
             </Button>
           </div>
         </div>
-        <UserCard userName={blog?.author} />
+        <div className="w-full lg:w-1/4 m-auto mt-12 max-w-screen-sm">
+          <UserCard userName={blog?.author} />
+        </div>
       </div>
     </main>
   );

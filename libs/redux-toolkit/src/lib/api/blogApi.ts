@@ -126,6 +126,7 @@ export const blogApiSlice = createApi({
         method: 'DELETE',
       }),
       invalidatesTags: [{ type: 'Blogs', id: 'LIST' }],
+      transformResponse: (result: { message: string }) => result.message,
     }),
   }),
 });

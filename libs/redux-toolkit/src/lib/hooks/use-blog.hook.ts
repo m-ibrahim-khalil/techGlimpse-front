@@ -8,7 +8,11 @@ import {
   useGetBlogsQuery,
   useUpdateBlogMutation,
 } from '../api/blogApi';
-import { isErrorWithMessage, isFetchBaseQueryError } from '../helpers';
+import {
+  erroHandler,
+  isErrorWithMessage,
+  isFetchBaseQueryError,
+} from '../helpers';
 import { useAppSelector } from './use-app-selector.hook';
 import useDialog from './use-dialog.hook';
 
@@ -47,12 +51,11 @@ export function useBlog() {
         toast.success('Create blog success');
         navigate('/');
       } catch (err) {
-        if (isFetchBaseQueryError(err)) {
-          const errMsg = 'error' in err ? err.error : JSON.stringify(err.data);
-          toast.error(errMsg);
-        } else if (isErrorWithMessage(err)) {
-          toast.error(err.message);
-        }
+        let errMsg = '';
+        if (isFetchBaseQueryError(err))
+          errMsg = err.data?.message ?? JSON.stringify(err.data);
+        else if (isErrorWithMessage(err)) errMsg = err.message;
+        if (errMsg) erroHandler(errMsg);
       }
     },
     [createBlogMutation, navigate]
@@ -60,8 +63,23 @@ export function useBlog() {
 
   const deleteBlog = useCallback(
     (id: string) => {
-      openDialog(() => {
-        deleteBlogMutation({ id });
+      console.log(id);
+      openDialog(async () => {
+        try {
+          const res = await deleteBlogMutation({ id }).unwrap();
+          console.log('res: ', res);
+          toast.success('Delete blog success');
+          navigate('/blogs');
+        } catch (err) {
+          let errMsg = '';
+          if (isFetchBaseQueryError(err))
+            errMsg = err.data?.message ?? JSON.stringify(err.data);
+          else if (isErrorWithMessage(err)) errMsg = err.message;
+          if (errMsg) {
+            const nav = erroHandler(errMsg);
+            if (nav) navigate(nav);
+          }
+        }
         closeDialog();
       });
     },
@@ -73,14 +91,13 @@ export function useBlog() {
       try {
         await updateBlogMutation({ id, blog }).unwrap();
         toast.success('Update blog success');
-        navigate('/');
+        navigate(-1);
       } catch (err) {
-        if (isFetchBaseQueryError(err)) {
-          const errMsg = 'error' in err ? err.error : JSON.stringify(err.data);
-          toast.error(errMsg);
-        } else if (isErrorWithMessage(err)) {
-          toast.error(err.message);
-        }
+        let errMsg = '';
+        if (isFetchBaseQueryError(err))
+          errMsg = err.data?.message ?? JSON.stringify(err.data);
+        else if (isErrorWithMessage(err)) errMsg = err.message;
+        if (errMsg) erroHandler(errMsg);
       }
     },
     [updateBlogMutation, navigate]

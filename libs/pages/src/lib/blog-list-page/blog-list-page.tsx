@@ -7,8 +7,6 @@ export function BlogListPage() {
   const { payload: blogs } = blogList;
   const navigate = useNavigate();
 
-  // useEffect(() => {}, [blogs]);
-
   if (isLoading) return <PageLoader />;
 
   return (

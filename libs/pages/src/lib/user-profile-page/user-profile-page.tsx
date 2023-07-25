@@ -1,10 +1,13 @@
 import { UserCard, UserDetailsCard } from '@tech-glimpse-front/ui-shared';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import BlogsByAuthor from '../blogs-by-author/blogs-by-author';
 
 /* eslint-disable-next-line */
 export interface UserProfilePageProps {}
 
 export function UserProfilePage(props: UserProfilePageProps) {
+  const [showBlogs, setShowBlogs] = useState(false);
   const { username } = useParams();
   return (
     <div className="bg-gray-100">
@@ -18,9 +21,13 @@ export function UserProfilePage(props: UserProfilePageProps) {
             </div>
           </div>
           <div className="w-full md:w-9/12 mx-2 h-64">
-            <UserDetailsCard />
+            <UserDetailsCard setShowBlogs={setShowBlogs} />
             <div className="my-4"></div>
-            <div className="bg-white p-3 shadow-sm rounded-sm">Blogs</div>
+            {showBlogs && (
+              <div className="bg-white p-3 shadow-sm rounded-sm">
+                <BlogsByAuthor author={username ?? ''} />
+              </div>
+            )}
           </div>
         </div>
       </div>

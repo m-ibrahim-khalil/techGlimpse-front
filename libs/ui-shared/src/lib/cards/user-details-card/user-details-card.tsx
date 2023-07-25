@@ -1,7 +1,8 @@
-/* eslint-disable-next-line */
-export interface UserDetailsCardProps {}
+export interface UserDetailsCardProps {
+  setShowBlogs: (value: boolean) => void;
+}
 
-export function UserDetailsCard(props: UserDetailsCardProps) {
+export function UserDetailsCard({ setShowBlogs }: UserDetailsCardProps) {
   return (
     <div className="bg-white p-3 shadow-sm rounded-sm">
       <div className="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
@@ -63,7 +64,10 @@ export function UserDetailsCard(props: UserDetailsCardProps) {
           </div>
         </div>
       </div>
-      <button className="block w-full text-blue-800 text-sm font-semibold rounded-lg hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4">
+      <button
+        onClick={() => setShowBlogs(true)}
+        className="block w-full text-blue-800 text-sm font-semibold rounded-lg hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4"
+      >
         Show All Blogs
       </button>
     </div>

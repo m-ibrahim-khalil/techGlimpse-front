@@ -1,9 +1,20 @@
 import { useBlog } from '@tech-glimpse-front/redux-toolkit';
+import { Blog } from '@tech-glimpse-front/types';
 import { BlogCard, PageLoader } from '@tech-glimpse-front/ui-shared';
 
-export function BlogListPage() {
-  const { blogList, loading: isLoading } = useBlog();
-  const { payload: blogs } = blogList;
+export interface BlogsByAuthorProps {
+  author: string;
+}
+
+export function BlogsByAuthor({ author }: BlogsByAuthorProps) {
+  const { getBlogsByAuthor } = useBlog();
+  let blogs: Blog[] | undefined = [];
+  let isLoading: boolean | undefined = true;
+
+  getBlogsByAuthor(author).then((res) => {
+    blogs = res?.blogList?.payload;
+    isLoading = res?.getBlogListLoading;
+  });
 
   if (isLoading) return <PageLoader />;
 
@@ -32,4 +43,4 @@ export function BlogListPage() {
   );
 }
 
-export default BlogListPage;
+export default BlogsByAuthor;

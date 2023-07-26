@@ -28,6 +28,18 @@ export interface Blog {
   updatedAt: string;
 }
 
+export interface User {
+  id: string;
+  username: string;
+  email: string;
+  password: string;
+  imgUrl?: string;
+  fullName?: string;
+  bio?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface IBlogFormInput {
   title: string;
   description: string;

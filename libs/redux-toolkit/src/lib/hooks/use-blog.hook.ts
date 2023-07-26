@@ -5,7 +5,6 @@ import { toast } from 'react-toastify';
 import {
   useCreateBlogMutation,
   useDeleteBlogMutation,
-  useGetBlogsByAuthorIdQuery,
   useGetBlogsQuery,
   useUpdateBlogMutation,
 } from '../api/blogApi';
@@ -44,30 +43,6 @@ export function useBlog() {
     deleteBlogLoading ||
     updateBlogLoading ||
     createBlogLoading;
-
-  const getBlogsByAuthor = useCallback(
-    async (authorId: string) => {
-      try {
-        const {
-          data: blogList = {
-            totalItems: 0,
-            totalPages: 0,
-            payload: [],
-            currentPage: 0,
-          },
-          isLoading: getBlogListLoading,
-        } = await useGetBlogsByAuthorIdQuery({ authorId, page, size });
-        return { blogList, getBlogListLoading };
-      } catch (err) {
-        let errMsg = '';
-        if (isFetchBaseQueryError(err))
-          errMsg = err.data?.message ?? JSON.stringify(err.data);
-        else if (isErrorWithMessage(err)) errMsg = err.message;
-        if (errMsg) erroHandler(errMsg);
-      }
-    },
-    [useGetBlogsByAuthorIdQuery, page, size]
-  );
 
   const createBlog = useCallback(
     async (blog: IBlogFormInput) => {
@@ -134,7 +109,6 @@ export function useBlog() {
     updateBlog,
     createBlog,
     deleteBlog,
-    getBlogsByAuthor,
   };
 }
 

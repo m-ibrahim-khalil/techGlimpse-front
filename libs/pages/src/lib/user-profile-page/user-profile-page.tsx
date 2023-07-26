@@ -1,14 +1,22 @@
+import { useUser } from '@tech-glimpse-front/redux-toolkit';
 import { UserCard, UserDetailsCard } from '@tech-glimpse-front/ui-shared';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import BlogsByAuthor from '../blogs-by-author/blogs-by-author';
 
-/* eslint-disable-next-line */
-export interface UserProfilePageProps {}
-
-export function UserProfilePage(props: UserProfilePageProps) {
+export function UserProfilePage() {
   const [showBlogs, setShowBlogs] = useState(false);
   const { username } = useParams();
+  const { getUserByUsername } = useUser();
+  const user = getUserByUsername(username ?? '');
+
+  // const { data: user } = useGetUserByUsernameQuery({
+  //   username: username ?? '',
+  // });
+
+  if (!user) return null;
+  console.log('user profile: user', user);
+
   return (
     <div className="bg-gray-100">
       <div className="container mx-auto my-5 p-5">
@@ -25,7 +33,7 @@ export function UserProfilePage(props: UserProfilePageProps) {
             <div className="my-4"></div>
             {showBlogs && (
               <div className="bg-white p-3 shadow-sm rounded-sm">
-                <BlogsByAuthor author={username ?? ''} />
+                <BlogsByAuthor authorId={user?.id ?? ''} />
               </div>
             )}
           </div>

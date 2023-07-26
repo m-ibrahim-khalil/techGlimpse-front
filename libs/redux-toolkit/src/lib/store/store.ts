@@ -5,6 +5,7 @@ import {
   configureStore,
 } from '@reduxjs/toolkit';
 import { blogApiSlice } from '../api/blogApi';
+import { userApiSlice } from '../api/userApi';
 import { alertReducer } from '../reducers/alert-slice.reducer';
 import { authReducer } from '../reducers/auth-slice.reducer';
 import { dialogReducer } from '../reducers/dialog-slice.reducer';
@@ -16,6 +17,7 @@ const reducers = {
   dialog: dialogReducer,
   auth: authReducer,
   [blogApiSlice.reducerPath]: blogApiSlice.reducer,
+  [userApiSlice.reducerPath]: userApiSlice.reducer,
 };
 
 const rootReducer = combineReducers<typeof reducers>(reducers);
@@ -27,7 +29,7 @@ export const store = configureStore({
   middleware: (gDM) =>
     gDM({
       serializableCheck: false,
-    }).concat([blogApiSlice.middleware]),
+    }).concat([blogApiSlice.middleware, userApiSlice.middleware]),
   devTools: true,
   // process.env['NODE_ENV'] !== 'production',
   preloadedState: initialState,

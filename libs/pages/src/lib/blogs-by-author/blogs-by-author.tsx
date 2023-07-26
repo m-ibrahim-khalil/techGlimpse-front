@@ -1,19 +1,15 @@
-import { useBlog } from '@tech-glimpse-front/redux-toolkit';
-import { Blog } from '@tech-glimpse-front/types';
+import { useGetBlogsByAuthorIdQuery } from '@tech-glimpse-front/redux-toolkit';
 import { BlogCard, PageLoader } from '@tech-glimpse-front/ui-shared';
 
 export interface BlogsByAuthorProps {
-  author: string;
+  authorId: string;
 }
 
-export function BlogsByAuthor({ author }: BlogsByAuthorProps) {
-  const { getBlogsByAuthor } = useBlog();
-  let blogs: Blog[] | undefined = [];
-  let isLoading: boolean | undefined = true;
-
-  getBlogsByAuthor(author).then((res) => {
-    blogs = res?.blogList?.payload;
-    isLoading = res?.getBlogListLoading;
+export function BlogsByAuthor({ authorId }: BlogsByAuthorProps) {
+  const { data: blogs, isLoading } = useGetBlogsByAuthorIdQuery({
+    authorId,
+    page: 1,
+    size: 10,
   });
 
   if (isLoading) return <PageLoader />;
@@ -32,7 +28,7 @@ export function BlogsByAuthor({ author }: BlogsByAuthorProps) {
         </div>
         <ul className="grid gap-x-8 gap-y-10 mt-16 sm:grid-cols-2 lg:grid-cols-3">
           {blogs &&
-            blogs.map((items, key) => (
+            blogs.payload.map((items, key) => (
               <li className="w-full mx-auto group sm:max-w-sm" key={key}>
                 <BlogCard {...items} />
               </li>

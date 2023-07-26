@@ -13,7 +13,9 @@ import { twMerge } from 'tailwind-merge';
 import Button from '../common/button/button';
 
 export function ProfileMenu() {
-  const { authUser } = useSelector((state: RootState) => state.auth);
+  const { authUser } = useSelector((state: RootState) => state.auth) ?? {
+    authUser: 'Guest',
+  };
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -25,7 +27,7 @@ export function ProfileMenu() {
   const profileMenuItems = authUser
     ? [
         { name: 'Your Profile', href: `/users/${authUser}` },
-        { name: 'Settings', href: `users/${authUser}/settings` },
+        { name: 'Change Password', href: `users/change-password` },
       ]
     : [
         { name: 'Guest User', href: '' },
@@ -47,7 +49,8 @@ export function ProfileMenu() {
       )}
 
       <Menu as="div" className="relative ml-5">
-        <div>
+        <div className="inline-flex item-center gap-2">
+          <span className="text-white">{authUser ?? 'Guest User'}</span>
           <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
             <span className="sr-only">Open user menu</span>
             <img

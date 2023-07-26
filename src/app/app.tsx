@@ -4,7 +4,7 @@ import { store } from '@tech-glimpse-front/redux-toolkit';
 import {
   AlertDescription,
   DeleteDialog,
-  Navbar,
+  NavbarProfile,
 } from '@tech-glimpse-front/ui-shared';
 import { Provider } from 'react-redux';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
@@ -19,7 +19,7 @@ function App() {
       <ToastContainer position="bottom-right" newestOnTop />
       <DeleteDialog />
       <Router>
-        <Navbar />
+        <NavbarProfile />
         <AlertDescription />
         <Routes>
           <Route path="/" element={<HomePage />} />

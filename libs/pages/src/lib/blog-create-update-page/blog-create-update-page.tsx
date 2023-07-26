@@ -1,3 +1,8 @@
+import {
+  CheckIcon,
+  DocumentCheckIcon,
+  EyeIcon,
+} from '@heroicons/react/24/outline';
 import { useBlog, useGetBlogQuery } from '@tech-glimpse-front/redux-toolkit';
 import { Size, Variant } from '@tech-glimpse-front/types';
 import { BlogEditor, Button } from '@tech-glimpse-front/ui-shared';
@@ -58,9 +63,43 @@ export function BlogCreateUpdatePage({
               <h1 className="text-3xl font-semibold">
                 {isEditMode ? 'Edit your blog' : 'Write a new blog'}
               </h1>
-              <Button variant={Variant.INFO} size={Size.LARGE} type="submit">
-                {isEditMode ? 'Update Changes' : 'Publish'}
-              </Button>
+              <div className="flex items-center gap-4">
+                <Button
+                  type="button"
+                  variant={Variant.SECONDARY}
+                  size={Size.PRIMARY}
+                  onClick={() => window.history.back()}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  type="button"
+                  variant={Variant.SECONDARY}
+                  size={Size.PRIMARY}
+                >
+                  <EyeIcon
+                    className="-ml-0.5 mr-1.5 h-5 w-5 text-gray-400"
+                    aria-hidden="true"
+                  />
+                  Preview
+                </Button>
+                <Button
+                  variant={Variant.PRIMARY}
+                  size={Size.PRIMARY}
+                  type="submit"
+                >
+                  {isEditMode ? (
+                    <>
+                      <DocumentCheckIcon className="h-5 w-5 mr-2" /> Save
+                      Changes
+                    </>
+                  ) : (
+                    <>
+                      <CheckIcon className="h-5 w-5 mr-2" /> Publish
+                    </>
+                  )}
+                </Button>
+              </div>
             </div>
             <BlogEditor
               title={title}

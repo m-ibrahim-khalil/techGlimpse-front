@@ -44,12 +44,6 @@ export function BlogPage() {
   return (
     <main className="max-w-screen-lg mx-auto mt-10">
       <div className="mb-4 md:mb-0 w-full mx-auto relative">
-        {/* {alert && (
-          <Alert
-            message="Are you sure you want to delete this blog?"
-            type={Variant.WARNING}
-          />
-        )} */}
         <div className="px-4 lg:px-0">
           <h2 className="text-4xl font-semibold text-gray-800 leading-tight">
             {blog.title}
@@ -82,21 +76,19 @@ export function BlogPage() {
             readOnly={true}
             theme={'bubble'}
           />
-          <div className="mb-6 flex items-center justify-center gap-x-6">
+          <div className="flex items-center justify-center gap-x-8 m-6 ">
             <Link
               to="edit"
-              className="focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 text-white bg-blue-700 hover:bg-blue-800"
+              className="inline-flex text-center items-center bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-md text-sm px-3 py-2 focus:outline"
             >
               <EditIcon /> Edit
             </Link>
             <Button
               variant={Variant.WARNING}
-              size={Size.SMALL}
+              size={Size.PRIMARY}
               onClick={(e) => onDeleteBlog(e)}
             >
-              <span className="flex flex-row">
-                <DeleteIcon /> Delete
-              </span>
+              <DeleteIcon /> Delete
             </Button>
           </div>
         </div>

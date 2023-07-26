@@ -7,8 +7,7 @@ import {
 import { ButtonHTMLAttributes, ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-const fixedBtnClass =
-  'items-center px-5 py-2.5 rounded-lg font-medium leading-none';
+const fixedBtnClass = 'inline-flex items-center rounded-md';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size: Size;

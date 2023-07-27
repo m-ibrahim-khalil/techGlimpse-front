@@ -6,7 +6,7 @@ import {
 } from '@tech-glimpse-front/types';
 
 export const blogApiSlice = createApi({
-  reducerPath: 'extendedBlogApi',
+  reducerPath: 'blogApi',
   baseQuery: fetchBaseQuery({
     baseUrl: 'api/v1',
     headers: { Accept: 'application/json' },

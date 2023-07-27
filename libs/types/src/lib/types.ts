@@ -10,6 +10,12 @@ export interface ISignInFormInput {
   password: string;
 }
 
+export interface IUpdatePasswordFormInput {
+  oldPassword: string;
+  newPassword: string;
+  confirmNewPassword: string;
+}
+
 export interface IBlogFormInput {
   title: string;
 }

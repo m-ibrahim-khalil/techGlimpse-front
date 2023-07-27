@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import {
   useDeleteUserByUsernameMutation,
   useGetUserByUsernameQuery,
+  useUpdatePasswordMutation,
 } from '../api/userApi';
 import {
   erroHandler,
@@ -21,6 +22,10 @@ export function useUser() {
   const dispatch: AppDispatch = useDispatch();
   const [deleteUserMutation, { isLoading: deleteUserLoading }] =
     useDeleteUserByUsernameMutation();
+  const [
+    updatePasswordMutation,
+    { isLoading: updatePasswordLoading, error: updatePasswordError },
+  ] = useUpdatePasswordMutation();
 
   const getUserByUsername = (username: string) => {
     try {
@@ -38,6 +43,35 @@ export function useUser() {
       }
     }
   };
+
+  const updatePasswordByUsername = useCallback(
+    async (username: string, oldPassword: string, newPassword: string) => {
+      try {
+        const res = await updatePasswordMutation({
+          username,
+          oldPassword,
+          newPassword,
+        }).unwrap();
+        console.log('res: ', res);
+        toast.success('Update Password success');
+        navigate('/blogs');
+      } catch (err) {
+        let errMsg = '';
+        if (isFetchBaseQueryError(err))
+          errMsg = err.data?.message ?? JSON.stringify(err.data);
+        else if (isErrorWithMessage(err)) errMsg = err.message;
+        if (errMsg) {
+          const nav = erroHandler(errMsg);
+          if (nav) {
+            dispatch(logout());
+            toast.info('Please login again');
+            navigate(nav);
+          }
+        }
+      }
+    },
+    [updatePasswordMutation]
+  );
 
   const deleteUserByUsername = useCallback(
     (username: string) => {
@@ -71,6 +105,9 @@ export function useUser() {
 
   return {
     getUserByUsername,
+    updatePasswordByUsername,
+    updatePasswordLoading,
+    updatePasswordError,
     deleteUserByUsername,
     deleteUserLoading,
   };

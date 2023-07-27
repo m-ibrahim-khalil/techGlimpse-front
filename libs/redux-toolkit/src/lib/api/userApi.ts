@@ -27,6 +27,19 @@ export const userApiSlice = createApi({
       },
     }),
 
+    updatePassword: builder.mutation<
+      string,
+      { username: string; oldPassword: string; newPassword: string }
+    >({
+      query: ({ username, oldPassword, newPassword }) => ({
+        url: `/users/${username}`,
+        method: 'PUT',
+        body: { oldPassword, newPassword },
+      }),
+      invalidatesTags: [{ type: 'Users', id: 'LIST' }],
+      transformResponse: (result: { message: string }) => result.message,
+    }),
+
     deleteUserByUsername: builder.mutation<string, { username: string }>({
       query: ({ username }) => ({
         url: `/users/${username}`,
@@ -38,5 +51,8 @@ export const userApiSlice = createApi({
   }),
 });
 
-export const { useGetUserByUsernameQuery, useDeleteUserByUsernameMutation } =
-  userApiSlice;
+export const {
+  useGetUserByUsernameQuery,
+  useUpdatePasswordMutation,
+  useDeleteUserByUsernameMutation,
+} = userApiSlice;

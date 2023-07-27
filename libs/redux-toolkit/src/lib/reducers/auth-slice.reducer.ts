@@ -47,6 +47,7 @@ export const authSlice = createSlice({
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = false;
+        state.authUser = getAuthUsername();
         state.success = true;
         toast.success('User registered successfully');
       })

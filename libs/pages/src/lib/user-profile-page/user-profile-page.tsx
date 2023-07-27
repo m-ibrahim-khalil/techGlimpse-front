@@ -29,7 +29,10 @@ export function UserProfilePage() {
             </div>
           </div>
           <div className="w-full md:w-9/12 mx-2 h-64">
-            <UserDetailsCard setShowBlogs={setShowBlogs} />
+            <UserDetailsCard
+              setShowBlogs={setShowBlogs}
+              username={username ?? ''}
+            />
             <div className="my-4"></div>
             {showBlogs && (
               <div className="bg-white p-3 shadow-sm rounded-sm">

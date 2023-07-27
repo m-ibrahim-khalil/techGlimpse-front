@@ -1,5 +1,6 @@
 import { IBlogFormInput } from '@tech-glimpse-front/types';
 import { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import {
@@ -13,6 +14,8 @@ import {
   isErrorWithMessage,
   isFetchBaseQueryError,
 } from '../helpers';
+import { logout } from '../reducers/auth-slice.reducer';
+import { AppDispatch } from '../store/store';
 import { useAppSelector } from './use-app-selector.hook';
 import useDialog from './use-dialog.hook';
 
@@ -20,6 +23,7 @@ export function useBlog() {
   const navigate = useNavigate();
   const { page, size } = useAppSelector((state) => state.pagination);
   const { openDialog, closeDialog } = useDialog();
+  const dispatch: AppDispatch = useDispatch();
 
   const {
     data: blogList = {
@@ -49,13 +53,20 @@ export function useBlog() {
       try {
         await createBlogMutation(blog).unwrap();
         toast.success('Create blog success');
-        navigate('/');
+        navigate('/blogs');
       } catch (err) {
         let errMsg = '';
         if (isFetchBaseQueryError(err))
           errMsg = err.data?.message ?? JSON.stringify(err.data);
         else if (isErrorWithMessage(err)) errMsg = err.message;
-        if (errMsg) erroHandler(errMsg);
+        if (errMsg) {
+          const nav = erroHandler(errMsg);
+          if (nav) {
+            dispatch(logout());
+            toast.info('Please login again');
+            navigate(nav);
+          }
+        }
       }
     },
     [createBlogMutation, navigate]
@@ -77,7 +88,11 @@ export function useBlog() {
           else if (isErrorWithMessage(err)) errMsg = err.message;
           if (errMsg) {
             const nav = erroHandler(errMsg);
-            if (nav) navigate(nav);
+            if (nav) {
+              dispatch(logout());
+              toast.info('Please login again');
+              navigate(nav);
+            }
           }
         }
         closeDialog();
@@ -97,7 +112,14 @@ export function useBlog() {
         if (isFetchBaseQueryError(err))
           errMsg = err.data?.message ?? JSON.stringify(err.data);
         else if (isErrorWithMessage(err)) errMsg = err.message;
-        if (errMsg) erroHandler(errMsg);
+        if (errMsg) {
+          const nav = erroHandler(errMsg);
+          if (nav) {
+            dispatch(logout());
+            toast.info('Please login again');
+            navigate(nav);
+          }
+        }
       }
     },
     [updateBlogMutation, navigate]

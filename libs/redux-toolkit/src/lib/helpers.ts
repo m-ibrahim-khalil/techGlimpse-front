@@ -28,7 +28,7 @@ export function isErrorWithMessage(
 export function erroHandler(errMsg: string) {
   if (errMsg.includes('jwt expired')) {
     toast.error('Your session has expired, please login again');
-    return 'login';
+    return '/signin';
   } else if (errMsg.includes('UnAuthorized')) {
     toast.error('You are not authorized to perform this action');
     return;

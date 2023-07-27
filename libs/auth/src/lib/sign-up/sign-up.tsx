@@ -17,7 +17,7 @@ export function SignUp() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (authUser) navigate('/users/' + authUser);
+    if (authUser) navigate(`/users/${authUser}`);
   }, [navigate, authUser]);
 
   const submitForm = (data: ISignUpFormInput) => {

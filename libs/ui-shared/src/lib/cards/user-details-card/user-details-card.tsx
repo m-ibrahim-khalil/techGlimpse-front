@@ -1,13 +1,24 @@
 import { Menu, Transition } from '@headlessui/react';
 import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
+import { useUser } from '@tech-glimpse-front/redux-toolkit';
 import { Fragment } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 export interface UserDetailsCardProps {
+  username: string;
   setShowBlogs: (value: boolean) => void;
 }
 
-export function UserDetailsCard({ setShowBlogs }: UserDetailsCardProps) {
+export function UserDetailsCard({
+  username,
+  setShowBlogs,
+}: UserDetailsCardProps) {
+  const { deleteUserByUsername } = useUser();
+
+  const onDeleteProfile = () => {
+    deleteUserByUsername(username);
+  };
+
   return (
     <div className="bg-white p-3 shadow-sm rounded-sm">
       <div className="flex items-center justify-between">
@@ -61,7 +72,7 @@ export function UserDetailsCard({ setShowBlogs }: UserDetailsCardProps) {
               <Menu.Item>
                 {({ active }) => (
                   <button
-                    onClick={() => console.log('delete profile clicked')}
+                    onClick={onDeleteProfile}
                     className={twMerge(
                       active ? 'bg-gray-100' : '',
                       'block px-4 py-2 text-sm text-gray-700'

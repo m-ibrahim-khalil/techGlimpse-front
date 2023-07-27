@@ -18,7 +18,7 @@ import useDialog from './use-dialog.hook';
 export function useUser() {
   const navigate = useNavigate();
   const { openDialog, closeDialog } = useDialog();
-
+  const dispatch: AppDispatch = useDispatch();
   const [deleteUserMutation, { isLoading: deleteUserLoading }] =
     useDeleteUserByUsernameMutation();
 
@@ -46,10 +46,9 @@ export function useUser() {
         try {
           const res = await deleteUserMutation({ username }).unwrap();
           console.log('res: ', res);
-          toast.success('Delete blog success');
-          const dispatch: AppDispatch = useDispatch();
+          toast.success('Delete User Profile success');
           dispatch(logout());
-          navigate('/blogs');
+          navigate('/');
         } catch (err) {
           let errMsg = '';
           if (isFetchBaseQueryError(err))
@@ -57,7 +56,11 @@ export function useUser() {
           else if (isErrorWithMessage(err)) errMsg = err.message;
           if (errMsg) {
             const nav = erroHandler(errMsg);
-            if (nav) navigate(nav);
+            if (nav) {
+              dispatch(logout());
+              toast.info('Please login again');
+              navigate(nav);
+            }
           }
         }
         closeDialog();

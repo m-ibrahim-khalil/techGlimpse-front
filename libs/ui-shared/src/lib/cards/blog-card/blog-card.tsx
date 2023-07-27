@@ -6,7 +6,7 @@ import TimeAgo from '../../common/time-ago/time-ago';
 
 export function BlogCard(props: Blog) {
   return (
-    <Link to={props.id}>
+    <Link to={`/blogs/${props.id}`}>
       <img
         src={props.imgUrl}
         loading="lazy"

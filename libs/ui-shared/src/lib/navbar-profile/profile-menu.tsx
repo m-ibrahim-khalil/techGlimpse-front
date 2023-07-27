@@ -1,6 +1,5 @@
 import { Menu, Transition } from '@headlessui/react';
 import { PlusIcon } from '@heroicons/react/24/outline';
-import { UpdateUserPasswordPage } from '@tech-glimpse-front/pages';
 import {
   AppDispatch,
   RootState,
@@ -12,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { twMerge } from 'tailwind-merge';
 import Button from '../common/button/button';
+import UpdateUserPasswordModal from '../update-user-password-modal/update-user-password-modal';
 
 export function ProfileMenu() {
   const [showModal, setShowModal] = useState(false);
@@ -27,7 +27,7 @@ export function ProfileMenu() {
   };
 
   const handleChangePassword = () => {
-    setShowModal(!showModal);
+    setShowModal(true);
   };
 
   const profileMenuItems = authUser
@@ -123,7 +123,7 @@ export function ProfileMenu() {
           </Transition>
         </Menu>
       </div>
-      {showModal && <UpdateUserPasswordPage setShowModal={setShowModal} />}
+      {showModal && <UpdateUserPasswordModal setShowModal={setShowModal} />}
     </>
   );
 }

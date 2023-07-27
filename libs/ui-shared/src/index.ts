@@ -1,4 +1,3 @@
-export * from './lib/form/update-user-password-form/update-user-password-form';
 export * from './lib/alert-description/alert-description';
 export * from './lib/cards/blog-card/blog-card';
 export * from './lib/cards/user-card/user-card';
@@ -17,5 +16,6 @@ export * from './lib/form-components/form-input-text/form-input-text';
 export * from './lib/form/blog-editor/blog-editor';
 export * from './lib/form/signin-form/signin-form';
 export * from './lib/form/signup-form/signup-form';
+export * from './lib/form/update-user-password-form/update-user-password-form';
 export * from './lib/icons/icons';
 export * from './lib/navbar-profile/navbar-profile';

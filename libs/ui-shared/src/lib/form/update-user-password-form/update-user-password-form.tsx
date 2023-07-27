@@ -1,9 +1,14 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
-import { IUpdatePasswordFormInput } from '@tech-glimpse-front/types';
+import {
+  IUpdatePasswordFormInput,
+  Size,
+  Variant,
+} from '@tech-glimpse-front/types';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import Button from '../../common/button/button';
 import Error from '../../common/error/error';
 import FormInputText from '../../form-components/form-input-text/form-input-text';
 
@@ -51,20 +56,33 @@ export function UpdateUserPasswordForm({
   const { handleSubmit, control } = methods;
 
   return (
-    <div className="flex bg-white min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-      <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t ">
-        <h3 className="text-3xl font=semibold">Update Your Password</h3>
-        <button
-          className="bg-transparent border-0 text-black float-right"
-          onClick={() => setShowModal(false)}
+    <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
+      <button
+        className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+        onClick={() => setShowModal(false)}
+      >
+        <svg
+          className="w-3 h-3"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 14 14"
         >
-          <span className="text-black opacity-7 h-6 w-6 text-xl block bg-gray-400 py-0 rounded-full">
-            x
-          </span>
-        </button>
-      </div>
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="form" onSubmit={handleSubmit(onSubmit)}>
+          <path
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+          />
+        </svg>
+        <span className="sr-only">Close modal</span>
+      </button>
+      <div className="px-6 py-6 lg:px-8-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <h3 className="mb-8 text-xl font-medium text-gray-900 dark:text-white">
+          Update Your Password
+        </h3>
+        <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
           {error && <Error>{error?.data?.message}</Error>}
           <FormInputText
             type="password"
@@ -90,21 +108,18 @@ export function UpdateUserPasswordForm({
             placeholder="Confirm Your New Password"
             required={true}
           />
-          <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
-            <button
-              className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1"
+          <div className="flex items-center justify-end p-6 gap-2">
+            <Button
+              size={Size.PRIMARY}
+              variant={Variant.SECONDARY}
               type="button"
               onClick={() => setShowModal(false)}
             >
               Close
-            </button>
-            <button
-              className="text-white bg-yellow-500 active:bg-yellow-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
-              type="submit"
-              onClick={() => setShowModal(false)}
-            >
+            </Button>
+            <Button size={Size.PRIMARY} variant={Variant.PRIMARY} type="submit">
               Update Password
-            </button>
+            </Button>
           </div>
         </form>
       </div>

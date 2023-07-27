@@ -1,16 +1,17 @@
 import { RootState, useUser } from '@tech-glimpse-front/redux-toolkit';
 import { IUpdatePasswordFormInput } from '@tech-glimpse-front/types';
-import { UpdateUserPasswordForm } from '@tech-glimpse-front/ui-shared';
 import { useSelector } from 'react-redux';
+import UpdateUserPasswordForm from '../form/update-user-password-form/update-user-password-form';
 
-export interface UpdateUserPasswordPageProps {
+export interface UpdateUserPasswordModalProps {
   setShowModal: (value: boolean) => void;
 }
 
-export function UpdateUserPasswordPage({
+export function UpdateUserPasswordModal({
   setShowModal,
-}: UpdateUserPasswordPageProps) {
+}: UpdateUserPasswordModalProps) {
   const { authUser } = useSelector((state: RootState) => state.auth);
+  console.log('rendering UpdateUserPasswordModal: ', authUser);
   const {
     updatePasswordByUsername,
     updatePasswordLoading,
@@ -26,8 +27,8 @@ export function UpdateUserPasswordPage({
     );
   };
   return (
-    <div className="flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-      <div className="relative w-auto my-6 mx-auto max-w-3xl">
+    <div className="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+      <div className="relative w-full max-w-md max-h-full">
         <UpdateUserPasswordForm
           setShowModal={setShowModal}
           onSubmit={submitForm}
@@ -39,4 +40,4 @@ export function UpdateUserPasswordPage({
   );
 }
 
-export default UpdateUserPasswordPage;
+export default UpdateUserPasswordModal;

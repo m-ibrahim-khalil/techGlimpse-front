@@ -54,7 +54,7 @@ export function useUser() {
         }).unwrap();
         console.log('res: ', res);
         toast.success('Update Password success');
-        navigate('/blogs');
+        return 'SUCCESS';
       } catch (err) {
         let errMsg = '';
         if (isFetchBaseQueryError(err))
@@ -68,6 +68,7 @@ export function useUser() {
             navigate(nav);
           }
         }
+        return errMsg;
       }
     },
     [updatePasswordMutation]

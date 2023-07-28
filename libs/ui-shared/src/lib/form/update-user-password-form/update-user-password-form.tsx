@@ -1,6 +1,4 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { SerializedError } from '@reduxjs/toolkit';
-import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
 import {
   IUpdatePasswordFormInput,
   Size,
@@ -21,7 +19,7 @@ const defaultValues: IUpdatePasswordFormInput = {
 interface UpdateUserPasswordFormProps {
   onSubmit: (data: IUpdatePasswordFormInput) => void;
   setShowModal: (value: boolean) => void;
-  error?: FetchBaseQueryError | SerializedError | undefined;
+  error?: string | null;
   loading?: boolean;
 }
 
@@ -51,7 +49,6 @@ export function UpdateUserPasswordForm({
   const methods = useForm<IUpdatePasswordFormInput>({
     defaultValues: defaultValues,
     resolver: yupResolver(validationSchema),
-    mode: 'onTouched',
   });
   const { handleSubmit, control } = methods;
 
@@ -83,7 +80,7 @@ export function UpdateUserPasswordForm({
           Update Your Password
         </h3>
         <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-          {error && <Error>{error?.data?.message}</Error>}
+          {error && <Error>{error}</Error>}
           <FormInputText
             type="password"
             name="oldPassword"

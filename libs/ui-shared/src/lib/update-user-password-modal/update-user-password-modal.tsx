@@ -1,5 +1,6 @@
 import { RootState, useUser } from '@tech-glimpse-front/redux-toolkit';
 import { IUpdatePasswordFormInput } from '@tech-glimpse-front/types';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import UpdateUserPasswordForm from '../form/update-user-password-form/update-user-password-form';
 
@@ -10,6 +11,7 @@ export interface UpdateUserPasswordModalProps {
 export function UpdateUserPasswordModal({
   setShowModal,
 }: UpdateUserPasswordModalProps) {
+  const [error, setError] = useState<string | null>(null);
   const { authUser } = useSelector((state: RootState) => state.auth);
   console.log('rendering UpdateUserPasswordModal: ', authUser);
   const {
@@ -18,22 +20,26 @@ export function UpdateUserPasswordModal({
     updatePasswordError,
   } = useUser();
 
-  const submitForm = (data: IUpdatePasswordFormInput) => {
-    console.log('Submitted: ');
-    updatePasswordByUsername(
+  const submitForm = async (data: IUpdatePasswordFormInput) => {
+    console.log('Submitted: ', data);
+    const res = await updatePasswordByUsername(
       authUser ?? '',
       data.oldPassword,
       data.newPassword
     );
+    console.log('res: ', res);
+    if (res === 'SUCCESS') {
+      setShowModal(false);
+    } else setError(res ?? updatePasswordError?.message ?? 'Unknown error');
   };
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-      <div className="relative w-full max-w-md max-h-full">
+    <div className="fixed z-50 w-full p-10 overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full bg-gray-600 bg-opacity-50">
+      <div className="relative top-20 mx-auto p-5 w-full max-w-md max-h-full">
         <UpdateUserPasswordForm
           setShowModal={setShowModal}
           onSubmit={submitForm}
           loading={updatePasswordLoading}
-          error={updatePasswordError}
+          error={error}
         />
       </div>
     </div>

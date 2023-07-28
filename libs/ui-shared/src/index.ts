@@ -1,3 +1,4 @@
+export * from './lib/common/pagination-buttons/pagination-buttons';
 export * from './lib/alert-description/alert-description';
 export * from './lib/cards/blog-card/blog-card';
 export * from './lib/cards/user-card/user-card';

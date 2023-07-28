@@ -6,8 +6,8 @@ export interface PaginationState {
 }
 
 const initialState: PaginationState = {
-  page: 0,
-  size: 10,
+  page: 1,
+  size: 2,
 };
 
 const paginationSlice = createSlice({
@@ -16,6 +16,7 @@ const paginationSlice = createSlice({
   reducers: {
     setPage: (state, action: PayloadAction<number>) => {
       state.page = action.payload;
+      console.log('setPage', action.payload, state.page);
     },
     setSize: (state, action: PayloadAction<number>) => {
       state.size = action.payload;

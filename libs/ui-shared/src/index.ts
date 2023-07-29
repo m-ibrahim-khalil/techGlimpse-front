@@ -1,4 +1,3 @@
-export * from './lib/common/pagination-buttons/pagination-buttons';
 export * from './lib/alert-description/alert-description';
 export * from './lib/cards/blog-card/blog-card';
 export * from './lib/cards/user-card/user-card';
@@ -7,7 +6,9 @@ export * from './lib/common/alert/alert';
 export * from './lib/common/button/button';
 export * from './lib/common/delete-dialog/delete-dialog';
 export * from './lib/common/error/error';
+export * from './lib/common/footer/footer';
 export * from './lib/common/page-loader/page-loader';
+export * from './lib/common/pagination-buttons/pagination-buttons';
 export * from './lib/common/rich-text-editor/rich-text-editor';
 export * from './lib/common/spinner/spinner';
 export * from './lib/common/text-field/text-field';

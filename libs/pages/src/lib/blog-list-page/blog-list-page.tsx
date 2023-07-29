@@ -18,8 +18,8 @@ export function BlogListPage() {
   if (isLoading) return <PageLoader />;
 
   return (
-    <>
-      <section className="py-20">
+    <div className="mb-10 py-5">
+      <section className="py-10">
         <div className="max-w-screen-xl mx-auto px-4 md:px-8">
           <div className="space-y-5 sm:text-center sm:max-w-md sm:mx-auto">
             {isLoading && <PageLoader />}
@@ -46,7 +46,7 @@ export function BlogListPage() {
         totalItems={totalItems}
         size={size}
       />
-    </>
+    </div>
   );
 }
 

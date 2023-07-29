@@ -1,9 +1,15 @@
 import { SignIn, SignUp } from '@tech-glimpse-front/auth';
-import { ContactPage, HomePage, NotFoundPage } from '@tech-glimpse-front/pages';
+import {
+  About,
+  ContactPage,
+  HomePage,
+  NotFoundPage,
+} from '@tech-glimpse-front/pages';
 import { store } from '@tech-glimpse-front/redux-toolkit';
 import {
   AlertDescription,
   DeleteDialog,
+  Footer,
   NavbarProfile,
 } from '@tech-glimpse-front/ui-shared';
 import { Provider } from 'react-redux';
@@ -28,8 +34,10 @@ function App() {
           <Route path="/contact-page" element={<ContactPage />} />
           <Route path="/blogs/*" element={<BlogRoutes />} />
           <Route path="/users/*" element={<UserRoutes />} />
+          <Route path="/about" element={<About />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
+        <Footer />
       </Router>
     </Provider>
   );

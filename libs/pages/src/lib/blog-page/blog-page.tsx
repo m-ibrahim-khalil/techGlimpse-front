@@ -50,7 +50,7 @@ export function BlogPage() {
   }
 
   return (
-    <main className="max-w-screen-lg mx-auto mt-10">
+    <main className="max-w-screen-lg mx-auto my-10">
       <div className="mb-4 md:mb-0 w-full mx-auto relative">
         <div className="px-4 lg:px-0">
           <h2 className="text-4xl font-semibold text-gray-800 leading-tight">
@@ -102,7 +102,7 @@ export function BlogPage() {
             </div>
           )}
         </div>
-        <div className="w-full lg:w-1/4 m-auto mt-12 max-w-screen-sm">
+        <div className="w-full lg:w-1/4 m-auto m-12 max-w-screen-sm">
           <UserCard user={user} />
         </div>
       </div>

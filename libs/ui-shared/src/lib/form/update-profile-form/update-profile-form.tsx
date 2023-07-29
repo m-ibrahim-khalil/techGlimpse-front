@@ -1,11 +1,15 @@
 import { UserCircleIcon } from '@heroicons/react/24/outline';
-import { Size, Variant } from '@tech-glimpse-front/types';
+import { Size, User, Variant } from '@tech-glimpse-front/types';
 import Button from '../../common/button/button';
 export interface UpdateProfileFormProps {
   setShowModal: (value: boolean) => void;
+  user: User;
 }
 
-export function UpdateProfileForm({ setShowModal }: UpdateProfileFormProps) {
+export function UpdateProfileForm({
+  setShowModal,
+  user,
+}: UpdateProfileFormProps) {
   return (
     <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
       <button
@@ -80,7 +84,8 @@ export function UpdateProfileForm({ setShowModal }: UpdateProfileFormProps) {
                         id="username"
                         autoComplete="username"
                         className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                        placeholder="janesmith"
+                        placeholder={user.username}
+                        defaultValue={user.username}
                       />
                     </div>
                   </div>
@@ -99,7 +104,7 @@ export function UpdateProfileForm({ setShowModal }: UpdateProfileFormProps) {
                       name="about"
                       rows={3}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      defaultValue={''}
+                      defaultValue={user.bio}
                     />
                   </div>
                   <p className="mt-3 text-sm leading-6 text-gray-600">
@@ -129,6 +134,7 @@ export function UpdateProfileForm({ setShowModal }: UpdateProfileFormProps) {
                       id="first-name"
                       autoComplete="given-name"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      defaultValue={user.firstName}
                     />
                   </div>
                 </div>
@@ -147,6 +153,7 @@ export function UpdateProfileForm({ setShowModal }: UpdateProfileFormProps) {
                       id="last-name"
                       autoComplete="family-name"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      defaultValue={user.lastName}
                     />
                   </div>
                 </div>
@@ -165,6 +172,7 @@ export function UpdateProfileForm({ setShowModal }: UpdateProfileFormProps) {
                       type="email"
                       autoComplete="email"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      defaultValue={user.email}
                     />
                   </div>
                 </div>
@@ -182,6 +190,7 @@ export function UpdateProfileForm({ setShowModal }: UpdateProfileFormProps) {
                       name="country"
                       autoComplete="country-name"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                      defaultValue={user.gender}
                     >
                       <option>Male</option>
                       <option>Female</option>

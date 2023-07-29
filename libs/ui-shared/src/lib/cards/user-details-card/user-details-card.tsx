@@ -1,22 +1,29 @@
 import { Menu, Transition } from '@headlessui/react';
 import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
-import { useUser } from '@tech-glimpse-front/redux-toolkit';
-import { Fragment } from 'react';
+import { RootState, useUser } from '@tech-glimpse-front/redux-toolkit';
+import { User } from '@tech-glimpse-front/types';
+import { Fragment, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { twMerge } from 'tailwind-merge';
+import UpdateProfileModal from '../../update-profile-modal/update-profile-modal';
 
 export interface UserDetailsCardProps {
-  username: string;
+  showBlogs: boolean;
   setShowBlogs: (value: boolean) => void;
+  user: User;
 }
 
 export function UserDetailsCard({
-  username,
+  user,
+  showBlogs,
   setShowBlogs,
 }: UserDetailsCardProps) {
+  const [showUpdateProfileForm, setShowUpdateProfileForm] = useState(false);
   const { deleteUserByUsername } = useUser();
+  const { authUser } = useSelector((state: RootState) => state.auth);
 
   const onDeleteProfile = () => {
-    deleteUserByUsername(username);
+    deleteUserByUsername(user.username);
   };
 
   return (
@@ -41,96 +48,94 @@ export function UserDetailsCard({
           </span>
           <span className="tracking-wide">About</span>
         </div>
-        <Menu as="div" className="relative ml-5">
-          <Menu.Button>
-            <EllipsisVerticalIcon className="h-5" />
-          </Menu.Button>
+        {authUser === user.username && (
+          <Menu as="div" className="relative ml-5">
+            <Menu.Button>
+              <EllipsisVerticalIcon className="h-5" />
+            </Menu.Button>
 
-          <Transition
-            as={Fragment}
-            enter="transition ease-out duration-100"
-            enterFrom="transform opacity-0 scale-95"
-            enterTo="transform opacity-100 scale-100"
-            leave="transition ease-in duration-75"
-            leaveFrom="transform opacity-100 scale-100"
-            leaveTo="transform opacity-0 scale-95"
-          >
-            <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-              <Menu.Item>
-                {({ active }) => (
-                  <button
-                    onClick={() => console.log('edit profile clicked')}
-                    className={twMerge(
-                      active ? 'bg-gray-100' : '',
-                      'block px-4 py-2 text-sm text-gray-700'
-                    )}
-                  >
-                    Edit Profile
-                  </button>
-                )}
-              </Menu.Item>
-              <Menu.Item>
-                {({ active }) => (
-                  <button
-                    onClick={onDeleteProfile}
-                    className={twMerge(
-                      active ? 'bg-gray-100' : '',
-                      'block px-4 py-2 text-sm text-gray-700'
-                    )}
-                  >
-                    Delete Profile
-                  </button>
-                )}
-              </Menu.Item>
-            </Menu.Items>
-          </Transition>
-        </Menu>
+            <Transition
+              as={Fragment}
+              enter="transition ease-out duration-100"
+              enterFrom="transform opacity-0 scale-95"
+              enterTo="transform opacity-100 scale-100"
+              leave="transition ease-in duration-75"
+              leaveFrom="transform opacity-100 scale-100"
+              leaveTo="transform opacity-0 scale-95"
+            >
+              <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <Menu.Item>
+                  {({ active }) => (
+                    <button
+                      onClick={() => setShowUpdateProfileForm(true)}
+                      className={twMerge(
+                        active ? 'bg-gray-100' : '',
+                        'block px-4 py-2 text-sm text-gray-700'
+                      )}
+                    >
+                      Edit Profile
+                    </button>
+                  )}
+                </Menu.Item>
+                <Menu.Item>
+                  {({ active }) => (
+                    <button
+                      onClick={onDeleteProfile}
+                      className={twMerge(
+                        active ? 'bg-gray-100' : '',
+                        'block px-4 py-2 text-sm text-gray-700'
+                      )}
+                    >
+                      Delete Profile
+                    </button>
+                  )}
+                </Menu.Item>
+              </Menu.Items>
+            </Transition>
+          </Menu>
+        )}
       </div>
+      {showUpdateProfileForm && (
+        <UpdateProfileModal setShowModal={setShowUpdateProfileForm} />
+      )}
       <div className="text-gray-700">
         <div className="grid md:grid-cols-2 text-sm">
           <div className="grid grid-cols-2">
             <div className="px-4 py-2 font-semibold">First Name</div>
-            <div className="px-4 py-2">Jane</div>
+            <div className="px-4 py-2">{user.firstName}</div>
           </div>
           <div className="grid grid-cols-2">
             <div className="px-4 py-2 font-semibold">Last Name</div>
-            <div className="px-4 py-2">Doe</div>
+            <div className="px-4 py-2">{user.lastName}</div>
           </div>
           <div className="grid grid-cols-2">
             <div className="px-4 py-2 font-semibold">Gender</div>
-            <div className="px-4 py-2">Female</div>
+            <div className="px-4 py-2">{user.gender}</div>
           </div>
           <div className="grid grid-cols-2">
-            <div className="px-4 py-2 font-semibold">Contact No.</div>
-            <div className="px-4 py-2">+11 998001001</div>
+            <div className="px-4 py-2 font-semibold">Age</div>
+            <div className="px-4 py-2">{user.age}</div>
           </div>
-          <div className="grid grid-cols-2">
-            <div className="px-4 py-2 font-semibold">Current Address</div>
-            <div className="px-4 py-2">Beech Creek, PA, Pennsylvania</div>
-          </div>
-          <div className="grid grid-cols-2">
-            <div className="px-4 py-2 font-semibold">Permanant Address</div>
-            <div className="px-4 py-2">Arlington Heights, IL, Illinois</div>
-          </div>
+
           <div className="grid grid-cols-2">
             <div className="px-4 py-2 font-semibold">Email.</div>
             <div className="px-4 py-2">
               <a className="text-blue-800" href="mailto:jane@example.com">
-                jane@example.com
+                {user.email}
               </a>
             </div>
           </div>
           <div className="grid grid-cols-2">
-            <div className="px-4 py-2 font-semibold">Birthday</div>
-            <div className="px-4 py-2">Feb 06, 1998</div>
+            <div className="px-4 py-2 font-semibold">Username</div>
+            <div className="px-4 py-2">{user.username}</div>
           </div>
         </div>
       </div>
       <button
-        onClick={() => setShowBlogs(true)}
+        onClick={() => setShowBlogs(!showBlogs)}
         className="block w-full text-blue-800 text-sm font-semibold rounded-lg hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4"
       >
-        Show All Blogs
+        {showBlogs ? 'Hide' : 'Show'} Blogs
       </button>
     </div>
   );

@@ -1,9 +1,16 @@
-import { useBlog, useGetBlogQuery } from '@tech-glimpse-front/redux-toolkit';
+import {
+  RootState,
+  useAppSelector,
+  useBlog,
+  useGetBlogQuery,
+  useUser,
+} from '@tech-glimpse-front/redux-toolkit';
 import { Size, Variant } from '@tech-glimpse-front/types';
 import {
   Button,
   DeleteIcon,
   EditIcon,
+  PageLoader,
   UserCard,
 } from '@tech-glimpse-front/ui-shared';
 import { useCallback } from 'react';
@@ -12,19 +19,20 @@ import 'react-quill/dist/quill.bubble.css';
 import { Link, useParams } from 'react-router-dom';
 
 export function BlogPage() {
-  const params = useParams();
-  // const [alert, setAlert] = useState(false);
+  const { blogId } = useParams();
   const { deleteBlog } = useBlog();
-  const blogId = params.blogId ?? '';
-
+  const { getUserByUsername } = useUser();
+  const { authUser } = useAppSelector((state: RootState) => state.auth);
   const { isLoading, data: blog } = useGetBlogQuery({
-    id: blogId,
+    id: blogId ?? '',
   });
+
+  const user = getUserByUsername(blog?.author ?? '');
 
   const onDeleteBlog = useCallback(
     (e: any) => {
       e.stopPropagation();
-      deleteBlog(blogId);
+      deleteBlog(blogId ?? '');
     },
     [deleteBlog, blogId]
   );
@@ -38,7 +46,7 @@ export function BlogPage() {
   }
 
   if (isLoading) {
-    return <div>Full screen Loader Component Loading...</div>;
+    return <PageLoader />;
   }
 
   return (
@@ -76,24 +84,26 @@ export function BlogPage() {
             readOnly={true}
             theme={'bubble'}
           />
-          <div className="flex items-center justify-center gap-x-8 m-6 ">
-            <Link
-              to="edit"
-              className="inline-flex text-center items-center bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-md text-sm px-3 py-2 focus:outline"
-            >
-              <EditIcon /> Edit
-            </Link>
-            <Button
-              variant={Variant.WARNING}
-              size={Size.PRIMARY}
-              onClick={(e) => onDeleteBlog(e)}
-            >
-              <DeleteIcon /> Delete
-            </Button>
-          </div>
+          {authUser === blog.author && (
+            <div className="flex items-center justify-center gap-x-8 m-6 ">
+              <Link
+                to="edit"
+                className="inline-flex text-center items-center bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-md text-sm px-3 py-2 focus:outline"
+              >
+                <EditIcon /> Edit
+              </Link>
+              <Button
+                variant={Variant.WARNING}
+                size={Size.PRIMARY}
+                onClick={(e) => onDeleteBlog(e)}
+              >
+                <DeleteIcon /> Delete
+              </Button>
+            </div>
+          )}
         </div>
         <div className="w-full lg:w-1/4 m-auto mt-12 max-w-screen-sm">
-          <UserCard userName={blog?.author} />
+          <UserCard user={user} />
         </div>
       </div>
     </main>

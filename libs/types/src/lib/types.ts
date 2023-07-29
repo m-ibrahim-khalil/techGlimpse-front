@@ -41,7 +41,11 @@ export interface User {
   password: string;
   imgUrl?: string;
   fullName?: string;
+  firstName?: string;
+  lastName?: string;
+  gender?: 'Male' | 'Female' | 'Other';
   bio?: string;
+  age?: number;
   createdAt: string;
   updatedAt: string;
 }

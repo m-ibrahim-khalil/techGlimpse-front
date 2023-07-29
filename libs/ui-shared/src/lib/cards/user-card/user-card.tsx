@@ -1,30 +1,31 @@
+import { User } from '@tech-glimpse-front/types';
+import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
 
-/* eslint-disable-next-line */
 export interface UserCardProps {
-  userName?: string;
   showFollowButton?: boolean;
+  user: User | void;
 }
 
-export function UserCard({
-  userName = 'Unknown',
-  showFollowButton = true,
-}: UserCardProps) {
+export function UserCard({ showFollowButton = true, user }: UserCardProps) {
+  if (!user) return null;
   return (
     <div className="p-4 border-t border-b md:border md:rounded">
       <div className="flex py-2">
         <img
           src="https://randomuser.me/api/portraits/men/97.jpg"
           className="h-10 w-10 rounded-full mr-2 object-cover"
+          alt="Avatar of Jonathan Reinink"
         />
         <div>
-          <p className="font-semibold text-gray-700 text-sm">{userName}</p>
-          <p className="font-semibold text-gray-600 text-xs"> Editor </p>
+          <p className="font-semibold text-gray-700 text-sm">
+            {user?.username}
+          </p>
+          <p className="font-semibold text-gray-600 text-xs"> Author </p>
         </div>
       </div>
       <p className="text-gray-700 py-3">
-        Mike writes about technology Yourself required no at thoughts delicate
-        landlord it be. Branched dashwood do is whatever it.
+        {user?.bio ?? 'This user has no bio'}
       </p>
       <ul className="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm">
         <li className="flex items-center py-3">
@@ -37,12 +38,14 @@ export function UserCard({
         </li>
         <li className="flex items-center py-3">
           <span>Member since</span>
-          <span className="ml-auto">Nov 07, 2016</span>
+          <span className="ml-auto">
+            {format(new Date(user?.createdAt), 'dd MMM yyyy')}
+          </span>
         </li>
       </ul>
       {showFollowButton && (
         <Link
-          to={`/users/${userName}`}
+          to={`/users/${user?.username}`}
           className="px-2 py-1 text-gray-100 bg-green-700 flex w-full items-center justify-center rounded"
         >
           Visit Profile

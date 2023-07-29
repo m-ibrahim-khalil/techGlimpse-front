@@ -10,12 +10,14 @@ export function UserProfilePage() {
   const { getUserByUsername } = useUser();
   const user = getUserByUsername(username ?? '');
 
-  // const { data: user } = useGetUserByUsernameQuery({
-  //   username: username ?? '',
-  // });
-
-  if (!user) return null;
-  console.log('user profile: user', user);
+  if (!user)
+    return (
+      <div className="bg-gray-100">
+        <div className="container mx-auto my-5 p-5">
+          <h2 className=" w-60 h-60 ">User Not Exist</h2>
+        </div>
+      </div>
+    );
 
   return (
     <div className="bg-gray-100">
@@ -24,14 +26,15 @@ export function UserProfilePage() {
           <div className="w-full md:w-3/12 md:mx-2">
             <div className="bg-white p-3 border-t-4 border-green-400">
               <div className="w-full m-auto mt-12 max-w-screen-sm">
-                <UserCard userName={username} showFollowButton={false} />
+                <UserCard showFollowButton={false} user={user} />
               </div>
             </div>
           </div>
           <div className="w-full md:w-9/12 mx-2 h-64">
             <UserDetailsCard
+              showBlogs={showBlogs}
               setShowBlogs={setShowBlogs}
-              username={username ?? ''}
+              user={user}
             />
             <div className="my-4"></div>
             {showBlogs && (

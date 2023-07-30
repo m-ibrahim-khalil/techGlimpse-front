@@ -6,9 +6,11 @@ import {
   logout,
 } from '@tech-glimpse-front/redux-toolkit';
 import { Size, Variant } from '@tech-glimpse-front/types';
-import { Fragment, useState } from 'react';
+import { isCookieValid } from '@tech-glimpse-front/util';
+import { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { twMerge } from 'tailwind-merge';
 import Button from '../common/button/button';
 import UpdateUserPasswordModal from '../update-user-password-modal/update-user-password-modal';
@@ -22,12 +24,21 @@ export function ProfileMenu() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
+    console.log('Logout');
     dispatch(logout());
     navigate('/blogs');
   };
 
   const handleChangePassword = () => {
     setShowModal(true);
+  };
+
+  const checkCookieValidity = () => {
+    console.log('Checking cookie validity', isCookieValid());
+    if (!isCookieValid() && authUser) {
+      toast.error('Session expired. Please login again.');
+      handleLogout();
+    }
   };
 
   const profileMenuItems = authUser
@@ -37,6 +48,15 @@ export function ProfileMenu() {
         { name: 'Sign In', href: '/signin' },
         { name: 'Sign Up', href: '/signup' },
       ];
+
+  useEffect(() => {
+    console.log('Setting interval render refresh');
+    const intervalId = setInterval(checkCookieValidity, 60000); // Check every 1 minute
+    if (!authUser) clearInterval(intervalId);
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [authUser]);
 
   return (
     <>

@@ -29,11 +29,13 @@
       "configurations": {
         "development": {
           "buildTarget": "tech-glimpse-front:build:development",
-          "hmr": true
+          "hmr": true,
+          "proxyConfig": "tech-glimpse-front/proxy.conf.json"
         },
         "production": {
           "buildTarget": "tech-glimpse-front:build:production",
-          "hmr": false
+          "hmr": false,
+          "proxyConfig": "tech-glimpse-front/proxy.conf.json"
         }
       }
     },

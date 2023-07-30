@@ -1,61 +1,36 @@
-import { FormAction, FormHeader, InputField } from '@tech-glimpse-front/ui';
-import { ChangeEvent, FormEvent, useState } from 'react';
-import { signupFields } from '../form-constants';
-
-interface SignupState {
-  [key: string]: string;
-}
-
-const fieldsState: SignupState = {};
-signupFields.forEach((field) => (fieldsState[field.id] = ''));
+import {
+  AppDispatch,
+  RootState,
+  registerUser,
+} from '@tech-glimpse-front/redux-toolkit';
+import { ISignUpFormInput } from '@tech-glimpse-front/types';
+import { SignUpForm } from '@tech-glimpse-front/ui-shared';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 export function SignUp() {
-  const [signupState, setSignupState] = useState<SignupState>(fieldsState);
+  const { loading, authUser, registerError, success } = useSelector(
+    (state: RootState) => state.auth
+  );
+  const dispatch: AppDispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSignupState({ ...signupState, [e.target.id]: e.target.value });
+  useEffect(() => {
+    if (authUser) navigate(`/users/${authUser}`);
+  }, [navigate, authUser]);
+
+  const submitForm = (data: ISignUpFormInput) => {
+    console.log('Submitted: ', data);
+    if (data.password !== data.confirmPassword) {
+      alert('Password mismatch');
+    }
+    data.email = data.email.toLowerCase();
+    console.log('data', data);
+    dispatch(registerUser(data));
   };
-
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    console.log(signupState);
-    createAccount();
-  };
-
-  //Handle Login API Integration here
-  const createAccount = () => {
-    console.log(signupState);
-  };
-
   return (
-    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-      <FormHeader
-        heading="Signup to create an account"
-        paragraph="Already have an account? "
-        linkName="Sign In"
-        linkUrl="/signin"
-      />
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-6" onSubmit={handleSubmit}>
-          {signupFields.map((field) => (
-            <InputField
-              key={field.id}
-              handleChange={handleChange}
-              value={signupState[field.id]}
-              labelText={field.labelText}
-              labelFor={field.labelFor}
-              id={field.id}
-              name={field.name}
-              type={field.type}
-              isRequired={field.isRequired}
-              placeholder={field.placeholder}
-            />
-          ))}
-
-          <FormAction handleSubmit={handleSubmit} text="Signup" />
-        </form>
-      </div>
-    </div>
+    <SignUpForm onSubmit={submitForm} error={registerError} loading={loading} />
   );
 }
 

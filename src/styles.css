@@ -2,3 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 /* You can add global styles to this file, and also import other style files */
+@layer components {
+  .main {
+    @apply mx-auto mt-10;
+  }
+
+  .nav-link {
+    @apply text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium;
+  }
+
+  .form {
+    @apply space-y-6;
+  }
+
+  .form button.submit {
+    @apply w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 mt-10;
+  }
+
+  .form input.input-base {
+    @apply block w-full rounded-md  py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6;
+  }
+
+  .form input.error {
+    @apply border-red-500;
+  }
+
+  .form p.error-message {
+    @apply mt-2 mb-0 text-red-500;
+  }
+}

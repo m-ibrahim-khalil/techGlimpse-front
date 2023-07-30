@@ -7,7 +7,7 @@ export interface PaginationState {
 
 const initialState: PaginationState = {
   page: 1,
-  size: 5,
+  size: 6,
 };
 
 const paginationSlice = createSlice({

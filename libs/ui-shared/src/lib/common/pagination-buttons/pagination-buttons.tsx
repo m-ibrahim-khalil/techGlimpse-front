@@ -1,6 +1,7 @@
 import { usePagination } from '@tech-glimpse-front/redux-toolkit';
 import { motion } from 'framer-motion';
 import ReactPaginate from 'react-paginate';
+import Dropdown from '../dropdown/dropdown';
 
 export interface PaginationButtonsProps {
   currentPage: number;
@@ -15,7 +16,7 @@ export function PaginationButtons({
   totalItems,
   size,
 }: PaginationButtonsProps) {
-  const { handleChangePage } = usePagination();
+  const { handleChangePage, handleChangeSize } = usePagination();
   const paginationVariants = {
     hidden: {
       opacity: 0,
@@ -110,6 +111,10 @@ export function PaginationButtons({
           activeClassName="relative z-10 inline-flex items-center bg-indigo-600 px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         />
       </motion.div>
+      <Dropdown
+        options={[6, 9, 12, 15, 18, 21]}
+        onChange={(e) => handleChangeSize(+e.target.value)}
+      />
     </div>
   );
 }

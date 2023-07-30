@@ -11,6 +11,7 @@ import {
   DeleteIcon,
   EditIcon,
   PageLoader,
+  TimeAgo,
   UserCard,
 } from '@tech-glimpse-front/ui-shared';
 import { useCallback } from 'react';
@@ -56,17 +57,16 @@ export function BlogPage() {
           <h2 className="text-4xl font-semibold text-gray-800 leading-tight">
             {blog.title}
           </h2>
-          <div className="flex flex-wrap py-6 space-x-2 border-t border-dashed dark:border-gray-400">
-            {blog.tags?.map((tag, id) => (
-              <Link
-                key={id}
-                rel="noopener noreferrer"
-                to="#"
-                className="px-3 py-1 rounded-sm hover:underline dark:bg-violet-400 dark:text-gray-900"
-              >
-                #{tag}
-              </Link>
-            ))}
+          <div className="my-3 flex flex-col items-start justify-between w-full md:flex-row md:items-center dark:text-gray-400">
+            <div className="flex items-center md:space-x-2">
+              <p className="inline-flex text-sm">
+                Posted By {blog.author} •{' '}
+                {blog.updatedAt && <TimeAgo timestamp={blog.updatedAt} />}
+              </p>
+            </div>
+            <p className="flex-shrink-0 mt-3 text-sm md:mt-0">
+              4 min read • 1,570 views
+            </p>
           </div>
         </div>
         <img
@@ -84,6 +84,27 @@ export function BlogPage() {
             readOnly={true}
             theme={'bubble'}
           />
+          <div className="py-6 space-x-2 border-t border-dashed dark:border-gray-400">
+            {blog.tags
+              ? blog.tags?.map((tag, id) => (
+                  <Link
+                    key={id}
+                    to="#"
+                    className="px-3 py-1 rounded-sm hover:underline bg-violet-400  text-gray-900"
+                  >
+                    #{tag}
+                  </Link>
+                ))
+              : ['Tag 1', 'Tag 2', 'Tag 3'].map((tag, id) => (
+                  <Link
+                    key={id}
+                    to="#"
+                    className="px-3 py-1 rounded-sm hover:underline bg-violet-400 text-gray-900"
+                  >
+                    #{tag}
+                  </Link>
+                ))}
+          </div>
           {authUser === blog.author && (
             <div className="flex items-center justify-center gap-x-8 m-6 ">
               <Link

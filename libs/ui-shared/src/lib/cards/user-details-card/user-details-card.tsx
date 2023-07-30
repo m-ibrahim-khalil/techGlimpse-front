@@ -96,38 +96,41 @@ export function UserDetailsCard({
         )}
       </div>
       {showUpdateProfileForm && (
-        <UpdateProfileModal setShowModal={setShowUpdateProfileForm} />
+        <UpdateProfileModal
+          setShowModal={setShowUpdateProfileForm}
+          user={user}
+        />
       )}
       <div className="text-gray-700">
-        <div className="grid md:grid-cols-2 text-sm">
+        <div className="grid lg:grid-cols-2 text-sm">
           <div className="grid grid-cols-2">
             <div className="px-4 py-2 font-semibold">First Name</div>
-            <div className="px-4 py-2">{user.firstName}</div>
+            <div className="py-2">{user.firstName ?? 'Ibrahim'}</div>
           </div>
           <div className="grid grid-cols-2">
             <div className="px-4 py-2 font-semibold">Last Name</div>
-            <div className="px-4 py-2">{user.lastName}</div>
+            <div className="py-2">{user.lastName ?? 'Khalil'}</div>
           </div>
           <div className="grid grid-cols-2">
             <div className="px-4 py-2 font-semibold">Gender</div>
-            <div className="px-4 py-2">{user.gender}</div>
+            <div className="py-2">{user.gender ?? 'Male'}</div>
           </div>
           <div className="grid grid-cols-2">
             <div className="px-4 py-2 font-semibold">Age</div>
-            <div className="px-4 py-2">{user.age}</div>
+            <div className="py-2">{user.age ?? '25'}</div>
           </div>
 
           <div className="grid grid-cols-2">
             <div className="px-4 py-2 font-semibold">Email.</div>
-            <div className="px-4 py-2">
+            <div className="py-2">
               <a className="text-blue-800" href="mailto:jane@example.com">
-                {user.email}
+                {user.email ?? 'ibrahimkhalil@gmail.com'}
               </a>
             </div>
           </div>
           <div className="grid grid-cols-2">
             <div className="px-4 py-2 font-semibold">Username</div>
-            <div className="px-4 py-2">{user.username}</div>
+            <div className="py-2">{user.username}</div>
           </div>
         </div>
       </div>

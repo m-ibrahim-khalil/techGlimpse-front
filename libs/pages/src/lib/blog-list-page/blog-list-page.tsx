@@ -12,7 +12,14 @@ export function BlogListPage() {
   const { payload: blogs, totalItems, totalPages } = blogList;
 
   useEffect(() => {
-    console.log('blog list page: blogs render', blogs);
+    console.log(
+      'blog list page: blogs render',
+      blogs,
+      page,
+      size,
+      totalItems,
+      totalPages
+    );
   }, [page, size, blogs]);
 
   if (isLoading) return <PageLoader />;

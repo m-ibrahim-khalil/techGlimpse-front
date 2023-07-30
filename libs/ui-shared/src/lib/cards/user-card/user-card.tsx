@@ -39,7 +39,7 @@ export function UserCard({ showFollowButton = true, user }: UserCardProps) {
         <li className="flex items-center py-3">
           <span>Member since</span>
           <span className="ml-auto">
-            {format(new Date(user?.createdAt), 'dd MMM yyyy')}
+            {user.createdAt && format(new Date(user.createdAt), 'dd MMM yyyy')}
           </span>
         </li>
       </ul>

@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { setPage } from '../reducers/pagination-slice.reducer';
+import { setPage, setSize } from '../reducers/pagination-slice.reducer';
 import { useAppDispatch } from './use-app-dispatch.hook';
 
 export function usePagination() {
@@ -13,7 +13,12 @@ export function usePagination() {
     [dispatch]
   );
 
-  return { handleChangePage };
+  const handleChangeSize = useCallback((size: number) => {
+    console.log('dispach to change size', size);
+    dispatch(setSize(size));
+  }, []);
+
+  return { handleChangePage, handleChangeSize };
 }
 
 export default usePagination;

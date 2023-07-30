@@ -1,4 +1,3 @@
-import { UserCircleIcon } from '@heroicons/react/24/outline';
 import { Size, User, Variant } from '@tech-glimpse-front/types';
 import Button from '../../common/button/button';
 export interface UpdateProfileFormProps {
@@ -33,10 +32,10 @@ export function UpdateProfileForm({
         </svg>
         <span className="sr-only">Close modal</span>
       </button>
-      <div className="px-6 py-6 lg:px-8-10 sm:mx-auto sm:w-full sm:max-w-sm">
+      <div className="px-1 py-2 lg:px-4-5 sm:mx-auto sm:w-full sm:max-w-sm">
         <form>
-          <div className="space-y-6">
-            <div className="border-b border-gray-900/10 pb-6">
+          <div className="space-y-6 mt-3">
+            <div className="border-b border-gray-900/10 pb-5">
               <h2 className="text-base font-semibold leading-7 text-gray-900">
                 Update Your Public Profile
               </h2>
@@ -46,26 +45,6 @@ export function UpdateProfileForm({
               </p>
 
               <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-4">
-                <div className="col-span-full">
-                  <label
-                    htmlFor="photo"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Photo
-                  </label>
-                  <div className="mt-2 flex items-center gap-x-3">
-                    <UserCircleIcon
-                      className="h-12 w-12 text-gray-300"
-                      aria-hidden="true"
-                    />
-                    <button
-                      type="button"
-                      className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                    >
-                      Change
-                    </button>
-                  </div>
-                </div>
                 <div className="sm:col-span-4">
                   <label
                     htmlFor="username"
@@ -114,7 +93,7 @@ export function UpdateProfileForm({
               </div>
             </div>
 
-            <div className="border-b border-gray-900/10 pb-8">
+            <div className="border-b border-gray-900/10 pb-5">
               <h2 className="text-base font-semibold leading-7 text-gray-900">
                 Personal Information
               </h2>
@@ -201,7 +180,7 @@ export function UpdateProfileForm({
             </div>
           </div>
 
-          <div className="mt-6 flex items-center justify-end gap-x-6">
+          <div className="mt-3 flex items-center justify-end gap-x-6">
             <Button
               type="button"
               variant={Variant.SECONDARY}

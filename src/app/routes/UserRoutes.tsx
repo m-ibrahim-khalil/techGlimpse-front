@@ -1,30 +1,11 @@
-// import { Route, Routes } from 'react-router-dom';
-// import {
-//   BlogsByAuthor,
-//   NotFoundPage,
-//   UpdatePassword,
-//   UserView,
-//   UsersLayout,
-//   WithPrivateRoute,
-// } from '../includes/components';
+import { NotFoundPage, UserProfilePage } from '@tech-glimpse-front/pages';
+import { Route, Routes } from 'react-router-dom';
 
-// export default function UserRoutes() {
-//   return (
-//     <Routes>
-//       <Route element={<UsersLayout />}>
-//         <Route path=":username" element={<UserView />}>
-//           <Route path="blogs/:authorId" element={<BlogsByAuthor />} />
-//         </Route>
-//         <Route
-//           path=":username/updatePassword"
-//           element={
-//             <WithPrivateRoute>
-//               <UpdatePassword />
-//             </WithPrivateRoute>
-//           }
-//         />
-//         <Route path="*" element={<NotFoundPage />} />
-//       </Route>
-//     </Routes>
-//   );
-// }
+export default function UserRoutes() {
+  return (
+    <Routes>
+      <Route path=":username" element={<UserProfilePage />} />
+      <Route path="*" element={<NotFoundPage />} />
+    </Routes>
+  );
+}

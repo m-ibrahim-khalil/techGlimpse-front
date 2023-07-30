@@ -32,6 +32,7 @@
       "@tech-glimpse-front/redux-state/store": [
         "libs/redux-state/store/src/index.ts"
       ],
+      "@tech-glimpse-front/redux-toolkit": ["libs/redux-toolkit/src/index.ts"],
       "@tech-glimpse-front/routes": ["libs/routes/src/index.ts"],
       "@tech-glimpse-front/types": ["libs/types/src/index.ts"],
       "@tech-glimpse-front/ui": ["libs/ui/src/index.ts"],

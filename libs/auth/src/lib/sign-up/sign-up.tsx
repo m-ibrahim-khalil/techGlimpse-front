@@ -1,5 +1,8 @@
-import { registerUser } from '@tech-glimpse-front/redux-state/actions';
-import { AppDispatch, RootState } from '@tech-glimpse-front/redux-state/store';
+import {
+  AppDispatch,
+  RootState,
+  registerUser,
+} from '@tech-glimpse-front/redux-toolkit';
 import { ISignUpFormInput } from '@tech-glimpse-front/types';
 import { SignUpForm } from '@tech-glimpse-front/ui-shared';
 import { useEffect } from 'react';
@@ -14,7 +17,7 @@ export function SignUp() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (authUser) navigate('/users/' + authUser);
+    if (authUser) navigate(`/users/${authUser}`);
   }, [navigate, authUser]);
 
   const submitForm = (data: ISignUpFormInput) => {

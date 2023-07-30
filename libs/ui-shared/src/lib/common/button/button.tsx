@@ -1,50 +1,39 @@
+import {
+  SIZE_MAPS,
+  Size,
+  VARIANT_MAPS,
+  Variant,
+} from '@tech-glimpse-front/types';
+import { ButtonHTMLAttributes, ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-const fixedBtnClass =
-  'focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2';
+const fixedBtnClass = 'inline-flex items-center rounded-md';
 
-export interface ButtonProps {
-  text: string;
-  type?: 'button' | 'submit' | 'reset';
-  bgColor?: string;
-  textColor?: string;
-  icon?: JSX.Element | null;
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  size: Size;
+  variant: Variant;
+  children: ReactNode;
   customClass?: string;
-  onClick: () => void;
 }
 
 export function Button({
-  text,
-  type = 'button',
-  bgColor = 'blue',
-  textColor = 'white',
-  icon = null,
-  customClass = '',
-  onClick,
+  size,
+  variant,
+  children,
+  customClass,
+  ...rest
 }: ButtonProps) {
-  console.log(
-    twMerge(
-      fixedBtnClass,
-      'text-' + textColor,
-      'bg-' + bgColor + '-700',
-      'hover:bg-' + bgColor + '-800',
-      customClass
-    )
-  );
   return (
     <button
-      key={'btn-' + text}
-      type={type}
-      onClick={onClick}
+      {...rest}
       className={twMerge(
         fixedBtnClass,
-        'text-' + textColor,
-        'bg-' + bgColor + '-700',
-        'hover:bg-' + bgColor + '-800',
+        VARIANT_MAPS[variant],
+        SIZE_MAPS[size],
         customClass
       )}
     >
-      {icon} {text}
+      {children}
     </button>
   );
 }

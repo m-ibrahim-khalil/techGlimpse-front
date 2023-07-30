@@ -1,14 +1,16 @@
-import { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-/* eslint-disable-next-line */
-export interface RichTextEditorProps {}
+export interface RichTextEditorProps {
+  name?: string;
+  value: string;
+  setValue: (value: string) => void;
+}
 
-export function RichTextEditor(props: RichTextEditorProps) {
-  const [value, setValue] = useState('');
-
-  return <ReactQuill theme="snow" value={value} onChange={setValue} />;
+export function RichTextEditor({ value, setValue, name }: RichTextEditorProps) {
+  return (
+    <ReactQuill theme="snow" id={name} value={value} onChange={setValue} />
+  );
 }
 
 export default RichTextEditor;

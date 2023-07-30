@@ -6,6 +6,7 @@ export function FormInputText({
   name,
   control,
   label,
+  required = false,
   type = 'text',
   placeholder = '',
 }: FormInputProps) {
@@ -16,6 +17,7 @@ export function FormInputText({
       render={({ field: { onChange, value }, fieldState: { error } }) => (
         <TextField
           type={type}
+          required={required}
           placeholder={placeholder}
           helperText={error ? error.message : null}
           error={!!error}

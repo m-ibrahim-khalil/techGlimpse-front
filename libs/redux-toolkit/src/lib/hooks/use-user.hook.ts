@@ -110,7 +110,6 @@ export function useUser() {
     updatePasswordLoading,
     updatePasswordError,
     deleteUserByUsername,
-    deleteUserLoading,
   };
 }
 

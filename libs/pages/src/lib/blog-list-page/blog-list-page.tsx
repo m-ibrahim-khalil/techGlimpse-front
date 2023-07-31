@@ -37,7 +37,10 @@ export function BlogListPage() {
               Blogs that are loved by the community. Updated every hour.
             </p>
           </div>
-          <ul className="grid gap-x-8 gap-y-10 mt-16 sm:grid-cols-2 lg:grid-cols-3">
+          <ul
+            className="grid gap-x-8 gap-y-10 mt-16 sm:grid-cols-2 lg:grid-cols-3"
+            data-testid="blogList"
+          >
             {blogs &&
               blogs.map((items, key) => (
                 <li className="w-full mx-auto group sm:max-w-sm" key={key}>

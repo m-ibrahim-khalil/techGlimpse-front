@@ -1,7 +1,4 @@
-/* eslint-disable-next-line */
-export interface ContactPageProps {}
-
-export function ContactPage(props: ContactPageProps) {
+export function ContactPage() {
   return (
     <main className="relative py-28 bg-gray-900">
       <div className="relative z-10 max-w-screen-xl mx-auto text-gray-600 sm:px-4 md:px-8">

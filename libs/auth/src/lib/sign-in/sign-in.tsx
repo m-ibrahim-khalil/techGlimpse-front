@@ -1,19 +1,18 @@
 import {
-  AppDispatch,
-  RootState,
+  useAppDispatch,
+  useAppSelector,
   userLogin,
 } from '@tech-glimpse-front/redux-toolkit';
 import { ISignInFormInput } from '@tech-glimpse-front/types';
 import { SigninForm } from '@tech-glimpse-front/ui-shared';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 export function SignIn() {
-  const { loading, authUser, loginError } = useSelector(
-    (state: RootState) => state.auth
+  const { loading, authUser, loginError } = useAppSelector(
+    (state) => state.auth
   );
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,11 +27,7 @@ export function SignIn() {
   };
 
   return (
-    <SigninForm
-      onSubmit={submitForm}
-      error={loginError}
-      loading={loading}
-    ></SigninForm>
+    <SigninForm onSubmit={submitForm} error={loginError} loading={loading} />
   );
 }
 

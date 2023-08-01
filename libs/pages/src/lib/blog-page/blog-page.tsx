@@ -21,7 +21,6 @@ import { Link, useParams } from 'react-router-dom';
 
 export function BlogPage() {
   const { blogId } = useParams();
-  console.log('Checking: ', blogId, useParams());
   const { deleteBlog } = useBlog();
   const { getUserByUsername } = useUser();
   const { authUser } = useAppSelector((state: RootState) => state.auth);

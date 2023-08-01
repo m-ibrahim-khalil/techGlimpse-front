@@ -16,7 +16,7 @@ const defaultValues: IUpdatePasswordFormInput = {
   confirmNewPassword: '',
 };
 
-interface UpdateUserPasswordFormProps {
+export interface UpdateUserPasswordFormProps {
   onSubmit: (data: IUpdatePasswordFormInput) => void;
   setShowModal: (value: boolean) => void;
   error?: string | null;

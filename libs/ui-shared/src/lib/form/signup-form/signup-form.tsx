@@ -14,7 +14,7 @@ const defaultValues: ISignUpFormInput = {
   confirmPassword: '',
 };
 
-interface SignInFormProps {
+export interface SignUpFormProps {
   onSubmit: (data: ISignUpFormInput) => void;
   error: { message: string };
   loading?: boolean;
@@ -38,7 +38,7 @@ const validationSchema = yup.object({
     .oneOf([yup.ref('password'), ''], 'Confirm Password does not match'),
 });
 
-export function SignUpForm({ onSubmit, error, loading }: SignInFormProps) {
+export function SignUpForm({ onSubmit, error, loading }: SignUpFormProps) {
   const methods = useForm<ISignUpFormInput>({
     defaultValues: defaultValues,
     resolver: yupResolver(validationSchema),

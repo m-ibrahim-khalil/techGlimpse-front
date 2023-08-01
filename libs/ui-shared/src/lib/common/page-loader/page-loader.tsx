@@ -1,7 +1,4 @@
-/* eslint-disable-next-line */
-export interface PageLoaderProps {}
-
-export function PageLoader(props: PageLoaderProps) {
+export function PageLoader() {
   const circleCommonClasses = 'h-5 w-5 bg-blue-600 rounded-full';
 
   return (

@@ -1,10 +1,11 @@
 import { render } from '@testing-library/react';
 
-import Spinner from './spinner';
+import { Spinner } from './spinner';
 
 describe('Spinner', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Spinner />);
+    const { baseElement, findAllByText } = render(<Spinner text="spinner" />);
     expect(baseElement).toBeTruthy();
+    expect(findAllByText(/spinner/i)).toBeTruthy();
   });
 });

@@ -1,9 +1,12 @@
 import { Menu, Transition } from '@headlessui/react';
 import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
-import { RootState, useUser } from '@tech-glimpse-front/redux-toolkit';
+import {
+  RootState,
+  useAppSelector,
+  useUser,
+} from '@tech-glimpse-front/redux-toolkit';
 import { User } from '@tech-glimpse-front/types';
 import { Fragment, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { twMerge } from 'tailwind-merge';
 import UpdateProfileModal from '../../update-profile-modal/update-profile-modal';
 
@@ -20,7 +23,7 @@ export function UserDetailsCard({
 }: UserDetailsCardProps) {
   const [showUpdateProfileForm, setShowUpdateProfileForm] = useState(false);
   const { deleteUserByUsername } = useUser();
-  const { authUser } = useSelector((state: RootState) => state.auth);
+  const { authUser } = useAppSelector((state: RootState) => state.auth);
 
   const onDeleteProfile = () => {
     deleteUserByUsername(user.username);

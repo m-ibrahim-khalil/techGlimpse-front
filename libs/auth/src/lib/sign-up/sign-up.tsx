@@ -1,19 +1,18 @@
 import {
-  AppDispatch,
-  RootState,
   registerUser,
+  useAppDispatch,
+  useAppSelector,
 } from '@tech-glimpse-front/redux-toolkit';
 import { ISignUpFormInput } from '@tech-glimpse-front/types';
 import { SignUpForm } from '@tech-glimpse-front/ui-shared';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 export function SignUp() {
-  const { loading, authUser, registerError, success } = useSelector(
-    (state: RootState) => state.auth
+  const { loading, authUser, registerError } = useAppSelector(
+    (state) => state.auth
   );
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {

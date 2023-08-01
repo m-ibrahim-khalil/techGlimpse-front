@@ -11,9 +11,7 @@ export function BlogsByAuthor({ authorId }: BlogsByAuthorProps) {
     page: 1,
     size: 10,
   });
-
   if (isLoading) return <PageLoader />;
-
   return (
     <section className="py-20">
       <div className="max-w-screen-xl mx-auto px-4 md:px-8">
@@ -26,7 +24,10 @@ export function BlogsByAuthor({ authorId }: BlogsByAuthorProps) {
             Blogs that are loved by the community. Updated every hour.
           </p>
         </div>
-        <ul className="grid gap-x-8 gap-y-10 mt-16 sm:grid-cols-2 lg:grid-cols-3">
+        <ul
+          className="grid gap-x-8 gap-y-10 mt-16 sm:grid-cols-2 lg:grid-cols-3"
+          data-testid="blogByAuthorList"
+        >
           {blogs &&
             blogs.payload.map((items, key) => (
               <li className="w-full mx-auto group sm:max-w-sm" key={key}>

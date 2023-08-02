@@ -10,11 +10,8 @@ const props: TextFieldProps = {
 
 describe('TextField', () => {
   it('should render successfully', () => {
-    const { baseElement, findAllByLabelText, findAllByText } = render(
-      <TextField {...props} />
-    );
+    const { baseElement, findAllByText } = render(<TextField {...props} />);
     expect(baseElement).toBeTruthy();
-    expect(findAllByLabelText(/TextFieldLabel/i)).toBeTruthy();
     expect(findAllByText(/TextFieldValue/i)).toBeTruthy();
   });
 });

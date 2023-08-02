@@ -1,10 +1,9 @@
 <h3 align="center">
   TechGlimpseFront
 </h3> <br />
+
 [![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
@@ -20,11 +19,13 @@
 
 ### Built With
 
+- [![TypeScript][TypeScript.js]][TypeScript-url]
 - [![React][React.js]][React-url]
-- [![Redux-toolkit][redux-toolkit.js]][Redux-toolkit-url]
-- [![Vite][vitejs.dev]][Vite-url]
-- [![Vitest][vitest.dev]][Vitest-url]
-- [![Tailwindcss][tailwindcss.com]][Tailwindcss-url]
+- [![ReactQuery][ReactQuery.com]][ReactQuery-url]
+- [![Redux][Redux.js]][Redux-url]
+- [![Vite][Vite.io]][Vite-url]
+- [![Jest][Jest.dev]][Jest-url]
+- [![TailwindCSS][TailwindCSS.com]][TailwindCSS-url]
 
 ## Getting Started
 
@@ -92,3 +93,26 @@ To generate dependency graph, run `npx nx graph`
 ## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
+
+[contributors-shield]: https://img.shields.io/github/contributors/m-ibrahim-khalil/techGlimpse-front.svg?style=for-the-badge
+[contributors-url]: https://github.com/m-ibrahim-khalil/techGlimpse-front/graphs/contributors
+[stars-shield]: https://img.shields.io/github/stars/m-ibrahim-khalil/techGlimpse-front.svg?style=for-the-badge
+[stars-url]: https://github.com/m-ibrahim-khalil/techGlimpse-front/stargazers
+[license-shield]: https://img.shields.io/github/license/m-ibrahim-khalil/techGlimpse-front.svg?style=for-the-badge
+[license-url]: https://github.com/m-ibrahim-khalil/techGlimpse-front/blob/master/LICENSE
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/ibrahim-khalil-89a250168
+[TypeScript.js]: https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white
+[TypeScript-url]: https://www.typescriptlang.org/
+[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React-url]: https://reactjs.org/
+[Redux.js]: https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white
+[Redux-url]: https://redux-toolkit.js.org/
+[Vite.io]: https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white
+[Vite-url]: https://vitejs.dev/
+[Jest.dev]: https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white
+[Jest-url]: https://jestjs.io/
+[ReactQuery.com]: https://img.shields.io/badge/-React%20Query-FF4154?style=for-the-badge&logo=react%20query&logoColor=white
+[ReactQuery-url]: https://tanstack.com/query/v3/
+[TailwindCSS.com]: https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white
+[TailwindCSS-url]: https://tailwindcss.com/

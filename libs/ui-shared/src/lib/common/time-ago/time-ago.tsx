@@ -8,6 +8,7 @@ export function TimeAgo({ timestamp }: TimeAgoProps) {
   if (timestamp) {
     const timePeriod = formatDistanceToNow(new Date(timestamp));
     timeAgo = `${timePeriod} ago`;
+    console.log('timeAgo', timeAgo);
   }
   return (
     <span className="block text-indigo-600 text-sm" title={timestamp}>

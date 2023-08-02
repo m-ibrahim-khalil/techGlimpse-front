@@ -1,10 +1,12 @@
-import { render } from '@testing-library/react';
-
+import { render, screen } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
 import HomePage from './home-page';
 
 describe('HomePage', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<HomePage />);
-    expect(baseElement).toBeTruthy();
+    render(<HomePage />, { wrapper: BrowserRouter });
+    expect(
+      screen.getByText(/Share Your Stories and Ideas on Our Blog/i)
+    ).toBeDefined();
   });
 });

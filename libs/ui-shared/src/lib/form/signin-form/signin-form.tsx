@@ -13,7 +13,7 @@ const defaultValues: ISignInFormInput = {
   password: '',
 };
 
-interface SignInFormProps {
+export interface SignInFormProps {
   onSubmit: (data: ISignInFormInput) => void;
   error?: { message: string };
   loading?: boolean;
@@ -33,7 +33,6 @@ export function SigninForm({ onSubmit, error, loading }: SignInFormProps) {
     resolver: yupResolver(validationSchema),
   });
   const { handleSubmit, control } = methods;
-
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <FormHeader

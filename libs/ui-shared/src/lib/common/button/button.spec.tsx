@@ -1,10 +1,17 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
-import Button from './button';
+import { Size, Variant } from '@tech-glimpse-front/types';
+import Button, { ButtonProps } from './button';
+
+const props: ButtonProps = {
+  size: Size.PRIMARY,
+  variant: Variant.PRIMARY,
+  children: 'Button',
+};
 
 describe('Button', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Button />);
-    expect(baseElement).toBeTruthy();
+    render(<Button {...props} />);
+    expect(screen.getByText(/Button/i)).toBeDefined();
   });
 });

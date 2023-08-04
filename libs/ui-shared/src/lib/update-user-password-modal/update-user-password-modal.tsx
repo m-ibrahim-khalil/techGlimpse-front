@@ -1,7 +1,6 @@
-import { RootState, useUser } from '@tech-glimpse-front/redux-toolkit';
+import { useAppSelector, useUser } from '@tech-glimpse-front/redux-toolkit';
 import { IUpdatePasswordFormInput } from '@tech-glimpse-front/types';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
 import UpdateUserPasswordForm from '../form/update-user-password-form/update-user-password-form';
 
 export interface UpdateUserPasswordModalProps {
@@ -12,7 +11,7 @@ export function UpdateUserPasswordModal({
   setShowModal,
 }: UpdateUserPasswordModalProps) {
   const [error, setError] = useState<string | null>(null);
-  const { authUser } = useSelector((state: RootState) => state.auth);
+  const { authUser } = useAppSelector((state) => state.auth);
   console.log('rendering UpdateUserPasswordModal: ', authUser);
   const {
     updatePasswordByUsername,

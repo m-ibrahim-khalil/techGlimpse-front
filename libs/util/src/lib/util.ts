@@ -7,9 +7,7 @@ function hasCookie(cookieName = 'jwt') {
 }
 
 function getAuthUsername() {
-  console.log('getAuthUsername');
   const cookie = getCookie('jwt');
-  console.log('coockie: ', cookie);
   if (cookie) {
     const { username }: any = jwt_decode(cookie);
     console.log('coockie: ', username, jwt_decode(cookie));

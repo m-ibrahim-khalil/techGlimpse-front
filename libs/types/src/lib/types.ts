@@ -16,15 +16,12 @@ export interface IUpdatePasswordFormInput {
   confirmNewPassword: string;
 }
 
-export interface IBlogFormInput {
-  title: string;
-}
-
 export interface Blog {
   id: string;
   title: string;
   description: string;
   imgUrl?: string;
+  coverImage?: File | null;
   author?: string;
   authorId?: string;
   tags?: string[];
@@ -50,12 +47,13 @@ export interface User {
   updatedAt: string;
 }
 
-export interface IBlogFormInput {
-  title: string;
-  description: string;
-  imgUrl?: string;
-  tags?: string[];
-}
+// export interface IBlogFormInput {
+//   coverImage?: File | null;
+//   title: string;
+//   description: string;
+//   imgUrl?: string;
+//   tags?: string[];
+// }
 
 export interface IBlogListResponse {
   totalItems: number;

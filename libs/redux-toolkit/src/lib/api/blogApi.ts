@@ -1,9 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import {
-  Blog,
-  IBlogFormInput,
-  IBlogListResponse,
-} from '@tech-glimpse-front/types';
+import { Blog, IBlogListResponse } from '@tech-glimpse-front/types';
 
 export const blogApiSlice = createApi({
   reducerPath: 'blogApi',
@@ -94,21 +90,31 @@ export const blogApiSlice = createApi({
       },
     }),
 
-    createBlog: builder.mutation<Blog | string, IBlogFormInput>({
+    createBlog: builder.mutation<Blog | string, FormData>({
       query: (initialPost) => ({
         url: '/stories',
         method: 'POST',
+        prepareHeaders: (headers: Headers) => {
+          headers.set('Content-Type', 'multipart/form-data');
+        },
         body: initialPost,
+        formData: true,
+        credentials: 'include',
       }),
       invalidatesTags: [{ type: 'Blogs', id: 'LIST' }],
       transformResponse: (result: { message: Blog }) => result.message,
     }),
 
-    updateBlog: builder.mutation<string, { id: string; blog: IBlogFormInput }>({
+    updateBlog: builder.mutation<string, { id: string; blog: FormData }>({
       query: ({ id, blog }) => ({
         url: `/stories/${id}`,
         method: 'PUT',
+        prepareHeaders: (headers: Headers) => {
+          headers.set('Content-Type', 'multipart/form-data');
+        },
         body: blog,
+        formData: true,
+        credentials: 'include',
       }),
       invalidatesTags: (result, error, arg) =>
         result

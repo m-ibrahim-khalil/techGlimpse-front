@@ -20,7 +20,7 @@ export interface Blog {
   id: string;
   title: string;
   description: string;
-  imgUrl?: string;
+  coverImageURL?: string;
   coverImage?: File | null;
   author?: string;
   authorId?: string;

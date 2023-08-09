@@ -5,7 +5,7 @@ export interface FileDropInputProps {
   maxSizeKB?: number;
   allowedMimeTypes?: string[];
   onChange: (file: File | null) => void;
-  value: File | null;
+  value: File | string | null;
   setImageUploadError: (value: string) => void;
 }
 
@@ -13,21 +13,25 @@ const ImagePreview = ({
   preview,
   onRemoveClick,
 }: {
-  preview: File | null;
+  preview: File | string | null;
   onRemoveClick: () => void;
 }) => {
   if (!preview) return null;
-  console.log(preview);
   return (
     <div className="relative">
       <img
-        src={preview === null ? '' : URL.createObjectURL(preview)}
+        src={
+          preview instanceof File
+            ? URL.createObjectURL(preview)
+            : preview.toString()
+        }
         alt=""
-        className="object-cover h-64 w-full rounded-xl"
+        className="object-cover w-full rounded-xl"
+        style={{ height: '20em' }}
       />
       <button
         onClick={onRemoveClick}
-        className="icon-btn-error absolute top-4 right-4"
+        className=" absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-red-400 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center"
       >
         <CloseIcon />
       </button>

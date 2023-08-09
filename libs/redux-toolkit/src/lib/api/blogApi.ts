@@ -30,11 +30,11 @@ export const blogApiSlice = createApi({
         return {
           ...rest,
           payload: payload.map((blog) => {
-            const { imgUrl, ...rest } = blog;
+            const { coverImageURL, ...rest } = blog;
             return {
               ...rest,
-              imgUrl:
-                imgUrl ??
+              coverImageURL:
+                coverImageURL ??
                 'https://images.unsplash.com/photo-1556155092-490a1ba16284?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
             };
           }),
@@ -63,11 +63,11 @@ export const blogApiSlice = createApi({
         return {
           ...rest,
           payload: payload.map((blog) => {
-            const { imgUrl, ...rest } = blog;
+            const { coverImageURL, ...rest } = blog;
             return {
               ...rest,
-              imgUrl:
-                imgUrl ??
+              coverImageURL:
+                coverImageURL ??
                 'https://images.unsplash.com/photo-1556155092-490a1ba16284?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
             };
           }),
@@ -80,11 +80,11 @@ export const blogApiSlice = createApi({
       providesTags: (result, error, arg) => [{ type: 'Blogs', id: arg.id }],
       transformResponse: (result: { message: Blog }) => {
         const blog = result.message;
-        const { imgUrl, ...rest } = blog;
+        const { coverImageURL, ...rest } = blog;
         return {
           ...rest,
-          imgUrl:
-            imgUrl ??
+          coverImageURL:
+            coverImageURL ??
             'https://images.unsplash.com/photo-1556155092-490a1ba16284?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
         };
       },
@@ -109,12 +109,7 @@ export const blogApiSlice = createApi({
       query: ({ id, blog }) => ({
         url: `/stories/${id}`,
         method: 'PUT',
-        prepareHeaders: (headers: Headers) => {
-          headers.set('Content-Type', 'multipart/form-data');
-        },
         body: blog,
-        formData: true,
-        credentials: 'include',
       }),
       invalidatesTags: (result, error, arg) =>
         result

@@ -70,7 +70,7 @@ export function BlogPage() {
           </div>
         </div>
         <img
-          src={blog.imgUrl}
+          src={blog.coverImageURL}
           alt=""
           className="w-full object-cover lg:rounded"
           style={{ height: '28em' }}
@@ -123,7 +123,7 @@ export function BlogPage() {
             </div>
           )}
         </div>
-        <div className="w-full lg:w-1/4 m-auto m-12 max-w-screen-sm">
+        <div className="w-full lg:w-1/4 m-12 max-w-screen-sm">
           <UserCard user={user} />
         </div>
       </div>

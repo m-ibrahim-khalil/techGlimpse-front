@@ -3,7 +3,7 @@ import FileDropInput from '../../common/file-drop-input/file-drop-input';
 import RichTextEditor from '../../common/rich-text-editor/rich-text-editor';
 
 export interface BlogEditorProps {
-  coverImage: File | null;
+  coverImage: File | string | null;
   setCoverImage: (value: File | null) => void;
   title: string;
   setTitle: (value: string) => void;
@@ -23,7 +23,6 @@ export function BlogEditor({
 }: BlogEditorProps) {
   const [imageUploadError, setImageUploadError] = useState<string>('');
   const onCoverImageChange = (file: File | null) => {
-    console.log('Cover Image set: ', file);
     setCoverImage(file);
   };
   return (

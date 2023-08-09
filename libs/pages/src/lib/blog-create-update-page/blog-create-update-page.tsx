@@ -19,8 +19,8 @@ export function BlogCreateUpdatePage({
   const params = useParams();
   const blogId = params.blogId ?? '';
   const { data: blog } = useGetBlogQuery({ id: blogId });
-  const [coverImage, setCoverImage] = useState<File | null>(
-    blog?.coverImage ?? null
+  const [coverImage, setCoverImage] = useState<File | string | null>(
+    blog?.coverImageURL ?? null
   );
   const [title, setTitle] = useState(blog?.title ?? '');
   const [description, setDescription] = useState(blog?.description ?? '');
@@ -29,12 +29,15 @@ export function BlogCreateUpdatePage({
   const { createBlog, updateBlog } = useBlog();
 
   const formData = (
-    coverImage: File | null,
+    coverImage: File | string | null,
     title: string,
     description: string
   ) => {
     const formData = new FormData();
-    formData.append('coverImage', coverImage as Blob);
+    if (typeof coverImage === 'string') {
+      formData.append('coverImageURL', coverImage);
+    }
+    formData.append('coverImage', coverImage as File);
     formData.append('title', title);
     formData.append('description', description);
     return formData;

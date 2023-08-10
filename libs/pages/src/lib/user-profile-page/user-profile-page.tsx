@@ -6,6 +6,7 @@ import BlogsByAuthor from '../blogs-by-author/blogs-by-author';
 
 export function UserProfilePage() {
   const [showBlogs, setShowBlogs] = useState(false);
+  const [showUpdateProfileForm, setShowUpdateProfileForm] = useState(false);
   const { username } = useParams();
   const { getUserByUsername } = useUser();
   const user = getUserByUsername(username ?? '');
@@ -35,6 +36,8 @@ export function UserProfilePage() {
               showBlogs={showBlogs}
               setShowBlogs={setShowBlogs}
               user={user}
+              showUpdateProfileForm={showUpdateProfileForm}
+              setShowUpdateProfileForm={setShowUpdateProfileForm}
             />
             <div className="my-4"></div>
             {showBlogs && (

@@ -1,3 +1,21 @@
+export interface FormInputProps {
+  type?:
+    | 'text'
+    | 'password'
+    | 'email'
+    | 'number'
+    | 'date'
+    | 'time'
+    | 'textarea';
+  placeholder?: string;
+  required?: boolean;
+  name: string;
+  control: any;
+  label: string;
+  setValue?: any;
+  customClass?: string;
+}
+
 export interface ISignUpFormInput {
   username: string;
   email: string;
@@ -47,13 +65,14 @@ export interface User {
   updatedAt: string;
 }
 
-// export interface IBlogFormInput {
-//   coverImage?: File | null;
-//   title: string;
-//   description: string;
-//   imgUrl?: string;
-//   tags?: string[];
-// }
+export interface IUpdateProfileFormInput {
+  username: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  bio: string;
+  gender?: 'Male' | 'Female' | 'Other';
+}
 
 export interface IBlogListResponse {
   totalItems: number;

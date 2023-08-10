@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { User } from '@tech-glimpse-front/types';
+import { IUpdateProfileFormInput, User } from '@tech-glimpse-front/types';
 
 export const userApiSlice = createApi({
   reducerPath: 'userApi',
@@ -40,6 +40,19 @@ export const userApiSlice = createApi({
       transformResponse: (result: { message: string }) => result.message,
     }),
 
+    updateProfile: builder.mutation<
+      string,
+      { username: string; userInfo: Partial<IUpdateProfileFormInput> }
+    >({
+      query: ({ username, userInfo }) => ({
+        url: `/users/${username}/info`,
+        method: 'PUT',
+        body: userInfo,
+      }),
+      invalidatesTags: [{ type: 'Users', id: 'LIST' }],
+      transformResponse: (result: { message: string }) => result.message,
+    }),
+
     deleteUserByUsername: builder.mutation<string, { username: string }>({
       query: ({ username }) => ({
         url: `/users/${username}`,
@@ -54,5 +67,6 @@ export const userApiSlice = createApi({
 export const {
   useGetUserByUsernameQuery,
   useUpdatePasswordMutation,
+  useUpdateProfileMutation,
   useDeleteUserByUsernameMutation,
 } = userApiSlice;

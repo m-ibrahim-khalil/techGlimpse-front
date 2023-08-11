@@ -1,5 +1,5 @@
 import * as rtkQuery from '@tech-glimpse-front/redux-toolkit';
-import * as ui from '@tech-glimpse-front/ui-shared';
+import * as ui from '../form/update-user-password-form/update-user-password-form';
 
 import { render } from '@testing-library/react';
 
@@ -24,6 +24,8 @@ describe('UpdateUserPasswordModal', () => {
       updatePasswordError: { message: '' },
       getUserByUsername: vi.fn(),
       deleteUserByUsername: vi.fn(),
+      updateProfileByUsername: vi.fn(),
+      updateProfileLoading: false,
     });
     UpdateUserPasswordFormSpy.mockReturnValue(
       <div>UpdateUserPasswordForm</div>

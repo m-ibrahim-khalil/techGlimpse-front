@@ -36,7 +36,7 @@ export const userApiSlice = createApi({
         method: 'PUT',
         body: { oldPassword, newPassword },
       }),
-      invalidatesTags: [{ type: 'Users', id: 'LIST' }],
+      invalidatesTags: (res, err, arg) => [{ type: 'Users', id: arg.username }],
       transformResponse: (result: { message: string }) => result.message,
     }),
 
@@ -49,7 +49,7 @@ export const userApiSlice = createApi({
         method: 'PUT',
         body: userInfo,
       }),
-      invalidatesTags: [{ type: 'Users', id: 'LIST' }],
+      invalidatesTags: (res, err, arg) => [{ type: 'Users', id: arg.username }],
       transformResponse: (result: { message: string }) => result.message,
     }),
 

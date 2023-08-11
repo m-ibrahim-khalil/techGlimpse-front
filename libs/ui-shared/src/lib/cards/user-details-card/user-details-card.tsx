@@ -6,7 +6,7 @@ import {
   useUser,
 } from '@tech-glimpse-front/redux-toolkit';
 import { User } from '@tech-glimpse-front/types';
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import UpdateProfileModal from '../../update-profile-modal/update-profile-modal';
 
@@ -14,17 +14,14 @@ export interface UserDetailsCardProps {
   showBlogs: boolean;
   setShowBlogs: (value: boolean) => void;
   user: User;
-  showUpdateProfileForm: boolean;
-  setShowUpdateProfileForm: (value: boolean) => void;
 }
 
 export function UserDetailsCard({
-  showUpdateProfileForm,
-  setShowUpdateProfileForm,
   user,
   showBlogs,
   setShowBlogs,
 }: UserDetailsCardProps) {
+  const [showUpdateProfileForm, setShowUpdateProfileForm] = useState(false);
   const { deleteUserByUsername } = useUser();
   const { authUser } = useAppSelector((state: RootState) => state.auth);
 

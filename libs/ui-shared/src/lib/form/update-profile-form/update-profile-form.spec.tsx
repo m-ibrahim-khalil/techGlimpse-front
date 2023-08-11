@@ -6,6 +6,7 @@ import UpdateProfileForm, {
 } from './update-profile-form';
 
 const props: UpdateProfileFormProps = {
+  onSubmit: vi.fn(),
   setShowModal: vi.fn(),
   user: {
     id: '1',

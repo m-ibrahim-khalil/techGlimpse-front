@@ -11,6 +11,7 @@ export function Dropdown({ options, onChange }: DropdownProps) {
       <select
         onChange={onChange}
         className="w-full h-10 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-500"
+        data-testid="dropdown"
       >
         {options.map((option) => (
           <option key={option}>{option}</option>

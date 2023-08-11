@@ -1,6 +1,10 @@
+import { useState } from 'react';
+import FileDropInput from '../../common/file-drop-input/file-drop-input';
 import RichTextEditor from '../../common/rich-text-editor/rich-text-editor';
 
 export interface BlogEditorProps {
+  coverImage: File | string | null;
+  setCoverImage: (value: File | null) => void;
   title: string;
   setTitle: (value: string) => void;
   description: string;
@@ -9,14 +13,31 @@ export interface BlogEditorProps {
 }
 
 export function BlogEditor({
+  coverImage,
+  setCoverImage,
   title,
   setTitle,
   description,
   setDescription,
   errors,
 }: BlogEditorProps) {
+  const [imageUploadError, setImageUploadError] = useState<string>('');
+  const onCoverImageChange = (file: File | null) => {
+    setCoverImage(file);
+  };
   return (
     <>
+      <div className="mb-4">
+        <label className="text-xl text-gray-600">Cover Image</label>
+        <FileDropInput
+          value={coverImage}
+          onChange={onCoverImageChange}
+          setImageUploadError={setImageUploadError}
+        />
+        {imageUploadError && (
+          <span className="text-red-500">{imageUploadError}</span>
+        )}
+      </div>
       <div className="mb-4">
         <label className="text-xl text-gray-600">
           Title <span className="text-red-500">*</span>

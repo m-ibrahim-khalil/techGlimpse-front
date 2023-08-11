@@ -1,13 +1,13 @@
-import Cookies from 'js-cookie';
 import jwt_decode from 'jwt-decode';
+import { getCookie, removeCookie } from 'typescript-cookie';
 
 function hasCookie(cookieName = 'jwt') {
-  const cookie = Cookies.get(cookieName);
+  const cookie = getCookie(cookieName);
   return !!cookie;
 }
 
 function getAuthUsername() {
-  const cookie = Cookies.get('jwt');
+  const cookie = getCookie('jwt');
   if (cookie) {
     const { username }: any = jwt_decode(cookie);
     console.log('coockie: ', username, jwt_decode(cookie));
@@ -18,7 +18,7 @@ function getAuthUsername() {
 }
 
 function isCookieValid(cookieName = 'jwt'): boolean {
-  const cookieValue = Cookies.get(cookieName);
+  const cookieValue = getCookie(cookieName);
   if (cookieValue) {
     const { exp }: any = jwt_decode(cookieValue);
     const expiryTime = Number(exp) * 1000;
@@ -33,7 +33,7 @@ function isCookieValid(cookieName = 'jwt'): boolean {
 }
 
 function removeCoockie(cookieName = 'jwt') {
-  Cookies.remove(cookieName);
+  removeCookie(cookieName);
 }
 
 function truncate(str: string, length: number) {

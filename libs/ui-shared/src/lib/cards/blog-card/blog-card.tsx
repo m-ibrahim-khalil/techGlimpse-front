@@ -8,10 +8,11 @@ export function BlogCard(props: Blog) {
   return (
     <Link to={`/blogs/${props.id}`}>
       <img
-        src={props.imgUrl}
+        src={props.coverImageURL}
         loading="lazy"
         alt={props.title}
-        className="w-full rounded-lg"
+        className="w-full object-cover rounded-lg"
+        style={{ height: '16em' }}
       />
       <div className="mt-3 space-y-2">
         <TimeAgo timestamp={props?.updatedAt} />

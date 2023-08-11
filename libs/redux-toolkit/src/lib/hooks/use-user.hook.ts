@@ -1,3 +1,4 @@
+import { IUpdateProfileFormInput } from '@tech-glimpse-front/types';
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -6,13 +7,14 @@ import {
   useDeleteUserByUsernameMutation,
   useGetUserByUsernameQuery,
   useUpdatePasswordMutation,
+  useUpdateProfileMutation,
 } from '../api/userApi';
 import {
   erroHandler,
   isErrorWithMessage,
   isFetchBaseQueryError,
 } from '../helpers';
-import { logout } from '../reducers/auth-slice.reducer';
+import { logout, setCredentials } from '../reducers/auth-slice.reducer';
 import { AppDispatch } from '../store/store';
 import useDialog from './use-dialog.hook';
 
@@ -26,6 +28,8 @@ export function useUser() {
     updatePasswordMutation,
     { isLoading: updatePasswordLoading, error: updatePasswordError },
   ] = useUpdatePasswordMutation();
+  const [updateProfileMutation, { isLoading: updateProfileLoading }] =
+    useUpdateProfileMutation();
 
   const getUserByUsername = (username: string) => {
     try {
@@ -74,6 +78,36 @@ export function useUser() {
     [updatePasswordMutation]
   );
 
+  const updateProfileByUsername = useCallback(
+    async (username: string, userInfo: Partial<IUpdateProfileFormInput>) => {
+      try {
+        const res = await updateProfileMutation({
+          username,
+          userInfo,
+        }).unwrap();
+        console.log('res: ', res);
+        toast.success('Update Profile success');
+        dispatch(setCredentials(userInfo?.username ?? username));
+        return 'SUCCESS';
+      } catch (err) {
+        let errMsg = '';
+        if (isFetchBaseQueryError(err))
+          errMsg = err.data?.message ?? JSON.stringify(err.data);
+        else if (isErrorWithMessage(err)) errMsg = err.message;
+        if (errMsg) {
+          const nav = erroHandler(errMsg);
+          if (nav) {
+            dispatch(logout());
+            toast.info('Please login again');
+            navigate(nav);
+          }
+        }
+        return errMsg;
+      }
+    },
+    [updateProfileMutation]
+  );
+
   const deleteUserByUsername = useCallback(
     (username: string) => {
       console.log(username);
@@ -109,6 +143,8 @@ export function useUser() {
     updatePasswordByUsername,
     updatePasswordLoading,
     updatePasswordError,
+    updateProfileByUsername,
+    updateProfileLoading,
     deleteUserByUsername,
   };
 }

@@ -23,7 +23,8 @@ const validationSchema = yup.object({
   username: yup
     .string()
     .required('User Name is required')
-    .max(10, 'User Name is too long'),
+    .min(6, 'Username must be at least 6 characters')
+    .max(20, 'Username must not exceed 20 characters'),
   password: yup.string().required('password is required'),
 });
 

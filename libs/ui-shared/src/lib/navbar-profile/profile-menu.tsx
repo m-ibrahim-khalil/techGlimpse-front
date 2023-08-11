@@ -76,7 +76,8 @@ export function ProfileMenu() {
         <Menu as="div" className="relative ml-5">
           <div className="inline-flex item-center justify-center gap-2 lg:gap-4">
             <span className="invisible text-white font-sans md:visible">
-              <strong>Welcome</strong> {authUser ?? 'Guest User'}
+              <strong className="mr-2">Welcome</strong>{' '}
+              {authUser ?? 'Guest User'}
             </span>
             <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
               <span className="sr-only">Open user menu</span>

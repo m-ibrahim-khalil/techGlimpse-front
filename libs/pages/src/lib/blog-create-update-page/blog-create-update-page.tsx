@@ -5,7 +5,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { useBlog, useGetBlogQuery } from '@tech-glimpse-front/redux-toolkit';
 import { Size, Variant } from '@tech-glimpse-front/types';
-import { BlogEditor, Button } from '@tech-glimpse-front/ui-shared';
+import { BlogEditor, Button, PageLoader } from '@tech-glimpse-front/ui-shared';
 import { useCallback, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -26,7 +26,7 @@ export function BlogCreateUpdatePage({
   const [description, setDescription] = useState(blog?.description ?? '');
   const [errors, setErrors] = useState({ title: '', description: '' });
 
-  const { createBlog, updateBlog } = useBlog();
+  const { createBlog, updateBlog, loading } = useBlog();
 
   const formData = (
     coverImage: File | string | null,
@@ -70,9 +70,11 @@ export function BlogCreateUpdatePage({
     onPublish();
   };
 
+  if (loading) return <PageLoader />;
+
   return (
     <div className="py-12">
-      <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+      <div className="max-w-7xl min-h-screen mx-auto sm:px-6 lg:px-8 mt-10">
         <div className="bg-white overflow-hidden p-6">
           <form className="space-y-6" onSubmit={onSubmit}>
             <div className="flex flex-col gap-4 items-center justify-between md:flex-row">

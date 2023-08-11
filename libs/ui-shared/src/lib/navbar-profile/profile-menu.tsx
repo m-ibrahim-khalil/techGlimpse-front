@@ -60,12 +60,13 @@ export function ProfileMenu() {
 
   return (
     <>
-      <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+      <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-4 sm:pr-0">
         {authUser && (
           <Button
             size={Size.PRIMARY}
             variant={Variant.PRIMARY}
             onClick={() => navigate('/blogs/write')}
+            customClass="invisible md:visible"
           >
             <PlusIcon className="-ml-0.5 mr-1.5 h-5 w-5" aria-hidden="true" />
             <span>Write Blogs</span>
@@ -73,8 +74,10 @@ export function ProfileMenu() {
         )}
 
         <Menu as="div" className="relative ml-5">
-          <div className="inline-flex item-center gap-2">
-            <span className="text-white">{authUser ?? 'Guest User'}</span>
+          <div className="inline-flex item-center justify-center gap-2 lg:gap-4">
+            <span className="invisible text-white font-sans md:visible">
+              <strong>Welcome</strong> {authUser ?? 'Guest User'}
+            </span>
             <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
               <span className="sr-only">Open user menu</span>
               <img
@@ -111,6 +114,23 @@ export function ProfileMenu() {
               ))}
               {authUser && (
                 <>
+                  <Menu.Item>
+                    {({ active }) => (
+                      <button
+                        onClick={() => navigate('/blogs/write')}
+                        className={twMerge(
+                          active ? 'bg-gray-100' : '',
+                          'flex px-4 py-2 text-sm text-gray-700 md:hidden'
+                        )}
+                      >
+                        <PlusIcon
+                          className="-ml-0.5 mr-1.5 h-5 w-5"
+                          aria-hidden="true"
+                        />
+                        <span>Write Blogs</span>
+                      </button>
+                    )}
+                  </Menu.Item>
                   <Menu.Item>
                     {({ active }) => (
                       <button

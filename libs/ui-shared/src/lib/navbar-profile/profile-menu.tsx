@@ -4,6 +4,7 @@ import {
   AppDispatch,
   RootState,
   logout,
+  useTheme,
 } from '@tech-glimpse-front/redux-toolkit';
 import { Size, Variant } from '@tech-glimpse-front/types';
 import { isCookieValid } from '@tech-glimpse-front/util';
@@ -13,6 +14,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { twMerge } from 'tailwind-merge';
 import Button from '../common/button/button';
+import { DarkModeIcon, LightModeIcon } from '../icons/icons';
 import UpdateUserPasswordModal from '../update-user-password-modal/update-user-password-modal';
 
 export function ProfileMenu() {
@@ -20,6 +22,8 @@ export function ProfileMenu() {
   const { authUser } = useSelector((state: RootState) => state.auth) ?? {
     authUser: 'Guest',
   };
+  const { theme } = useSelector((state: RootState) => state.theme);
+  const { handleChangeTheme } = useTheme();
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -72,13 +76,21 @@ export function ProfileMenu() {
             <span>Write Blogs</span>
           </Button>
         )}
-
         <Menu as="div" className="relative ml-5">
           <div className="inline-flex item-center justify-center gap-2 lg:gap-4">
             <span className="invisible text-white font-sans md:visible">
               <strong className="mr-2">Welcome</strong>{' '}
               {authUser ?? 'Guest User'}
             </span>
+            {theme === 'dark' ? (
+              <button onClick={() => handleChangeTheme('light')}>
+                <LightModeIcon />
+              </button>
+            ) : (
+              <button onClick={() => handleChangeTheme('dark')}>
+                <DarkModeIcon />
+              </button>
+            )}
             <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
               <span className="sr-only">Open user menu</span>
               <img

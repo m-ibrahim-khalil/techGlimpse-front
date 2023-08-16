@@ -64,7 +64,7 @@ export function ProfileMenu() {
 
   return (
     <>
-      <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-4 sm:pr-0">
+      <div className="absolute inset-y-0 right-0 flex items-center gap-2 md:gap-2 sm:static sm:inset-auto sm:ml-4 sm:pr-0">
         {authUser && (
           <Button
             size={Size.PRIMARY}
@@ -77,27 +77,32 @@ export function ProfileMenu() {
           </Button>
         )}
         <Menu as="div" className="relative ml-5">
-          <div className="inline-flex item-center justify-center gap-2 lg:gap-4">
-            <span className="invisible text-white font-sans md:visible">
-              <strong className="mr-2">Welcome</strong>{' '}
-              {authUser ?? 'Guest User'}
-            </span>
+          <div className="inline-flex item-center justify-center gap-2 md:gap-3">
             {theme === 'dark' ? (
-              <button onClick={() => handleChangeTheme('light')}>
+              <button
+                onClick={() => handleChangeTheme('light')}
+                className="rounded-full hover:bg-gray-700 focus:outline-none"
+              >
                 <LightModeIcon />
               </button>
             ) : (
-              <button onClick={() => handleChangeTheme('dark')}>
+              <button
+                onClick={() => handleChangeTheme('dark')}
+                className="rounded-full hover:bg-gray-700"
+              >
                 <DarkModeIcon />
               </button>
             )}
-            <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+            <Menu.Button className="relative flex flex-col items-center justify-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
               <span className="sr-only">Open user menu</span>
               <img
-                className="h-8 w-8 rounded-full"
+                className="h-8 w-8 rounded-full my-1"
                 src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                alt=""
+                alt="user-img"
               />
+              <span className="hidden text-white font-sans md:block">
+                <strong>{authUser ?? 'Guest User'}</strong>
+              </span>
             </Menu.Button>
           </div>
           <Transition
@@ -109,15 +114,15 @@ export function ProfileMenu() {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-slate-300 dark:bg-gray-700 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
               {profileMenuItems.map((item) => (
                 <Menu.Item key={item.name}>
                   {({ active }) => (
                     <Link
                       to={item.href}
                       className={twMerge(
-                        active ? 'bg-gray-100' : '',
-                        'block px-4 py-2 text-sm text-gray-700'
+                        active ? 'bg-gray-100 dark:bg-gray-800' : '',
+                        'block px-4 py-2 text-sm text-gray-700 dark:text-gray-200'
                       )}
                     >
                       {item.name}

@@ -35,7 +35,7 @@ export function SigninForm({ onSubmit, error, loading }: SignInFormProps) {
   });
   const { handleSubmit, control } = methods;
   return (
-    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+    <div className="flex min-h-screen flex-1 flex-col justify-center px-6 py-6 lg:px-8">
       <FormHeader
         heading="Sign In to your account"
         paragraph="Don't have an account yet? "

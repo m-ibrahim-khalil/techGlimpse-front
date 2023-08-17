@@ -16,7 +16,7 @@ export function BlogCard(props: Blog) {
       />
       <div className="mt-3 space-y-2">
         <TimeAgo timestamp={props?.updatedAt} />
-        <h3 className="text-lg text-gray-800 duration-150 group-hover:text-indigo-600 font-semibold">
+        <h3 className="text-lg text-gray-800 dark:text-gray-100 duration-150 group-hover:text-indigo-600 font-semibold">
           {props.title}
         </h3>
         <ReactQuill

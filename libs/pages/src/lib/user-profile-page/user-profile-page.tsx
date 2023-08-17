@@ -21,7 +21,7 @@ export function UserProfilePage() {
 
   return (
     <div className="bg-gray-100">
-      <div className="container mx-auto my-5 p-5">
+      <div className="container mx-auto my-5 p-5 min-h-screen">
         <div className="md:flex no-wrap md:-mx-2 ">
           <div className="w-full md:w-3/12 md:mx-2">
             <div className="bg-white p-3 border-t-4 border-green-400">

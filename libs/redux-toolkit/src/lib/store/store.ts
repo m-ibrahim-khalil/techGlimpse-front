@@ -10,8 +10,10 @@ import { alertReducer } from '../reducers/alert-slice.reducer';
 import { authReducer } from '../reducers/auth-slice.reducer';
 import { dialogReducer } from '../reducers/dialog-slice.reducer';
 import { paginationReducer } from '../reducers/pagination-slice.reducer';
+import { themeReducer } from '../reducers/theme-slice.reducer';
 
 const reducers = {
+  theme: themeReducer,
   pagination: paginationReducer,
   alert: alertReducer,
   dialog: dialogReducer,

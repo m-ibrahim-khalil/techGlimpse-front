@@ -26,7 +26,7 @@ export function BlogEditor({
     setCoverImage(file);
   };
   return (
-    <>
+    <div className="container my-10">
       <div className="mb-4">
         <label className="text-xl text-gray-600">Cover Image</label>
         <FileDropInput
@@ -63,7 +63,7 @@ export function BlogEditor({
           <span className="text-red-500">Description is required</span>
         )}
       </div>
-    </>
+    </div>
   );
 }
 

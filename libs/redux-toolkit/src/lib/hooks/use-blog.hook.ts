@@ -1,4 +1,3 @@
-import { IBlogFormInput } from '@tech-glimpse-front/types';
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -49,7 +48,7 @@ export function useBlog() {
     createBlogLoading;
 
   const createBlog = useCallback(
-    async (blog: IBlogFormInput) => {
+    async (blog: FormData) => {
       try {
         await createBlogMutation(blog).unwrap();
         toast.success('Create blog success');
@@ -102,7 +101,7 @@ export function useBlog() {
   );
 
   const updateBlog = useCallback(
-    async (id: string, blog: IBlogFormInput) => {
+    async (id: string, blog: FormData) => {
       try {
         await updateBlogMutation({ id, blog }).unwrap();
         toast.success('Update blog success');

@@ -1,9 +1,8 @@
-import { useState } from 'react';
+import { InputHTMLAttributes, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { EyeIcons, EyeOffIcons } from '../../icons/icons';
 
-export interface TextFieldProps {
-  onChange: (e: any) => void;
+export interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   type?: string;
   label: string;
   required?: boolean;
@@ -11,19 +10,18 @@ export interface TextFieldProps {
   placeholder?: string;
   helperText?: string | null;
   error?: any;
-  style?: string;
+  customClass?: string;
 }
 
 export function TextField({
-  onChange,
   type = 'text',
   label,
   required = false,
-  placeholder = '',
   helperText = '',
   value = '',
   error = null,
-  style = '',
+  customClass = '',
+  ...rest
 }: TextFieldProps) {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -39,17 +37,16 @@ export function TextField({
       )}
       <div className="relative">
         <input
-          onChange={onChange}
           value={value}
           type={showPassword ? 'text' : type}
           required
-          placeholder={placeholder}
           className={twMerge(
             'input-base w-full',
-            style,
+            customClass,
             type === 'password' && 'pr-12',
             error && 'is-invalid error'
           )}
+          {...rest}
         />
 
         {type === 'password' && (

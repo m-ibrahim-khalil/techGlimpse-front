@@ -9,9 +9,9 @@ const props: TextFieldProps = {
 };
 
 describe('TextField', () => {
-  it('should render successfully', () => {
+  it('should render successfully', async () => {
     const { baseElement, findAllByText } = render(<TextField {...props} />);
     expect(baseElement).toBeTruthy();
-    expect(findAllByText(/TextFieldValue/i)).toBeTruthy();
+    expect(await findAllByText(/TextFieldLabel/i)).toBeTruthy();
   });
 });

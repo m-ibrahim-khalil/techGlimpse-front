@@ -7,11 +7,11 @@ import {
 import { ButtonHTMLAttributes, ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-const fixedBtnClass = 'inline-flex items-center rounded-md';
+const fixedBtnClass = 'inline-flex justify-center items-center rounded-md';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  size: Size;
-  variant: Variant;
+  size?: Size;
+  variant?: Variant;
   children: ReactNode;
   customClass?: string;
 }
@@ -28,8 +28,8 @@ export function Button({
       {...rest}
       className={twMerge(
         fixedBtnClass,
-        VARIANT_MAPS[variant],
-        SIZE_MAPS[size],
+        `${variant && VARIANT_MAPS[variant]}`,
+        `${size && SIZE_MAPS[size]}`,
         customClass
       )}
     >

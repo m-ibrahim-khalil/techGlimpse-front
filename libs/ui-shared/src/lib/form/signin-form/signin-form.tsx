@@ -23,7 +23,8 @@ const validationSchema = yup.object({
   username: yup
     .string()
     .required('User Name is required')
-    .max(10, 'User Name is too long'),
+    .min(6, 'Username must be at least 6 characters')
+    .max(20, 'Username must not exceed 20 characters'),
   password: yup.string().required('password is required'),
 });
 
@@ -34,7 +35,7 @@ export function SigninForm({ onSubmit, error, loading }: SignInFormProps) {
   });
   const { handleSubmit, control } = methods;
   return (
-    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+    <div className="flex min-h-screen flex-1 flex-col justify-center px-6 py-6 lg:px-8">
       <FormHeader
         heading="Sign In to your account"
         paragraph="Don't have an account yet? "

@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import Dropdown, { DropdownProps } from './dropdown';
 
@@ -8,10 +8,10 @@ const props: DropdownProps = {
 };
 
 describe('Dropdown', () => {
-  it('should render successfully', () => {
+  it('should render successfully', async () => {
     const { baseElement, findAllByRole } = render(<Dropdown {...props} />);
     expect(baseElement).toBeTruthy();
-    expect(findAllByRole('select')).toBeTruthy();
+    expect(screen.getByTestId('dropdown')).toBeTruthy();
     expect(findAllByRole('option')).resolves.toHaveLength(4);
   });
 });

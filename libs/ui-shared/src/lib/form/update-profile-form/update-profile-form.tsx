@@ -1,89 +1,94 @@
-import { Size, User, Variant } from '@tech-glimpse-front/types';
+import {
+  IUpdateProfileFormInput,
+  Size,
+  User,
+  Variant,
+} from '@tech-glimpse-front/types';
+import { Controller, useForm } from 'react-hook-form';
 import Button from '../../common/button/button';
+import Error from '../../common/error/error';
+import FormInputText from '../../form-components/form-input-text/form-input-text';
+import { CloseIcon } from '../../icons/icons';
+
 export interface UpdateProfileFormProps {
+  onSubmit: (data: Partial<IUpdateProfileFormInput>) => void;
   setShowModal: (value: boolean) => void;
   user: User;
+  error?: string | null;
+  loading?: boolean;
 }
 
 export function UpdateProfileForm({
+  onSubmit,
   setShowModal,
   user,
+  error,
+  loading,
 }: UpdateProfileFormProps) {
+  const defaultValues: Partial<IUpdateProfileFormInput> = {
+    username: user.username,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email,
+    bio: user.bio,
+    gender: user.gender,
+  };
+
+  const { handleSubmit, control } = useForm<Partial<IUpdateProfileFormInput>>({
+    defaultValues: defaultValues,
+  });
+
   return (
-    <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-      <button
-        className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+    <div className="relative bg-white rounded-lg ">
+      <Button
         onClick={() => setShowModal(false)}
+        customClass="absolute top-3 right-2.5 text-gray-400 bg-red hover:bg-gray-200 hover:text-gray-900 text-sm w-8 h-8 ml-auto dark:hover:bg-gray-600 dark:hover:text-white"
       >
-        <svg
-          className="w-3 h-3"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 14 14"
-        >
-          <path
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-          />
-        </svg>
+        <CloseIcon />
         <span className="sr-only">Close modal</span>
-      </button>
+      </Button>
       <div className="px-1 py-2 lg:px-4-5 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="space-y-6 mt-3">
             <div className="border-b border-gray-900/10 pb-5">
               <h2 className="text-base font-semibold leading-7 text-gray-900">
                 Update Your Public Profile
               </h2>
-              <p className="mt-1 text-sm leading-6 text-gray-600">
-                This information will be displayed publicly so be careful what
-                you share.
-              </p>
+              {error && <Error>{error}</Error>}
 
               <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-4">
                 <div className="sm:col-span-4">
-                  <label
-                    htmlFor="username"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Username
-                  </label>
-                  <div className="mt-2">
-                    <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                      <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">
-                        techglimpse.com/users/
-                      </span>
-                      <input
-                        type="text"
-                        name="username"
-                        id="username"
-                        autoComplete="username"
-                        className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                        placeholder={user.username}
-                        defaultValue={user.username}
-                      />
-                    </div>
-                  </div>
+                  <FormInputText
+                    name="username"
+                    control={control}
+                    label="Username"
+                    placeholder={user.username}
+                    required={true}
+                    customClass=""
+                  />
                 </div>
 
                 <div className="col-span-full">
                   <label
-                    htmlFor="about"
+                    htmlFor="bio"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
-                    About
+                    Bio
                   </label>
                   <div className="mt-2">
-                    <textarea
-                      id="about"
-                      name="about"
-                      rows={3}
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      defaultValue={user.bio}
+                    <Controller
+                      name="bio"
+                      control={control}
+                      render={({ field: { onChange, value } }) => (
+                        <textarea
+                          id="bio"
+                          rows={3}
+                          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                          defaultValue={user?.bio}
+                          onChange={onChange}
+                          value={value}
+                        />
+                      )}
                     />
                   </div>
                   <p className="mt-3 text-sm leading-6 text-gray-600">
@@ -100,60 +105,33 @@ export function UpdateProfileForm({
 
               <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-6">
                 <div className="sm:col-span-3">
-                  <label
-                    htmlFor="first-name"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    First name
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      type="text"
-                      name="first-name"
-                      id="first-name"
-                      autoComplete="given-name"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      defaultValue={user.firstName}
-                    />
-                  </div>
+                  <FormInputText
+                    name="firstName"
+                    control={control}
+                    label="First Name"
+                    placeholder={user.firstName}
+                    customClass=""
+                  />
                 </div>
 
                 <div className="sm:col-span-3">
-                  <label
-                    htmlFor="last-name"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Last name
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      type="text"
-                      name="last-name"
-                      id="last-name"
-                      autoComplete="family-name"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      defaultValue={user.lastName}
-                    />
-                  </div>
+                  <FormInputText
+                    name="lastName"
+                    control={control}
+                    label="Last Name"
+                    placeholder={user.lastName}
+                    customClass=""
+                  />
                 </div>
 
                 <div className="sm:col-span-4">
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Email address
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      id="email"
-                      name="email"
-                      type="email"
-                      autoComplete="email"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      defaultValue={user.email}
-                    />
-                  </div>
+                  <FormInputText
+                    name="email"
+                    control={control}
+                    label="Email"
+                    placeholder={user.email}
+                    customClass=""
+                  />
                 </div>
 
                 <div className="sm:col-span-3">
@@ -164,16 +142,23 @@ export function UpdateProfileForm({
                     Gender
                   </label>
                   <div className="mt-2">
-                    <select
-                      id="country"
-                      name="country"
-                      autoComplete="country-name"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                      defaultValue={user.gender}
-                    >
-                      <option>Male</option>
-                      <option>Female</option>
-                    </select>
+                    <Controller
+                      name="gender"
+                      control={control}
+                      render={({ field: { onChange, value } }) => (
+                        <select
+                          id="gender"
+                          autoComplete="gender"
+                          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                          defaultValue={user.gender}
+                          onChange={onChange}
+                          value={value}
+                        >
+                          <option>Male</option>
+                          <option>Female</option>
+                        </select>
+                      )}
+                    />
                   </div>
                 </div>
               </div>
@@ -186,6 +171,7 @@ export function UpdateProfileForm({
               variant={Variant.SECONDARY}
               size={Size.PRIMARY}
               className="text-sm font-semibold leading-6 text-gray-900"
+              onClick={() => setShowModal(false)}
             >
               Cancel
             </Button>

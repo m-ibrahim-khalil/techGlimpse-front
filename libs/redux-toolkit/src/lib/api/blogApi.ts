@@ -1,9 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import {
-  Blog,
-  IBlogFormInput,
-  IBlogListResponse,
-} from '@tech-glimpse-front/types';
+import { Blog, IBlogListResponse } from '@tech-glimpse-front/types';
 
 export const blogApiSlice = createApi({
   reducerPath: 'blogApi',
@@ -34,11 +30,11 @@ export const blogApiSlice = createApi({
         return {
           ...rest,
           payload: payload.map((blog) => {
-            const { imgUrl, ...rest } = blog;
+            const { coverImageURL, ...rest } = blog;
             return {
               ...rest,
-              imgUrl:
-                imgUrl ??
+              coverImageURL:
+                coverImageURL ??
                 'https://images.unsplash.com/photo-1556155092-490a1ba16284?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
             };
           }),
@@ -67,11 +63,11 @@ export const blogApiSlice = createApi({
         return {
           ...rest,
           payload: payload.map((blog) => {
-            const { imgUrl, ...rest } = blog;
+            const { coverImageURL, ...rest } = blog;
             return {
               ...rest,
-              imgUrl:
-                imgUrl ??
+              coverImageURL:
+                coverImageURL ??
                 'https://images.unsplash.com/photo-1556155092-490a1ba16284?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
             };
           }),
@@ -84,27 +80,32 @@ export const blogApiSlice = createApi({
       providesTags: (result, error, arg) => [{ type: 'Blogs', id: arg.id }],
       transformResponse: (result: { message: Blog }) => {
         const blog = result.message;
-        const { imgUrl, ...rest } = blog;
+        const { coverImageURL, ...rest } = blog;
         return {
           ...rest,
-          imgUrl:
-            imgUrl ??
+          coverImageURL:
+            coverImageURL ??
             'https://images.unsplash.com/photo-1556155092-490a1ba16284?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
         };
       },
     }),
 
-    createBlog: builder.mutation<Blog | string, IBlogFormInput>({
+    createBlog: builder.mutation<Blog | string, FormData>({
       query: (initialPost) => ({
         url: '/stories',
         method: 'POST',
+        prepareHeaders: (headers: Headers) => {
+          headers.set('Content-Type', 'multipart/form-data');
+        },
         body: initialPost,
+        formData: true,
+        credentials: 'include',
       }),
       invalidatesTags: [{ type: 'Blogs', id: 'LIST' }],
       transformResponse: (result: { message: Blog }) => result.message,
     }),
 
-    updateBlog: builder.mutation<string, { id: string; blog: IBlogFormInput }>({
+    updateBlog: builder.mutation<string, { id: string; blog: FormData }>({
       query: ({ id, blog }) => ({
         url: `/stories/${id}`,
         method: 'PUT',

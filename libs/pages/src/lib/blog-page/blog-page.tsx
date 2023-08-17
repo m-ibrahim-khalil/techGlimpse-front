@@ -57,7 +57,7 @@ export function BlogPage() {
           <h2 className="text-4xl font-semibold text-gray-800 leading-tight">
             {blog.title}
           </h2>
-          <div className="my-3 flex flex-col items-start justify-between w-full md:flex-row md:items-center dark:text-gray-400">
+          <div className="my-3 flex flex-col items-start justify-between w-full md:flex-row md:items-center ">
             <div className="flex items-center md:space-x-2">
               <p className="inline-flex text-sm">
                 Posted By {blog.author} •{' '}
@@ -70,7 +70,7 @@ export function BlogPage() {
           </div>
         </div>
         <img
-          src={blog.imgUrl}
+          src={blog.coverImageURL}
           alt=""
           className="w-full object-cover lg:rounded"
           style={{ height: '28em' }}
@@ -84,7 +84,7 @@ export function BlogPage() {
             readOnly={true}
             theme={'bubble'}
           />
-          <div className="py-6 space-x-2 border-t border-dashed dark:border-gray-400">
+          <div className="py-6 space-x-2 border-t border-dashed ">
             {blog.tags
               ? blog.tags?.map((tag, id) => (
                   <Link
@@ -123,10 +123,17 @@ export function BlogPage() {
             </div>
           )}
         </div>
-        <div className="w-full lg:w-1/4 m-auto m-12 max-w-screen-sm">
+        <div className="w-full lg:w-1/4 m-12 max-w-screen-sm">
           <UserCard user={user} />
         </div>
       </div>
+      <div
+        className="absolute inset-0 blur-[118px] max-w-lg h-[800px] mx-auto sm:max-w-3xl sm:h-[400px]"
+        style={{
+          background:
+            'linear-gradient(106.89deg, rgba(192, 132, 252, 0.11) 15.73%, rgba(14, 165, 233, 0.41) 15.74%, rgba(232, 121, 249, 0.26) 56.49%, rgba(79, 70, 229, 0.4) 115.91%)',
+        }}
+      ></div>
     </main>
   );
 }

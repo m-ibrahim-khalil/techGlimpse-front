@@ -5,7 +5,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { useBlog, useGetBlogQuery } from '@tech-glimpse-front/redux-toolkit';
 import { Size, Variant } from '@tech-glimpse-front/types';
-import { BlogEditor, Button } from '@tech-glimpse-front/ui-shared';
+import { BlogEditor, Button, PageLoader } from '@tech-glimpse-front/ui-shared';
 import { useCallback, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -19,27 +19,43 @@ export function BlogCreateUpdatePage({
   const params = useParams();
   const blogId = params.blogId ?? '';
   const { data: blog } = useGetBlogQuery({ id: blogId });
+  const [coverImage, setCoverImage] = useState<File | string | null>(
+    blog?.coverImageURL ?? null
+  );
   const [title, setTitle] = useState(blog?.title ?? '');
   const [description, setDescription] = useState(blog?.description ?? '');
   const [errors, setErrors] = useState({ title: '', description: '' });
 
-  const { createBlog, updateBlog } = useBlog();
+  const { createBlog, updateBlog, loading } = useBlog();
+
+  const formData = (
+    coverImage: File | string | null,
+    title: string,
+    description: string
+  ) => {
+    const formData = new FormData();
+    if (typeof coverImage === 'string') {
+      formData.append('coverImageURL', coverImage);
+    }
+    formData.append('coverImage', coverImage as File);
+    formData.append('title', title);
+    formData.append('description', description);
+    return formData;
+  };
 
   const onPublish = useCallback(async () => {
-    await createBlog({
-      title,
-      description,
-    });
-    console.log('Published: ', title, description);
-  }, [title, description, createBlog]);
+    await createBlog(formData(coverImage, title, description));
+    console.log('Published: ', coverImage, title, description);
+  }, [coverImage, title, description, createBlog]);
 
   const onUpdateChangesClick = useCallback(async () => {
-    await updateBlog(blogId, { title, description });
-    console.log('Updated Changes: ', title, description);
-  }, [blogId, title, description, updateBlog]);
+    await updateBlog(blogId, formData(coverImage, title, description));
+    console.log('Updated Changes: ', coverImage, title, description);
+  }, [blogId, coverImage, title, description, updateBlog]);
 
-  const onSubmit = (e: any) => {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log('Submitted: ', coverImage, title, description);
     if (!title.trim() || !description.trim()) {
       setErrors({
         title: !title.trim() ? 'Title is required' : '',
@@ -54,9 +70,11 @@ export function BlogCreateUpdatePage({
     onPublish();
   };
 
+  if (loading) return <PageLoader />;
+
   return (
     <div className="py-12">
-      <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+      <div className="max-w-7xl min-h-screen mx-auto sm:px-6 lg:px-8 mt-10">
         <div className="bg-white overflow-hidden p-6">
           <form className="space-y-6" onSubmit={onSubmit}>
             <div className="flex flex-col gap-4 items-center justify-between md:flex-row">
@@ -102,6 +120,8 @@ export function BlogCreateUpdatePage({
               </div>
             </div>
             <BlogEditor
+              coverImage={coverImage}
+              setCoverImage={setCoverImage}
               title={title}
               setTitle={setTitle}
               description={description}

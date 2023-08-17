@@ -1,6 +1,6 @@
+import { FormInputProps } from '@tech-glimpse-front/types';
 import { Controller } from 'react-hook-form';
 import TextField from '../../common/text-field/text-field';
-import { FormInputProps } from '../form-input-props';
 
 export function FormInputText({
   name,
@@ -9,6 +9,7 @@ export function FormInputText({
   required = false,
   type = 'text',
   placeholder = '',
+  customClass,
 }: FormInputProps) {
   return (
     <Controller
@@ -24,6 +25,8 @@ export function FormInputText({
           onChange={onChange}
           value={value}
           label={label}
+          customClass={customClass}
+          autoComplete={name}
         />
       )}
     />

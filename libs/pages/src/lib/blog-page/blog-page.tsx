@@ -38,16 +38,12 @@ export function BlogPage() {
     [deleteBlog, blogId]
   );
 
-  if (!blog) {
-    return (
-      <section>
-        <h2>Blog not found!</h2>
-      </section>
-    );
-  }
-
   if (isLoading) {
     return <PageLoader />;
+  }
+
+  if (!blog) {
+    return <div>Blog not found</div>;
   }
 
   return (

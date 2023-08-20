@@ -10,7 +10,7 @@ export function Dropdown({ options, onChange }: DropdownProps) {
     <div className="relative mt-8 mb-4">
       <select
         onChange={onChange}
-        className="w-full h-10 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-500"
+        className="w-full h-10 text-gray-800 bg-white dark:bg-gray-800 dark:text-white border rounded-md shadow-sm outline-none appearance-none"
         data-testid="dropdown"
       >
         {options.map((option) => (

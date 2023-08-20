@@ -29,7 +29,7 @@ export function UpdateUserPasswordModal({
     console.log('res: ', res);
     if (res === 'SUCCESS') {
       setShowModal(false);
-    } else setError(res ?? updatePasswordError?.message ?? 'Unknown error');
+    } else setError(res ?? updatePasswordError ?? 'Unknown error');
   };
   return (
     <div className="fixed z-50 w-full overflow-y-auto md:inset-0 h-[calc(100%-1rem)]  max-h-full backdrop-blur-lg bg-transparent">

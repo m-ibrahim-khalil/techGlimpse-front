@@ -55,8 +55,7 @@ export function useBlog() {
         navigate('/blogs');
       } catch (err) {
         let errMsg = '';
-        if (isFetchBaseQueryError(err))
-          errMsg = err.data?.message ?? JSON.stringify(err.data);
+        if (isFetchBaseQueryError(err)) errMsg = JSON.stringify(err.data);
         else if (isErrorWithMessage(err)) errMsg = err.message;
         if (errMsg) {
           const nav = erroHandler(errMsg);
@@ -82,8 +81,7 @@ export function useBlog() {
           navigate('/blogs');
         } catch (err) {
           let errMsg = '';
-          if (isFetchBaseQueryError(err))
-            errMsg = err.data?.message ?? JSON.stringify(err.data);
+          if (isFetchBaseQueryError(err)) errMsg = JSON.stringify(err.data);
           else if (isErrorWithMessage(err)) errMsg = err.message;
           if (errMsg) {
             const nav = erroHandler(errMsg);
@@ -108,8 +106,7 @@ export function useBlog() {
         navigate(-1);
       } catch (err) {
         let errMsg = '';
-        if (isFetchBaseQueryError(err))
-          errMsg = err.data?.message ?? JSON.stringify(err.data);
+        if (isFetchBaseQueryError(err)) errMsg = JSON.stringify(err.data);
         else if (isErrorWithMessage(err)) errMsg = err.message;
         if (errMsg) {
           const nav = erroHandler(errMsg);

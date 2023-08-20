@@ -1,0 +1,12 @@
+{
+  "/api": {
+    "target": "https://fine-lime-bull-gear.cyclic.app",
+    "secure": true,
+    "changeOrigin": true
+  },
+  "/api-api": {
+    "target": "https://fine-lime-bull-gear.cyclic.app",
+    "secure": false,
+    "changeOrigin": true
+  }
+}

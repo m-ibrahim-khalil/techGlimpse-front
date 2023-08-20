@@ -1,0 +1,8 @@
+{
+  "redirects": [
+    {
+      "source": "/api",
+      "destination": "https://fine-lime-bull-gear.cyclic.app/api"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/v1/:match*",
+      "destination": "https://fine-lime-bull-gear.cyclic.app/api/v1/:match*"
+    }
+  ]
+}

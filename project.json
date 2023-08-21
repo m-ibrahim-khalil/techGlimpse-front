@@ -9,7 +9,8 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/tech-glimpse-front"
+        "outputPath": "dist/tech-glimpse-front",
+        "proxyConfig": "proxy.conf.json"
       },
       "configurations": {
         "development": {
@@ -29,13 +30,13 @@
       "configurations": {
         "development": {
           "buildTarget": "tech-glimpse-front:build:development",
-          "hmr": true,
-          "proxyConfig": "tech-glimpse-front/proxy.conf.json"
+          "hmr": false,
+          "proxyConfig": "proxy.conf.json"
         },
         "production": {
           "buildTarget": "tech-glimpse-front:build:production",
           "hmr": false,
-          "proxyConfig": "tech-glimpse-front/proxy.conf.json"
+          "proxyConfig": "proxy.conf.json"
         }
       }
     },

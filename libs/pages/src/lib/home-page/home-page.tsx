@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 export function HomePage() {
   return (
     <main className="relative py-28 dark:bg-gray-900">
-      <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56 min-h-screen flex flex-col justify-center items-center text-content">
+      <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56 min-h-screen flex flex-col justify-center items-center text-slate-800 dark:text-white">
         <div className="hidden sm:mb-8 sm:flex sm:justify-center">
           <div className="relative rounded-full px-3 py-1 text-sm leading-6">
             Announcing our next Product LiDAR Classifier.{' '}

@@ -25,7 +25,7 @@ export function BlogListPage() {
   if (isLoading) return <PageLoader />;
 
   return (
-    <main className="relative py-28 dark:bg-gray-900 text-content">
+    <main className="relative py-28 min-h-screen dark:bg-gray-900 text-slate-800 dark:text-white">
       <div className="mb-10 py-5">
         <section className="py-10">
           <div className="max-w-screen-xl mx-auto px-4 md:px-8">

@@ -9,11 +9,7 @@ import {
   useUpdatePasswordMutation,
   useUpdateProfileMutation,
 } from '../api/userApi';
-import {
-  erroHandler,
-  isErrorWithMessage,
-  isFetchBaseQueryError,
-} from '../helpers';
+import { erroHandler } from '../helpers';
 import { logout, setCredentials } from '../reducers/auth-slice.reducer';
 import { AppDispatch } from '../store/store';
 import useDialog from './use-dialog.hook';
@@ -37,13 +33,7 @@ export function useUser() {
       console.log('useUser Hook user: ', user);
       return user;
     } catch (err) {
-      let errMsg = '';
-      if (isFetchBaseQueryError(err)) errMsg = JSON.stringify(err.data);
-      else if (isErrorWithMessage(err)) errMsg = err.message;
-      if (errMsg) {
-        const nav = erroHandler(errMsg);
-        if (nav) return navigate(nav);
-      }
+      return erroHandler(err);
     }
   };
 
@@ -59,18 +49,7 @@ export function useUser() {
         toast.success('Update Password success');
         return 'SUCCESS';
       } catch (err) {
-        let errMsg = '';
-        if (isFetchBaseQueryError(err)) errMsg = JSON.stringify(err.data);
-        else if (isErrorWithMessage(err)) errMsg = err.message;
-        if (errMsg) {
-          const nav = erroHandler(errMsg);
-          if (nav) {
-            dispatch(logout());
-            toast.info('Please login again');
-            navigate(nav);
-          }
-        }
-        return errMsg;
+        return erroHandler(err);
       }
     },
     [updatePasswordMutation]
@@ -88,18 +67,7 @@ export function useUser() {
         dispatch(setCredentials(userInfo?.username ?? username));
         return 'SUCCESS';
       } catch (err) {
-        let errMsg = '';
-        if (isFetchBaseQueryError(err)) errMsg = JSON.stringify(err.data);
-        else if (isErrorWithMessage(err)) errMsg = err.message;
-        if (errMsg) {
-          const nav = erroHandler(errMsg);
-          if (nav) {
-            dispatch(logout());
-            toast.info('Please login again');
-            navigate(nav);
-          }
-        }
-        return errMsg;
+        return erroHandler(err);
       }
     },
     [updateProfileMutation]
@@ -116,17 +84,7 @@ export function useUser() {
           dispatch(logout());
           navigate('/');
         } catch (err) {
-          let errMsg = '';
-          if (isFetchBaseQueryError(err)) errMsg = JSON.stringify(err.data);
-          else if (isErrorWithMessage(err)) errMsg = err.message;
-          if (errMsg) {
-            const nav = erroHandler(errMsg);
-            if (nav) {
-              dispatch(logout());
-              toast.info('Please login again');
-              navigate(nav);
-            }
-          }
+          return erroHandler(err);
         }
         closeDialog();
       });

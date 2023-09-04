@@ -8,12 +8,7 @@ import {
   useGetBlogsQuery,
   useUpdateBlogMutation,
 } from '../api/blogApi';
-import {
-  erroHandler,
-  isErrorWithMessage,
-  isFetchBaseQueryError,
-} from '../helpers';
-import { logout } from '../reducers/auth-slice.reducer';
+import { erroHandler } from '../helpers';
 import { AppDispatch } from '../store/store';
 import { useAppSelector } from './use-app-selector.hook';
 import useDialog from './use-dialog.hook';
@@ -54,17 +49,7 @@ export function useBlog() {
         toast.success('Create blog success');
         navigate('/blogs');
       } catch (err) {
-        let errMsg = '';
-        if (isFetchBaseQueryError(err)) errMsg = JSON.stringify(err.data);
-        else if (isErrorWithMessage(err)) errMsg = err.message;
-        if (errMsg) {
-          const nav = erroHandler(errMsg);
-          if (nav) {
-            dispatch(logout());
-            toast.info('Please login again');
-            navigate(nav);
-          }
-        }
+        return erroHandler(err);
       }
     },
     [createBlogMutation, navigate]
@@ -80,17 +65,7 @@ export function useBlog() {
           toast.success('Delete blog success');
           navigate('/blogs');
         } catch (err) {
-          let errMsg = '';
-          if (isFetchBaseQueryError(err)) errMsg = JSON.stringify(err.data);
-          else if (isErrorWithMessage(err)) errMsg = err.message;
-          if (errMsg) {
-            const nav = erroHandler(errMsg);
-            if (nav) {
-              dispatch(logout());
-              toast.info('Please login again');
-              navigate(nav);
-            }
-          }
+          return erroHandler(err);
         }
         closeDialog();
       });
@@ -105,17 +80,7 @@ export function useBlog() {
         toast.success('Update blog success');
         navigate(-1);
       } catch (err) {
-        let errMsg = '';
-        if (isFetchBaseQueryError(err)) errMsg = JSON.stringify(err.data);
-        else if (isErrorWithMessage(err)) errMsg = err.message;
-        if (errMsg) {
-          const nav = erroHandler(errMsg);
-          if (nav) {
-            dispatch(logout());
-            toast.info('Please login again');
-            navigate(nav);
-          }
-        }
+        return erroHandler(err);
       }
     },
     [updateBlogMutation, navigate]

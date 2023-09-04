@@ -56,6 +56,7 @@ export function useUser() {
           newPassword,
         }).unwrap();
         console.log('res: ', res);
+        toast.dismiss();
         toast.success('Update Password success');
         return 'SUCCESS';
       } catch (err) {
@@ -66,6 +67,7 @@ export function useUser() {
           const nav = erroHandler(errMsg);
           if (nav) {
             dispatch(logout());
+            toast.dismiss();
             toast.info('Please login again');
             navigate(nav);
           }
@@ -84,6 +86,7 @@ export function useUser() {
           userInfo,
         }).unwrap();
         console.log('res: ', res);
+        toast.dismiss();
         toast.success('Update Profile success');
         dispatch(setCredentials(userInfo?.username ?? username));
         return 'SUCCESS';
@@ -95,6 +98,7 @@ export function useUser() {
           const nav = erroHandler(errMsg);
           if (nav) {
             dispatch(logout());
+            toast.dismiss();
             toast.info('Please login again');
             navigate(nav);
           }
@@ -112,6 +116,7 @@ export function useUser() {
         try {
           const res = await deleteUserMutation({ username }).unwrap();
           console.log('res: ', res);
+          toast.dismiss();
           toast.success('Delete User Profile success');
           dispatch(logout());
           navigate('/');
@@ -123,6 +128,7 @@ export function useUser() {
             const nav = erroHandler(errMsg);
             if (nav) {
               dispatch(logout());
+              toast.dismiss();
               toast.info('Please login again');
               navigate(nav);
             }

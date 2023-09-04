@@ -40,6 +40,7 @@ export function ProfileMenu() {
   const checkCookieValidity = () => {
     console.log('Checking cookie validity', isCookieValid());
     if (!isCookieValid() && authUser) {
+      toast.dismiss();
       toast.error('Session expired. Please login again.');
       handleLogout();
     }

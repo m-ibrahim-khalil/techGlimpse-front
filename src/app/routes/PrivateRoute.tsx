@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 const PrivateRoute = ({ children }: { children: JSX.Element }) => {
   const { authUser } = useSelector((state: RootState) => state.auth);
   if (!authUser) {
+    toast.dismiss();
     toast.info('Protected route. Please login to continue.');
     return <Navigate to="/signin" replace />;
   }

@@ -32,6 +32,7 @@ export const authSlice = createSlice({
       state.loginError = null;
       state.registerError = null;
       state.success = false;
+      toast.dismiss();
       toast.success('Logout success');
     },
     setCredentials: (state, { payload }) => {
@@ -43,33 +44,39 @@ export const authSlice = createSlice({
       .addCase(registerUser.pending, (state, action) => {
         state.loading = true;
         state.registerError = null;
+        toast.dismiss();
         toast.info('Registering user...');
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = false;
         state.authUser = getAuthUsername();
         state.success = true;
+        toast.dismiss();
         toast.success('User registered successfully');
       })
       .addCase(registerUser.rejected, (state, { payload }) => {
         state.loading = false;
         state.registerError = payload;
+        toast.dismiss();
         toast.error('Error registering user');
       })
       .addCase(userLogin.pending, (state, action) => {
         state.loading = true;
         state.loginError = null;
+        toast.dismiss();
         toast.info('Logging in...');
       })
       .addCase(userLogin.fulfilled, (state, action) => {
         state.loading = false;
         state.authUser = getAuthUsername();
         state.success = true;
+        toast.dismiss();
         toast.success('Login success');
       })
       .addCase(userLogin.rejected, (state, { payload }) => {
         state.loading = false;
         state.loginError = payload;
+        toast.dismiss();
         toast.error('Error logging in');
       });
   },

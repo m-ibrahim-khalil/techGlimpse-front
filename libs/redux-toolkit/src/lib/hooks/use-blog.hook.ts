@@ -51,6 +51,7 @@ export function useBlog() {
     async (blog: FormData) => {
       try {
         await createBlogMutation(blog).unwrap();
+        toast.dismiss();
         toast.success('Create blog success');
         navigate('/blogs');
       } catch (err) {
@@ -61,6 +62,7 @@ export function useBlog() {
           const nav = erroHandler(errMsg);
           if (nav) {
             dispatch(logout());
+            toast.dismiss();
             toast.info('Please login again');
             navigate(nav);
           }
@@ -77,6 +79,7 @@ export function useBlog() {
         try {
           const res = await deleteBlogMutation({ id }).unwrap();
           console.log('res: ', res);
+          toast.dismiss();
           toast.success('Delete blog success');
           navigate('/blogs');
         } catch (err) {
@@ -87,6 +90,7 @@ export function useBlog() {
             const nav = erroHandler(errMsg);
             if (nav) {
               dispatch(logout());
+              toast.dismiss();
               toast.info('Please login again');
               navigate(nav);
             }
@@ -102,6 +106,7 @@ export function useBlog() {
     async (id: string, blog: FormData) => {
       try {
         await updateBlogMutation({ id, blog }).unwrap();
+        toast.dismiss();
         toast.success('Update blog success');
         navigate(-1);
       } catch (err) {
@@ -112,6 +117,7 @@ export function useBlog() {
           const nav = erroHandler(errMsg);
           if (nav) {
             dispatch(logout());
+            toast.dismiss();
             toast.info('Please login again');
             navigate(nav);
           }

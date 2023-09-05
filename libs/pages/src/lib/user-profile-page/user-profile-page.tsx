@@ -10,11 +10,12 @@ export function UserProfilePage() {
   const { getUserByUsername } = useUser();
   const user = getUserByUsername(username ?? '');
 
-  if (!user)
+  if (!user || typeof user === 'string')
     return (
       <div className="bg-gray-100">
         <div className="container mx-auto my-5 p-5">
           <h2 className=" w-60 h-60 ">User Not Exist</h2>
+          {typeof user === 'string' && <div>{user}</div>}
         </div>
       </div>
     );

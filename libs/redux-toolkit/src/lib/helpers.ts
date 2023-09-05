@@ -32,6 +32,7 @@ export function getErrorMessage(err: any) {
   let errMsg = '';
   if (isFetchBaseQueryError(err)) errMsg = JSON.stringify(err.data);
   else if (isErrorWithMessage(err)) errMsg = err.message;
+  else errMsg = JSON.stringify(err);
   return errMsg;
 }
 
@@ -39,16 +40,15 @@ export function erroHandler(err: any) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const errMsg = getErrorMessage(err);
+  if (!errMsg) return 'Unknown error';
   if (errMsg.includes('jwt expired')) {
     toast.error('Your session has expired, please login again');
     dispatch(logout());
     navigate('/signin');
-    return;
   } else if (errMsg.includes('UnAuthorized')) {
     toast.error('You are not authorized to perform this action');
-    return;
   } else {
     toast.error(errMsg);
-    return;
   }
+  return errMsg;
 }

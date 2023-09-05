@@ -1,5 +1,4 @@
 import { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import {
@@ -9,7 +8,6 @@ import {
   useUpdateBlogMutation,
 } from '../api/blogApi';
 import { erroHandler } from '../helpers';
-import { AppDispatch } from '../store/store';
 import { useAppSelector } from './use-app-selector.hook';
 import useDialog from './use-dialog.hook';
 
@@ -17,7 +15,6 @@ export function useBlog() {
   const navigate = useNavigate();
   const { page, size } = useAppSelector((state) => state.pagination);
   const { openDialog, closeDialog } = useDialog();
-  const dispatch: AppDispatch = useDispatch();
 
   const {
     data: blogList = {
@@ -47,7 +44,7 @@ export function useBlog() {
       try {
         await createBlogMutation(blog).unwrap();
         toast.success('Create blog success');
-        navigate('/blogs');
+        return navigate('/blogs');
       } catch (err) {
         return erroHandler(err);
       }
@@ -68,6 +65,7 @@ export function useBlog() {
           return erroHandler(err);
         }
         closeDialog();
+        return;
       });
     },
     [deleteBlogMutation, closeDialog, openDialog]
@@ -78,7 +76,7 @@ export function useBlog() {
       try {
         await updateBlogMutation({ id, blog }).unwrap();
         toast.success('Update blog success');
-        navigate(-1);
+        return navigate(-1);
       } catch (err) {
         return erroHandler(err);
       }

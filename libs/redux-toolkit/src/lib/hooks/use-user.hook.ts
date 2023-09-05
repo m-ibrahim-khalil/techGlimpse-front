@@ -18,8 +18,7 @@ export function useUser() {
   const navigate = useNavigate();
   const { openDialog, closeDialog } = useDialog();
   const dispatch: AppDispatch = useDispatch();
-  const [deleteUserMutation, { isLoading: deleteUserLoading }] =
-    useDeleteUserByUsernameMutation();
+  const [deleteUserMutation] = useDeleteUserByUsernameMutation();
   const [
     updatePasswordMutation,
     { isLoading: updatePasswordLoading, error: updatePasswordError },
@@ -87,6 +86,7 @@ export function useUser() {
           return erroHandler(err);
         }
         closeDialog();
+        return;
       });
     },
     [deleteUserMutation, closeDialog, openDialog]

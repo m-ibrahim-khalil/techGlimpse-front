@@ -1,5 +1,5 @@
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import { toast } from 'react-toastify';
+import { showToast } from '@tech-glimpse-front/util';
 
 /**
  * Type predicate to narrow an unknown error to `FetchBaseQueryError`
@@ -27,17 +27,13 @@ export function isErrorWithMessage(
 
 export function erroHandler(errMsg: string) {
   if (errMsg.includes('jwt expired')) {
-    toast.dismiss();
-    toast.error('Your session has expired, please login again');
+    showToast('Your session has expired, please login again', 'error');
     return '/signin';
   } else if (errMsg.includes('UnAuthorized')) {
-    toast.dismiss();
-    toast.error('You are not authorized to perform this action');
+    showToast('You are not authorized to perform this action', 'error');
     return;
   } else {
-    console.log('errMsg: ', errMsg);
-    toast.dismiss();
-    toast.error(errMsg);
+    showToast(errMsg, 'error');
     return;
   }
 }

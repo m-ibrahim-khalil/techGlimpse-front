@@ -1,6 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getAuthUsername, removeCoockie } from '@tech-glimpse-front/util';
-import { toast } from 'react-toastify';
+import {
+  getAuthUsername,
+  removeCoockie,
+  showToast,
+} from '@tech-glimpse-front/util';
 import { registerUser, userLogin } from '../actions/auth.action';
 
 const authUser = getAuthUsername();
@@ -32,8 +35,7 @@ export const authSlice = createSlice({
       state.loginError = null;
       state.registerError = null;
       state.success = false;
-      toast.dismiss();
-      toast.success('Logout success');
+      showToast('Logout success', 'success');
     },
     setCredentials: (state, { payload }) => {
       state.authUser = payload;
@@ -44,40 +46,34 @@ export const authSlice = createSlice({
       .addCase(registerUser.pending, (state, action) => {
         state.loading = true;
         state.registerError = null;
-        toast.dismiss();
-        toast.info('Registering user...');
+        showToast('Registering user...', 'info');
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = false;
         state.authUser = getAuthUsername();
         state.success = true;
-        toast.dismiss();
-        toast.success('User registered successfully');
+        showToast('User registered successfully', 'success');
       })
       .addCase(registerUser.rejected, (state, { payload }) => {
         state.loading = false;
         state.registerError = payload;
-        toast.dismiss();
-        toast.error('Error registering user');
+        showToast('Error registering user', 'error');
       })
       .addCase(userLogin.pending, (state, action) => {
         state.loading = true;
         state.loginError = null;
-        toast.dismiss();
-        toast.info('Logging in...');
+        showToast('Logging in...', 'info');
       })
       .addCase(userLogin.fulfilled, (state, action) => {
         state.loading = false;
         state.authUser = getAuthUsername();
         state.success = true;
-        toast.dismiss();
-        toast.success('Login success');
+        showToast('Login success', 'success');
       })
       .addCase(userLogin.rejected, (state, { payload }) => {
         state.loading = false;
         state.loginError = payload;
-        toast.dismiss();
-        toast.error('Error logging in');
+        showToast('Error logging in', 'error');
       });
   },
 });

@@ -1,7 +1,7 @@
+import { showToast } from '@tech-glimpse-front/util';
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import {
   useCreateBlogMutation,
   useDeleteBlogMutation,
@@ -51,8 +51,7 @@ export function useBlog() {
     async (blog: FormData) => {
       try {
         await createBlogMutation(blog).unwrap();
-        toast.dismiss();
-        toast.success('Create blog success');
+        showToast('Create blog success', 'success');
         navigate('/blogs');
       } catch (err) {
         let errMsg = '';
@@ -62,8 +61,7 @@ export function useBlog() {
           const nav = erroHandler(errMsg);
           if (nav) {
             dispatch(logout());
-            toast.dismiss();
-            toast.info('Please login again');
+            showToast('Please login again', 'info');
             navigate(nav);
           }
         }
@@ -74,13 +72,10 @@ export function useBlog() {
 
   const deleteBlog = useCallback(
     (id: string) => {
-      console.log(id);
       openDialog(async () => {
         try {
           const res = await deleteBlogMutation({ id }).unwrap();
-          console.log('res: ', res);
-          toast.dismiss();
-          toast.success('Delete blog success');
+          showToast('Delete blog success', 'success');
           navigate('/blogs');
         } catch (err) {
           let errMsg = '';
@@ -90,8 +85,7 @@ export function useBlog() {
             const nav = erroHandler(errMsg);
             if (nav) {
               dispatch(logout());
-              toast.dismiss();
-              toast.info('Please login again');
+              showToast('Please login again', 'info');
               navigate(nav);
             }
           }
@@ -106,8 +100,7 @@ export function useBlog() {
     async (id: string, blog: FormData) => {
       try {
         await updateBlogMutation({ id, blog }).unwrap();
-        toast.dismiss();
-        toast.success('Update blog success');
+        showToast('Update blog success', 'success');
         navigate(-1);
       } catch (err) {
         let errMsg = '';
@@ -117,8 +110,7 @@ export function useBlog() {
           const nav = erroHandler(errMsg);
           if (nav) {
             dispatch(logout());
-            toast.dismiss();
-            toast.info('Please login again');
+            showToast('Please login again', 'info');
             navigate(nav);
           }
         }

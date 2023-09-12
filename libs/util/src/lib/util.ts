@@ -1,4 +1,5 @@
 import jwt_decode from 'jwt-decode';
+import { toast } from 'react-toastify';
 import { getCookie, removeCookie } from 'typescript-cookie';
 
 function hasCookie(cookieName = 'jwt') {
@@ -40,4 +41,32 @@ function truncate(str: string, length: number) {
   return str.length > length ? str.slice(0, length) + ' ...' : str;
 }
 
-export { getAuthUsername, hasCookie, isCookieValid, removeCoockie, truncate };
+function showToast(message: string, type: string) {
+  toast.dismiss();
+  switch (type) {
+    case 'success':
+      toast.success(message);
+      break;
+    case 'error':
+      toast.error(message);
+      break;
+    case 'info':
+      toast.info(message);
+      break;
+    case 'warning':
+      toast.warning(message);
+      break;
+    default:
+      toast(message);
+      break;
+  }
+}
+
+export {
+  getAuthUsername,
+  hasCookie,
+  isCookieValid,
+  removeCoockie,
+  showToast,
+  truncate,
+};

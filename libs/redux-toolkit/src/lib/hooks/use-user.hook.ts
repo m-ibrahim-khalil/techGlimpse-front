@@ -1,8 +1,8 @@
 import { IUpdateProfileFormInput } from '@tech-glimpse-front/types';
+import { showToast } from '@tech-glimpse-front/util';
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import {
   useDeleteUserByUsernameMutation,
   useGetUserByUsernameQuery,
@@ -45,7 +45,7 @@ export function useUser() {
           newPassword,
         }).unwrap();
         console.log('res: ', res);
-        toast.success('Update Password success');
+        showToast('Update Password success', 'success');
         return 'SUCCESS';
       } catch (err) {
         return erroHandler(err);
@@ -62,7 +62,7 @@ export function useUser() {
           userInfo,
         }).unwrap();
         console.log('res: ', res);
-        toast.success('Update Profile success');
+        showToast('Update Profile success', 'success');
         dispatch(setCredentials(userInfo?.username ?? username));
         return 'SUCCESS';
       } catch (err) {
@@ -79,7 +79,7 @@ export function useUser() {
         try {
           const res = await deleteUserMutation({ username }).unwrap();
           console.log('res: ', res);
-          toast.success('Delete User Profile success');
+          showToast('Delete User Profile success', 'success');
           dispatch(logout());
           navigate('/');
         } catch (err) {

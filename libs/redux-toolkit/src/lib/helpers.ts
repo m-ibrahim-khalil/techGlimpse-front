@@ -1,6 +1,6 @@
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { showToast } from '@tech-glimpse-front/util';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { useAppDispatch } from './hooks/use-app-dispatch.hook';
 import { logout } from './reducers/auth-slice.reducer';
 
@@ -42,13 +42,14 @@ export function erroHandler(err: any) {
   const errMsg = getErrorMessage(err);
   if (!errMsg) return 'Unknown error';
   if (errMsg.includes('jwt expired')) {
-    toast.error('Your session has expired, please login again');
+    showToast('Your session has expired, please login again', 'error');
     dispatch(logout());
     navigate('/signin');
   } else if (errMsg.includes('UnAuthorized')) {
-    toast.error('You are not authorized to perform this action');
+    showToast('You are not authorized to perform this action', 'error');
+    return;
   } else {
-    toast.error(errMsg);
+    showToast(errMsg, 'error');
   }
   return errMsg;
 }

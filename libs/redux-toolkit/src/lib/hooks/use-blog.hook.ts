@@ -1,6 +1,6 @@
+import { showToast } from '@tech-glimpse-front/util';
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import {
   useCreateBlogMutation,
   useDeleteBlogMutation,
@@ -43,7 +43,7 @@ export function useBlog() {
     async (blog: FormData) => {
       try {
         await createBlogMutation(blog).unwrap();
-        toast.success('Create blog success');
+        showToast('Create blog success', 'success');
         return navigate('/blogs');
       } catch (err) {
         return erroHandler(err);
@@ -54,12 +54,10 @@ export function useBlog() {
 
   const deleteBlog = useCallback(
     (id: string) => {
-      console.log(id);
       openDialog(async () => {
         try {
           const res = await deleteBlogMutation({ id }).unwrap();
-          console.log('res: ', res);
-          toast.success('Delete blog success');
+          showToast('Delete blog success', 'success');
           navigate('/blogs');
         } catch (err) {
           return erroHandler(err);
@@ -75,7 +73,7 @@ export function useBlog() {
     async (id: string, blog: FormData) => {
       try {
         await updateBlogMutation({ id, blog }).unwrap();
-        toast.success('Update blog success');
+        showToast('Update blog success', 'success');
         return navigate(-1);
       } catch (err) {
         return erroHandler(err);

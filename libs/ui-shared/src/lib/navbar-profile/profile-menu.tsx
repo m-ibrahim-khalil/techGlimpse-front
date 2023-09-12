@@ -7,11 +7,10 @@ import {
   useTheme,
 } from '@tech-glimpse-front/redux-toolkit';
 import { Size, Variant } from '@tech-glimpse-front/types';
-import { isCookieValid } from '@tech-glimpse-front/util';
+import { isCookieValid, showToast } from '@tech-glimpse-front/util';
 import { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { twMerge } from 'tailwind-merge';
 import Button from '../common/button/button';
 import { DarkModeIcon, LightModeIcon } from '../icons/icons';
@@ -40,7 +39,7 @@ export function ProfileMenu() {
   const checkCookieValidity = () => {
     console.log('Checking cookie validity', isCookieValid());
     if (!isCookieValid() && authUser) {
-      toast.error('Session expired. Please login again.');
+      showToast('Session expired. Please login again.', 'error');
       handleLogout();
     }
   };

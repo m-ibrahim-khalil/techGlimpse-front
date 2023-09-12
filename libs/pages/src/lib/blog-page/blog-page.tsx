@@ -46,6 +46,10 @@ export function BlogPage() {
     return <div>Blog not found</div>;
   }
 
+  if (typeof user === 'string') {
+    return <div>{user}</div>;
+  }
+
   return (
     <main className="max-w-screen-lg mx-auto my-10">
       <div className="mb-4 md:mb-0 w-full mx-auto relative">

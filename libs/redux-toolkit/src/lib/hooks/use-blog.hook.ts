@@ -1,5 +1,4 @@
 import { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import {
@@ -8,13 +7,7 @@ import {
   useGetBlogsQuery,
   useUpdateBlogMutation,
 } from '../api/blogApi';
-import {
-  erroHandler,
-  isErrorWithMessage,
-  isFetchBaseQueryError,
-} from '../helpers';
-import { logout } from '../reducers/auth-slice.reducer';
-import { AppDispatch } from '../store/store';
+import { erroHandler } from '../helpers';
 import { useAppSelector } from './use-app-selector.hook';
 import useDialog from './use-dialog.hook';
 
@@ -22,7 +15,6 @@ export function useBlog() {
   const navigate = useNavigate();
   const { page, size } = useAppSelector((state) => state.pagination);
   const { openDialog, closeDialog } = useDialog();
-  const dispatch: AppDispatch = useDispatch();
 
   const {
     data: blogList = {
@@ -52,19 +44,9 @@ export function useBlog() {
       try {
         await createBlogMutation(blog).unwrap();
         toast.success('Create blog success');
-        navigate('/blogs');
+        return navigate('/blogs');
       } catch (err) {
-        let errMsg = '';
-        if (isFetchBaseQueryError(err)) errMsg = JSON.stringify(err.data);
-        else if (isErrorWithMessage(err)) errMsg = err.message;
-        if (errMsg) {
-          const nav = erroHandler(errMsg);
-          if (nav) {
-            dispatch(logout());
-            toast.info('Please login again');
-            navigate(nav);
-          }
-        }
+        return erroHandler(err);
       }
     },
     [createBlogMutation, navigate]
@@ -80,19 +62,10 @@ export function useBlog() {
           toast.success('Delete blog success');
           navigate('/blogs');
         } catch (err) {
-          let errMsg = '';
-          if (isFetchBaseQueryError(err)) errMsg = JSON.stringify(err.data);
-          else if (isErrorWithMessage(err)) errMsg = err.message;
-          if (errMsg) {
-            const nav = erroHandler(errMsg);
-            if (nav) {
-              dispatch(logout());
-              toast.info('Please login again');
-              navigate(nav);
-            }
-          }
+          return erroHandler(err);
         }
         closeDialog();
+        return;
       });
     },
     [deleteBlogMutation, closeDialog, openDialog]
@@ -103,19 +76,9 @@ export function useBlog() {
       try {
         await updateBlogMutation({ id, blog }).unwrap();
         toast.success('Update blog success');
-        navigate(-1);
+        return navigate(-1);
       } catch (err) {
-        let errMsg = '';
-        if (isFetchBaseQueryError(err)) errMsg = JSON.stringify(err.data);
-        else if (isErrorWithMessage(err)) errMsg = err.message;
-        if (errMsg) {
-          const nav = erroHandler(errMsg);
-          if (nav) {
-            dispatch(logout());
-            toast.info('Please login again');
-            navigate(nav);
-          }
-        }
+        return erroHandler(err);
       }
     },
     [updateBlogMutation, navigate]

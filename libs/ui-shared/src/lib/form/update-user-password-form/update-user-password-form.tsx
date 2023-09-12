@@ -45,7 +45,6 @@ export function UpdateUserPasswordForm({
   onSubmit,
   setShowModal,
   error,
-  loading,
 }: UpdateUserPasswordFormProps) {
   const methods = useForm<IUpdatePasswordFormInput>({
     defaultValues: defaultValues,

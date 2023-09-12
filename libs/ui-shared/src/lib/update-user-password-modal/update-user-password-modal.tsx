@@ -13,11 +13,7 @@ export function UpdateUserPasswordModal({
   const [error, setError] = useState<string | null>(null);
   const { authUser } = useAppSelector((state) => state.auth);
   console.log('rendering UpdateUserPasswordModal: ', authUser);
-  const {
-    updatePasswordByUsername,
-    updatePasswordLoading,
-    updatePasswordError,
-  } = useUser();
+  const { updatePasswordByUsername, updatePasswordLoading } = useUser();
 
   const submitForm = async (data: IUpdatePasswordFormInput) => {
     console.log('Submitted: ', data);
@@ -29,7 +25,7 @@ export function UpdateUserPasswordModal({
     console.log('res: ', res);
     if (res === 'SUCCESS') {
       setShowModal(false);
-    } else setError(res ?? updatePasswordError ?? 'Unknown error');
+    } else setError(res ?? 'Unknown error');
   };
   return (
     <div className="fixed z-50 w-full overflow-y-auto md:inset-0 h-[calc(100%-1rem)]  max-h-full backdrop-blur-lg bg-transparent">
